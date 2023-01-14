@@ -16,5 +16,5 @@
 
 Created by 
 * Marcin Kołodziejczyk
-* Jakub Łanoszka
 * Michał Langner
+* Jakub Łanoszka
