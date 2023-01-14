@@ -3,6 +3,8 @@
 ***
 ### Introduce
 
+***
+
 
 ### Tech-stack
 ![Java](https://img.shields.io/badge/Java-17-blue.svg)<br />
@@ -13,6 +15,6 @@
 ***
 
 Created by 
-* Jakub Łanoszka
 * Marcin Kołodziejczyk
+* Jakub Łanoszka
 * Michał Langner
