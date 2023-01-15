@@ -1,5 +1,6 @@
 package pl.sda.pol122.auctionservice.model;
 
-public class CategoryDto {
+public class ProductDto {
+
 
 }

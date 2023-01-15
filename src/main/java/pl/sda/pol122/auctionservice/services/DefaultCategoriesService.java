@@ -1,7 +1,7 @@
 package pl.sda.pol122.auctionservice.services;
 
 import org.springframework.stereotype.Service;
-import pl.sda.pol122.auctionservice.dao.CategoryDao;
+import pl.sda.pol122.auctionservice.dao.CategoryRepository;
 import pl.sda.pol122.auctionservice.model.Category;
 
 import java.util.List;
@@ -9,10 +9,10 @@ import java.util.List;
 @Service
 public class DefaultCategoriesService implements CategoriesService {
 
-    private final CategoryDao categoryDao;
+    private final CategoryRepository categoryRepository;
 
-    public DefaultCategoriesService(CategoryDao categoryDao) {
-        this.categoryDao = categoryDao;
+    public DefaultCategoriesService(CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
     }
 
     @Override
