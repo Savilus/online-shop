@@ -11,6 +11,7 @@ public class ProductEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     @Column(name = "name", length = 135, nullable = false)
     private String name;
 
@@ -19,8 +20,12 @@ public class ProductEntity {
     private CategoryEntity categoryEntity;
 
     @Column(name = "amount", nullable = false)
-    private Integer amount;
+    private Integer availableAmount;
     @Column(name = "price", nullable = false)
     private BigDecimal price;
+
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private OrderEntity orderEntity;
 
 }

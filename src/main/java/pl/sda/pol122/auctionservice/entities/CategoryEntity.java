@@ -16,7 +16,6 @@ public class CategoryEntity {
     @Column(name = "category_name", nullable = false)
     private String categoryName;
 
-    @Column(name = "products")
-    @OneToMany
+    @OneToMany(mappedBy = "categoryEntity")
     private List<ProductEntity> listOfProducts;
 }
