@@ -28,4 +28,9 @@ public class ProductEntity {
     @JoinColumn(name = "order_id")
     private OrderEntity orderEntity;
 
+
+    private Integer amount;
+    @Column(name = "price", nullable = false)
+    private BigDecimal price;
+
 }
