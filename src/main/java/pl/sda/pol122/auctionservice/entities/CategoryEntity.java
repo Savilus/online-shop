@@ -19,6 +19,5 @@ public class CategoryEntity {
 
     @OneToMany(mappedBy = "categoryEntity")
     @Column(name = "products")
-    @OneToMany
     private List<ProductEntity> listOfProducts;
 }
