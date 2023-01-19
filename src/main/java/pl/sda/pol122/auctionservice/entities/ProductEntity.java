@@ -29,8 +29,4 @@ public class ProductEntity {
     private OrderEntity orderEntity;
 
 
-    private Integer amount;
-    @Column(name = "price", nullable = false)
-    private BigDecimal price;
-
 }
