@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<th:block th:fragment="style">
+
+    <!-- bootstrap core css -->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+
+    <!-- fonts style -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+    <!-- font awesome style -->
+    <link href="css/font-awesome.min.css" rel="stylesheet"/>
+
+    <!-- Custom styles for this template -->
+    <link href="css/style.css" rel="stylesheet"/>
+    <!-- responsive style -->
+    <link href="css/responsive.css" rel="stylesheet"/>
+
+</th:block>
+
+<div th:fragment="menu" class="site-navbar bg-white py-2">
+    <!-- header section strats -->
+    <header class="header_section">
+        <div class="container-fluid">
+            <nav class="navbar navbar-expand-lg custom_nav-container ">
+                <a class="navbar-brand" th:href="@{/index}">
+                    <span>MaMiJa</span>
+                </a>
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class=""> </span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav  ml-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" th:href="@{/index}">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/about}"> About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/shop}">Shop</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/why}">Why Us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/cart}">Cart</a>
+                        </li>
+                    </ul>
+                    <div class="quote_btn-container">
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <!-- end header section -->
+</div>
+
+<th:block th:fragment="footer">
+    <!-- footer section -->
+    <footer class="footer_section">
+        <div class="container">
+            <p>
+
+            </p>
+        </div>
+    </footer>
+    <!-- footer section -->
+</th:block>
+
+<div th:fragment="js_scripts">
+    <!-- jQery -->
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <!-- bootstrap js -->
+    <script src="js/bootstrap.js"></script>
+    <!-- custom js -->
+    <script src="js/custom.js"></script>
+</div>
+</body>
+</html>
+
+<th:block th:fragment="contact">
+    <!-- contact section -->
+    <section class="contact_section layout_padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form_container">
+                        <div class="heading_container ">
+                            <h2>
+                                Have problems with site? <br/>
+                                Send us e-mail with details.
+                            </h2>
+                        </div>
+                        <form action="#">
+                            <div>
+                                <input type="text" placeholder="Your Name"/>
+                            </div>
+                            <div>
+                                <input type="email" placeholder="Your Email"/>
+                            </div>
+                            <div>
+                                <input type="text" class="message-box" placeholder="Message"/>
+                            </div>
+                            <div class="btn_box ">
+                                <button>
+                                    SEND
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="img-box">
+                        <img src="images/contact-img.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- end contact section -->
+</th:block>
