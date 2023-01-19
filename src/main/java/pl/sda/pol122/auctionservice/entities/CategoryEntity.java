@@ -16,6 +16,8 @@ public class CategoryEntity {
     @Column(name = "category_name", nullable = false)
     private String categoryName;
 
+
+    @OneToMany(mappedBy = "categoryEntity")
     @Column(name = "products")
     @OneToMany
     private List<ProductEntity> listOfProducts;
