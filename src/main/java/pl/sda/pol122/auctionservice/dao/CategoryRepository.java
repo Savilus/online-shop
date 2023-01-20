@@ -7,4 +7,7 @@ import pl.sda.pol122.auctionservice.entities.CategoryEntity;
 @Repository
 public interface CategoryRepository extends JpaRepository<CategoryEntity, Integer> {
 
+   CategoryEntity findCategoryEntityById(Integer categoryId);
+
+
 }

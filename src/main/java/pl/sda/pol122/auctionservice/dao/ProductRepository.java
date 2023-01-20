@@ -1,18 +1,14 @@
 package pl.sda.pol122.auctionservice.dao;
 
-import pl.sda.pol122.auctionservice.model.Category;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+import pl.sda.pol122.auctionservice.entities.ProductEntity;
 
-import java.math.BigDecimal;
+@Repository
+public interface ProductRepository extends JpaRepository<ProductEntity, Integer> {
 
-public interface ProductRepository {
+    ProductEntity findProductEntityById(String productId);
 
-    String getId();
+    void deleteById(String productId);
 
-    Category getCategory();
-
-    String getName();
-
-    Integer getAmount();
-
-    BigDecimal getPrice();
 }
