@@ -45,5 +45,9 @@ public class UserController {
         return "products";
     }
 
+    @GetMapping(path = "/cart/checkout")
+    public String loadCartCheckout(){
+        return "checkout";
+    }
 
 }

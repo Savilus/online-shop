@@ -20,7 +20,7 @@ public class DefaultCartService implements CartService{
     }
 
     @Override
-    public ProductDto addMoreProductsToCart(String id) {
+    public ProductDto addProductToCart(String id) {
         return null;
     }
 
