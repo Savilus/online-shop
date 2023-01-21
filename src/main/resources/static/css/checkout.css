@@ -1,0 +1,58 @@
+.nav-item1 .nav-link1 {
+    color: #495057;
+    background-color: #fff;
+    border-color: #dee2e6 #dee2e6 #fff;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    text-align: center;
+
+}
+
+body {
+    background-color: lightblue;
+}
+
+#form-wrapper {
+    background-color: white;
+    margin: auto;
+    margin-top: 100px;
+    width: 600px;
+    height: auto;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid lightgray;
+}
+
+#header {
+    background-color: #638D99;
+    border-radius: 10px 10px 0px 0px;
+    border: lightgray solid 1px;
+}
+
+h1 {
+    color: #D9F6FF;
+}
+
+h5 {
+    color: #997654;
+}
+
+i {
+    color: #997654;
+}
+
+button i {
+    color: white;
+}
+
+hr {
+    border-color: #E6C9AC;
+}
+
+button {
+    background-color: #638D99 !important;
+}
+
+select {
+    display: inline;
+}
