@@ -1,15 +1,18 @@
 package pl.sda.pol122.auctionservice.services;
 
-import pl.sda.pol122.auctionservice.model.ProductDto;
+import pl.sda.pol122.auctionservice.model.CartItem;
+import pl.sda.pol122.auctionservice.model.Product;
 
 import java.util.List;
 
 public interface CartService {
 
 
-    boolean deleteProduct(String id);
+    boolean deleteProductFromCart(CartItem cartItem);
 
-    ProductDto addProductToCart(String id);
+    void addProductToCart(Product product);
 
-    List<ProductDto> getAllProducts();
+    void addMoreProductsToCart(Product product, int numberOfProduct);
+
+    List<CartItem> getAllProducts();
 }

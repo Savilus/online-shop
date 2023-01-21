@@ -1,19 +1,13 @@
 package pl.sda.pol122.auctionservice.model;
 
-import lombok.Getter;
+public class Category {
 
-@Getter
-public enum Category {
+    private int id;
 
-    SPORT("sport"),
-    HOUSE("house"),
-    ELECTRONIC("electronic");
+    private String categoryName;
 
-    private final String pluralValue;
-
-    Category(String pluralValue) {
-        this.pluralValue = pluralValue;
+    public Category(int id, String categoryName) {
+        this.id = id;
+        this.categoryName = categoryName;
     }
-
-
 }

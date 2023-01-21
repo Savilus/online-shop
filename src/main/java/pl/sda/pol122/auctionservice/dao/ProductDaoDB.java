@@ -1,9 +1,10 @@
 package pl.sda.pol122.auctionservice.dao;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
+import pl.sda.pol122.auctionservice.entities.CategoryEntity;
 import pl.sda.pol122.auctionservice.entities.ProductEntity;
+
+import java.util.List;
 
 @Repository
 public class ProductDaoDB implements ProductDao {
@@ -30,7 +31,8 @@ public class ProductDaoDB implements ProductDao {
     }
 
     @Override
-    public Page<ProductEntity> findProducts(Pageable pageable) {
-        return productRepository.findAll(pageable);
+    public List<ProductEntity> findProducts(CategoryEntity category) {
+        return productRepository.findAll();
     }
+
 }
