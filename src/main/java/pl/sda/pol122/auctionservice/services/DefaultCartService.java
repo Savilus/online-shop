@@ -2,9 +2,11 @@ package pl.sda.pol122.auctionservice.services;
 
 import org.springframework.stereotype.Service;
 import pl.sda.pol122.auctionservice.model.Cart;
-import pl.sda.pol122.auctionservice.model.ProductDto;
+import pl.sda.pol122.auctionservice.model.CartItem;
+import pl.sda.pol122.auctionservice.model.Product;
 
 import java.util.List;
+
 @Service
 public class DefaultCartService implements CartService{
 
@@ -15,17 +17,22 @@ public class DefaultCartService implements CartService{
     }
 
     @Override
-    public boolean deleteProduct(String id) {
-        return false;
+    public boolean deleteProductFromCart(CartItem cartItem) {
+        return cart.deleteFromCart(cartItem);
     }
 
     @Override
-    public ProductDto addProductToCart(String id) {
-        return null;
+    public void addProductToCart(Product product) {
+        cart.addToCart(product);
     }
 
     @Override
-    public List<ProductDto> getAllProducts() {
-        return null;
+    public void addMoreProductsToCart(Product product, int numberOfProduct) {
+        cart.addToCart(product, numberOfProduct);
+    }
+
+    @Override
+    public List<CartItem> getAllProducts() {
+        return cart.getCartItemList();
     }
 }

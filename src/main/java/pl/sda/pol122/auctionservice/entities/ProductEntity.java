@@ -28,5 +28,27 @@ public class ProductEntity {
     @JoinColumn(name = "order_id")
     private OrderEntity orderEntity;
 
+    public Integer getId() {
+        return id;
+    }
 
+    public String getName() {
+        return name;
+    }
+
+    public CategoryEntity getCategoryEntity() {
+        return categoryEntity;
+    }
+
+    public Integer getAvailableAmount() {
+        return availableAmount;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public OrderEntity getOrderEntity() {
+        return orderEntity;
+    }
 }

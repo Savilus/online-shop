@@ -32,4 +32,9 @@ public class CategoryDaoDB implements CategoryDao {
     public void deleteCategory(Integer categoryId) {
         categoryRepository.deleteById(categoryId);
     }
+
+    @Override
+    public CategoryEntity getCategoryById(String categoryId) {
+        return null;
+    }
 }

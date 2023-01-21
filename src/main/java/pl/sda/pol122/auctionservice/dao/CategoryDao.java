@@ -13,4 +13,5 @@ public interface CategoryDao {
 
    void deleteCategory(Integer categoryId);
 
+    CategoryEntity getCategoryById(String categoryId);
 }
