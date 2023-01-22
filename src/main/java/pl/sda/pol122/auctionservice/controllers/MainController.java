@@ -21,6 +21,11 @@ public class MainController {
         return "products";
     }
 
+    @GetMapping(path = "/shop/productsList")
+    public String loadsportProductList(){
+        return "productsList";
+    }
+
 
 
 }
