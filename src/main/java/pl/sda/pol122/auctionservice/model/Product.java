@@ -11,11 +11,14 @@ public class Product {
 
     private Category category;
 
-    public Product(int id, String name, BigDecimal price, Category category) {
+    private String image;
+
+    public Product(int id, String name, BigDecimal price, Category category, String image) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.category = category;
+        this.image = image;
     }
 
     public int getId() {
@@ -32,5 +35,9 @@ public class Product {
 
     public Category getCategory() {
         return category;
+    }
+
+    public String getImage() {
+        return image;
     }
 }

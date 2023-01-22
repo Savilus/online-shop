@@ -11,7 +11,7 @@ import pl.sda.pol122.auctionservice.services.ProductService;
 import java.util.List;
 
 @Controller
-@RequestMapping("/products")
+@RequestMapping()
 public class ProductController {
 
     private final ProductService productService;
@@ -24,18 +24,22 @@ public class ProductController {
         this.productRepository = productRepository;
     }
 
+
+
     @GetMapping("/details/{productId}")
     public String getProductsDetails(Model model,@PathVariable String productId){
         model.addAttribute("product", productService.getProductById(productId));
         return "products_details";
     }
-    @GetMapping("/{categoryId}")
-    public String getAllProducts(Model model,@PathVariable String categoryId){
-        List<Product> allProductsOfCategory = productService.getListOfProducts(categoryId);
-        model.addAttribute("allProducts", allProductsOfCategory);
-        return "product_list";
-    }
 
+
+
+    @GetMapping(path = "/shop/sportProducts")
+    public String loadSportProductList(Model model){
+        List<Product> allSportProducts = productService.getListOfProducts(2);
+        model.addAttribute("sportProducts", allSportProducts);
+        return "sportProducts";
+    }
     @PostMapping()
     public String addProduct(ProductEntity productEntity){
         productRepository.save(productEntity);
