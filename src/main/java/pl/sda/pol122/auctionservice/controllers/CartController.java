@@ -2,6 +2,7 @@ package pl.sda.pol122.auctionservice.controllers;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -21,10 +22,10 @@ public class CartController {
 
 
     @PutMapping("/add/{productId}")
-    public String addToCart (@PathVariable String productId){
+    public String addToCart (Model model, @PathVariable String productId){
         Product productById = productService.getProductById(productId);
-        cartService.addProductToCart(productById);
-        return "null";
+        model.addAttribute(productId);
+        return "redirect:/add/" + productId;
     }
 
 
