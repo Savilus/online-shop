@@ -21,9 +21,9 @@ public class MainController {
         return "products";
     }
 
-    @GetMapping(path = "/shop/productsList")
+    @GetMapping(path = "/shop/sportProducts")
     public String loadsportProductList(){
-        return "productsList";
+        return "sportProducts";
     }
 
 
