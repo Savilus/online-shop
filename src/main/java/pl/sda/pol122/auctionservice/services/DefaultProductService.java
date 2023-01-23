@@ -32,15 +32,18 @@ public class DefaultProductService implements ProductService {
         CategoryEntity categoryById = categoryDao.getCategoryById(categoryId);
         Category category = new Category(categoryById.getId(), categoryById.getCategoryName());
 
-        List<ProductEntity> listOfProductsEntity = productDao.findProducts(categoryId);
+
+        List<ProductEntity> listOfProductsEntity = productDao.findProductsByCategory(categoryById);
         List<Product> productsByCategory = new ArrayList<>();
 
         for (int i = 0; i < listOfProductsEntity.size(); i++) {
             ProductEntity productEntity = listOfProductsEntity.get(i);
             Product product = new Product(productEntity.getId(),
-                    productEntity.getName(),
-                    productEntity.getPrice(),
-                    category);
+                                           productEntity.getName(),
+                                            productEntity.getPrice(),
+                                             category,
+                                             productEntity.getImage());
+
 
             productsByCategory.add(product);
         }
@@ -58,7 +61,8 @@ public class DefaultProductService implements ProductService {
                 productEntity.getId(),
                 productEntity.getName(),
                 productEntity.getPrice(),
-                category);
+                category,
+                productEntity.getImage());
     }
 
     @Override

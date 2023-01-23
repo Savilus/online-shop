@@ -16,6 +16,8 @@ public interface ProductService{
 
     void updateProductChanges(ProductEntity productEntity);
 
+    List<Product> getListOfProducts(Integer categoryId);
+
 
 
 }

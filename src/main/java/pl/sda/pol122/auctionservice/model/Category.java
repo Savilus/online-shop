@@ -10,4 +10,12 @@ public class Category {
         this.id = id;
         this.categoryName = categoryName;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
 }
