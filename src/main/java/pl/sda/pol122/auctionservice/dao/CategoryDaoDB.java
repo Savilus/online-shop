@@ -39,5 +39,6 @@ public class CategoryDaoDB implements CategoryDao {
     @Override
     public CategoryEntity getCategoryById(Integer categoryId) {
         return categoryRepository.findById(categoryId).get();
+
     }
 }

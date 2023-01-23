@@ -7,9 +7,10 @@ import pl.sda.pol122.auctionservice.entities.ProductEntity;
 @Repository
 public interface ProductRepository extends JpaRepository<ProductEntity, Integer> {
 
-    ProductEntity findProductEntityById(String productId);
+    ProductEntity findProductEntityById(Integer productId);
 
-    void deleteById(String productId);
+    void deleteProductById(Integer productId);
+
 
 
 }

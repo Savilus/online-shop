@@ -25,20 +25,20 @@ public class ProductDaoDB implements ProductDao {
     }
 
     @Override
-    public ProductEntity findProduct(String productId) {
+    public ProductEntity findProduct(Integer productId) {
         return productRepository.findProductEntityById(productId);
     }
 
     @Override
-    public void deleteProduct(String productId) {
-        productRepository.deleteById(productId);
+    public void deleteProduct(Integer productId) {
+        productRepository.deleteProductById(productId);
     }
 
-    @Override
     public List<ProductEntity> findProductsByCategory(CategoryEntity category) {
         CategoryEntity categoryEntity = categoryRepository.findById(category.getId()).get();
         List<ProductEntity> productEntitiesByCategory = productRepository.findAll().stream().filter(x -> x.getCategoryEntity() == categoryEntity).toList();
         return productEntitiesByCategory;
+
     }
 
 }
