@@ -25,6 +25,7 @@ public class MainController {
     public String loadsportProductList(){
         return "sportProducts";
     }
+    
     @GetMapping(path = "/shop/houseProducts")
     public String loadHouseProductsList(){
         return "houseProducts";
@@ -33,7 +34,6 @@ public class MainController {
     public String loadElectronicProducts(){
         return "electronicProducts";
     }
-
 
 
 }
