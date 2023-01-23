@@ -22,20 +22,21 @@ public class CartController {
 
 
     @PutMapping("/add/{productId}")
-
-    public String addToCart (@PathVariable String productId){
+    public String addToCart(@PathVariable String productId) {
         Product productById = productService.getProductById(Integer.valueOf(productId));
         cartService.addProductToCart(productById);
         return "null";
+    }
 
     @GetMapping(path = "/cart/checkout")
-    public String loadCartCheckout(){
+    public String loadCartCheckout() {
         return "checkout";
     }
 
     // load user cart - przyjmuje model i przerzuca dane z modelu do widoku cart
     @GetMapping(path = "/cart")
-    public String loadUserCart(){
+    public String loadUserCart() {
         return "cart";
     }
 }
+
