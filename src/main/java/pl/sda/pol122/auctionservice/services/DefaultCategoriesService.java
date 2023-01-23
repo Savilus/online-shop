@@ -2,6 +2,7 @@ package pl.sda.pol122.auctionservice.services;
 
 import org.springframework.stereotype.Service;
 import pl.sda.pol122.auctionservice.dao.CategoryRepository;
+import pl.sda.pol122.auctionservice.entities.CategoryEntity;
 import pl.sda.pol122.auctionservice.model.Category;
 
 import java.util.List;
@@ -23,5 +24,10 @@ public class DefaultCategoriesService implements CategoriesService {
     @Override
     public List<Category> getAllCategories() {
         return null;
+    }
+
+    @Override
+    public void addNewCategory(CategoryEntity categoryEntity) {
+        categoryRepository.save(categoryEntity);
     }
 }

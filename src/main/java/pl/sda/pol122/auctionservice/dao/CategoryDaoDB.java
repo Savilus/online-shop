@@ -34,7 +34,7 @@ public class CategoryDaoDB implements CategoryDao {
     }
 
     @Override
-    public CategoryEntity getCategoryById(String categoryId) {
+    public CategoryEntity getCategoryById(Integer categoryId) {
         return null;
     }
 }

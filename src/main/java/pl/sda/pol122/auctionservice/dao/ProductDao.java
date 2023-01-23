@@ -12,9 +12,9 @@ public interface ProductDao {
 
     void saveProduct(ProductEntity product);
 
-    ProductEntity findProduct(String productId);
+    ProductEntity findProduct(Integer productId);
 
-    void deleteProduct(String productId);
+    void deleteProduct(Integer productId);
 
-    List<ProductEntity> findProducts(CategoryEntity category);
+    List<ProductEntity> findProducts(Integer categoryId);
 }

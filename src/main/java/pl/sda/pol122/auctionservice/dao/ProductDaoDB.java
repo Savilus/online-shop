@@ -21,17 +21,17 @@ public class ProductDaoDB implements ProductDao {
     }
 
     @Override
-    public ProductEntity findProduct(String productId) {
+    public ProductEntity findProduct(Integer productId) {
         return productRepository.findProductEntityById(productId);
     }
 
     @Override
-    public void deleteProduct(String productId) {
-        productRepository.deleteById(productId);
+    public void deleteProduct(Integer productId) {
+        productRepository.deleteProductById(productId);
     }
 
     @Override
-    public List<ProductEntity> findProducts(CategoryEntity category) {
+    public List<ProductEntity> findProducts(Integer categoryId) {
         return productRepository.findAll();
     }
 

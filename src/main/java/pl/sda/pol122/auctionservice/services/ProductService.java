@@ -1,13 +1,21 @@
 package pl.sda.pol122.auctionservice.services;
 
+import pl.sda.pol122.auctionservice.entities.ProductEntity;
 import pl.sda.pol122.auctionservice.model.Product;
 
 import java.util.List;
 
-public interface ProductService {
+public interface ProductService{
 
-    List<Product> getListOfProducts(String categoryId);
+    List<Product> getListOfProducts(Integer categoryId);
 
-    Product getProductById(String id);
+    Product getProductById(Integer id);
+    void deleteProductById(Integer id);
+
+    void addNewProduct(ProductEntity productEntity);
+
+    void updateProductChanges(ProductEntity productEntity);
+
+
 
 }

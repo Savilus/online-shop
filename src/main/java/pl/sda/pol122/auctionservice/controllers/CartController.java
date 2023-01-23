@@ -22,7 +22,7 @@ public class CartController {
 
     @PutMapping("/add/{productId}")
     public String addToCart (@PathVariable String productId){
-        Product productById = productService.getProductById(productId);
+        Product productById = productService.getProductById(Integer.valueOf(productId));
         cartService.addProductToCart(productById);
         return "null";
     }
