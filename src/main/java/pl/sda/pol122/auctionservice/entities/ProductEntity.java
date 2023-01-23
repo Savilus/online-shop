@@ -24,6 +24,9 @@ public class ProductEntity {
     @Column(name = "price", nullable = false)
     private BigDecimal price;
 
+    @Column(name = "image", nullable = false)
+    private String image;
+
     @ManyToOne
     @JoinColumn(name = "order_id")
     private OrderEntity orderEntity;
@@ -50,5 +53,9 @@ public class ProductEntity {
 
     public OrderEntity getOrderEntity() {
         return orderEntity;
+    }
+
+    public String getImage() {
+        return image;
     }
 }

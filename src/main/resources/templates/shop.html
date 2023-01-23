@@ -50,16 +50,16 @@
                             Everything you need for sport!
 
                         </p>
-                        <a th:href="@{/shop/product-list}">
                             <div class="col-md-6 col-lg-5">
                                 <div class="detail-box">
                                     <div class="prod-info-main prod-wrap clearfix">
                                     </div>
                                 </div>
                             </div>
-                            <a th:href="@{/shop/sportProducts}">View more</a>
+                        <div>
+                            <a th:href="@{'/shop/' + ${sport.getCategoryName()}}">View more</a>
                             <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
-                        </a>
+                        </div>
                     </div>
                 </div>
             </div>

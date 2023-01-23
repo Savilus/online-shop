@@ -23,11 +23,11 @@ public class DefaultProductService implements ProductService {
     }
 
     @Override
-    public List<Product> getListOfProducts(String categoryId) {
+    public List<Product> getListOfProducts(Integer categoryId) {
         CategoryEntity categoryById = categoryDao.getCategoryById(categoryId);
         Category category = new Category(categoryById.getId(),categoryById.getCategoryName());
 
-        List<ProductEntity> listOfProductsEntity = productDao.findProducts(categoryById);
+        List<ProductEntity> listOfProductsEntity = productDao.findProductsByCategory(categoryById);
         List<Product> productsByCategory = new ArrayList<>();
 
         for(int i = 0; i < listOfProductsEntity.size(); i++){
@@ -35,7 +35,8 @@ public class DefaultProductService implements ProductService {
             Product product = new Product(productEntity.getId(),
                                            productEntity.getName(),
                                             productEntity.getPrice(),
-                                             category);
+                                             category,
+                                             productEntity.getImage());
 
             productsByCategory.add(product);
         }
@@ -53,7 +54,8 @@ public class DefaultProductService implements ProductService {
                 productEntity.getId(),
                 productEntity.getName(),
                 productEntity.getPrice(),
-                category);
+                category,
+                productEntity.getImage());
     }
 
     public ProductEntity addProduct(Product product){
