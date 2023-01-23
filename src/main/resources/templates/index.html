@@ -24,8 +24,6 @@
 
   <div th:replace="fragments :: menu"></div>
 
-
-
   <!-- slider section -->
   <section class="slider_section ">
     <div id="customCarousel1" class="carousel slide" data-ride="carousel">
@@ -406,7 +404,7 @@
                 Everything you need for sport!
 
               </p>
-              <a href="">
+              <a th:href="@{/shop/sportProducts}">
                 View more
                 <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
 
@@ -426,7 +424,7 @@
               <p>
                 You will find here anything you need for your house!
               </p>
-              <a href="">
+              <a th:href="@{/shop/houseProducts}">
                 View more
                 <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
 
@@ -447,7 +445,7 @@
                 Electronic and other related stuff
 
               </p>
-              <a href="">
+              <a th:href="@{/shop/electronicProducts}">
                 View more
                 <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
               </a>
