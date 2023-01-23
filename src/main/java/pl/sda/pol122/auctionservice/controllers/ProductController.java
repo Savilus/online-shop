@@ -26,25 +26,38 @@ public class ProductController {
 
 
 
-    @GetMapping("/details/{productId}")
+    @GetMapping("product/details/{productId}")
     public String getProductsDetails(Model model,@PathVariable Integer productId){
         model.addAttribute("product", productService.getProductById(productId));
-        return "products_details";
+        return "productDetails";
     }
 
 
-
+    @GetMapping(path = "/shop/houseProducts")
+    public String loadHouseProductsList(Model model){
+        List<Product> allHouseProducts = productService.getListOfProducts(1);
+        model.addAttribute("houseProducts", allHouseProducts);
+        return "houseProducts";
+    }
     @GetMapping(path = "/shop/sportProducts")
     public String loadSportProductList(Model model){
         List<Product> allSportProducts = productService.getListOfProducts(2);
         model.addAttribute("sportProducts", allSportProducts);
         return "sportProducts";
     }
+    @GetMapping(path = "/shop/electronicProducts")
+    public String loadElectronicProducts(Model model){
+        List<Product> allElectronicProducts = productService.getListOfProducts(3);
+        model.addAttribute("electronicProducts", allElectronicProducts);
+        return "electronicProducts";
+    }
+
     @PostMapping()
     public String addProduct(ProductEntity productEntity){
         productRepository.save(productEntity);
         return "redirect:/products";
     }
+
 
 
 

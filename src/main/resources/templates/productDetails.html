@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product details</title>
+    <!-- Stylesheet -->
+    <link rel="stylesheet" th:href="@{/css/productDetails.css}">
+    <link th:href="@{/css/style.css}" rel="stylesheet"/>
+    <!---Boxicons CDN Setup for icons-->
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+    <!-- bootstrap core css -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}" type="text/css"/>
+
+    <!-- fonts style -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+    <!-- font awesome style -->
+    <link th:href="@{/css/font-awesome.min.css}" rel="stylesheet"/>
+
+    <!-- responsive style -->
+    <link th:href="@{/css/responsive.css}" rel="stylesheet"/>
+
+
+</head>
+<body>
+
+<div th:replace="fragments :: menu"></div>
+
+
+<div class="container1">
+    <div class="single-product">
+        <div class="row1">
+            <div class="col-61">
+                <div class="product-image">
+                    <div class="product-image-main">
+                        <img th:src="${product.getImage()}" alt="" id="product-main-image">
+                    </div>
+                    <div class="product-image-slider">
+                        <img src="img/tshirt-1.png" alt="" class="image-list">
+                        <img src="img/tshirt-2.png" alt="" class="image-list">
+                        <img src="img/tshirt-3.png" alt="" class="image-list">
+                        <img src="img/tshirt-group.png" alt="" class="image-list">
+                    </div>
+                </div>
+            </div>
+            <div class="col-61">
+                <div class="breadcrumb1">
+                    <span><a th:href="@{/index}">Home</a></span>
+                    <span ><a th:text="${product.getCategory().getCategoryName()}" th:href="'/shop/' + ${product.getCategory().getCategoryName()} + 'Products'"></a></span>
+                    <span th:text="${product.getName()}" class="active"></span>
+                </div>
+
+                <div class="product">
+
+                    <h2 th:text="${product.getName()}" class="product-title"></h2>
+
+                    <div class="product-rating">
+                        <span><i class="bx bxs-star"></i></span>
+                        <span><i class="bx bxs-star"></i></span>
+                        <span><i class="bx bxs-star"></i></span>
+                        <span><i class="bx bxs-star"></i></span>
+                        <span><i class="bx bxs-star"></i></span>
+                        <span class="review">(47 Review)</span>
+                    </div>
+                    <div class="product-price">
+                        <span th:text="${product.getPrice()} + ' PLN'" class="offer-price"></span>
+                        <!--        Mozliwość dodania przekreślonej ceny, jeżeli chcemy coś dać na zniżkę-->
+                        <!--        <span class="sale-price">$129.00</span>-->
+                    </div>
+
+                    <div class="product-details">
+                        <h3>Description</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos est magnam quibusdam maiores
+                            sit perferendis minima cupiditate iusto earum repudiandae maxime vitae nostrum, ea cumque
+                            iste ipsa hic commodi tempore.</p>
+                    </div>
+                    <div class="product-btn-group">
+                        <div class="button buy-now"><i class='bx bxs-zap'></i> Buy Now</div>
+                        <div class="button add-cart"><i class='bx bxs-cart'></i> Add to Cart</div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--script-->
+<script src="js/productDetails.js"></script>
+<div th:replace="fragments :: footer"/>
+</body>
+</html>

@@ -42,7 +42,8 @@ public class DefaultProductService implements ProductService {
                                            productEntity.getName(),
                                             productEntity.getPrice(),
                                              category,
-                                             productEntity.getImage());
+                                             productEntity.getImage(),
+                                             productEntity.getAvailableAmount());
 
 
             productsByCategory.add(product);
@@ -62,7 +63,8 @@ public class DefaultProductService implements ProductService {
                 productEntity.getName(),
                 productEntity.getPrice(),
                 category,
-                productEntity.getImage());
+                productEntity.getImage(),
+                productEntity.getAvailableAmount());
     }
 
     @Override
