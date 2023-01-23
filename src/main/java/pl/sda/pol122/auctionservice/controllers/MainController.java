@@ -29,6 +29,14 @@ public class MainController {
     }
 
 
+    @GetMapping(path = "/shop/houseProducts")
+    public String loadHouseProductsList(){
+        return "houseProducts";
+    }
+    @GetMapping(path = "/shop/electronicProducts")
+    public String loadElectronicProducts(){
+        return "electronicProducts";
+    }
 
 
 
