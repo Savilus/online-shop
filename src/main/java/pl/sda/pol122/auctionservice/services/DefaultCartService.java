@@ -5,6 +5,7 @@ import pl.sda.pol122.auctionservice.model.Cart;
 import pl.sda.pol122.auctionservice.model.CartItem;
 import pl.sda.pol122.auctionservice.model.Product;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -34,5 +35,10 @@ public class DefaultCartService implements CartService{
     @Override
     public List<CartItem> getAllProducts() {
         return cart.getCartItemList();
+    }
+
+    @Override
+    public BigDecimal getTotalPriceOfCart() {
+        return cart.sumPrice();
     }
 }

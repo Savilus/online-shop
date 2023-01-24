@@ -48,7 +48,8 @@
             <div class="col-61">
                 <div class="breadcrumb1">
                     <span><a th:href="@{/index}">Home</a></span>
-                    <span ><a th:text="${product.getCategory().getCategoryName()}" th:href="'/shop/' + ${product.getCategory().getCategoryName()} + 'Products'"></a></span>
+                    <span><a th:text="${product.getCategory().getCategoryName()}"
+                             th:href="'/shop/' + ${product.getCategory().getCategoryName()} + 'Products'"></a></span>
                     <span th:text="${product.getName()}" class="active"></span>
                 </div>
 
@@ -78,7 +79,12 @@
                     </div>
                     <div class="product-btn-group">
                         <div class="button buy-now"><i class='bx bxs-zap'></i> Buy Now</div>
-                        <div class="button add-cart"><i class='bx bxs-cart'></i> Add to Cart</div>
+                        <a th:href="'/addToCart/' + ${product.getId()}">
+                            <div class="button add-cart">
+                                <i class='bx bxs-cart'></i> Add to Cart
+                            </div>
+                        </a>
+
                     </div>
 
                 </div>
