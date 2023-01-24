@@ -1,5 +1,6 @@
 package pl.sda.pol122.auctionservice.controllers;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import pl.sda.pol122.auctionservice.entities.CategoryEntity;
@@ -11,34 +12,27 @@ import pl.sda.pol122.auctionservice.services.DefaultUserService;
 
 @Controller
 @RequestMapping(value = "/admin")
+@AllArgsConstructor
 public class AdminController {
 
-    private final DefaultCategoriesService categoriesService;
+    private final DefaultCategoriesService defaultCategoriesService;
     private final DefaultUserService defaultUserService;
     private final DefaultProductService defaultProductService;
 
-    public AdminController(DefaultCategoriesService categoriesService,
-                           DefaultUserService defaultUserService, DefaultProductService defaultProductService) {
-        this.categoriesService = categoriesService;
-        this.defaultUserService = defaultUserService;
-
-        this.defaultProductService = defaultProductService;
-    }
-
     @PostMapping("/add-category")
-    public String addNewCategory(CategoryEntity categoryEntity) {
-        categoriesService.addNewCategory(categoryEntity);
+    public String addNewCategoryByAdmin(CategoryEntity categoryEntity) {
+        defaultCategoriesService.addNewCategory(categoryEntity);
         return "redirect:/categories";
     }
 
     @DeleteMapping("/users/{id}")
-    public String deleteUser(@PathVariable String id) {
+    public String deleteUserByAdmin(@PathVariable String id) {
         defaultUserService.deleteById(Integer.valueOf(id));
         return "redirect:/users";
     }
 
     @PatchMapping("/users/{id}")
-    public String updateAccountStatus(@PathVariable String id, boolean enabledFromInput) {
+    public String updateAccountStatusByAdmin(@PathVariable String id, boolean enabledFromInput) {
         UserEntity userFromInput = defaultUserService.getUserById(Integer.valueOf(id));
         userFromInput.setEnabled(enabledFromInput);
         defaultUserService.saveAccountStatusByAdmin(userFromInput);
@@ -48,6 +42,12 @@ public class AdminController {
     @PatchMapping
     public String updateProductChangesByAdmin(ProductEntity productEntity) {
         defaultProductService.updateProductChanges(productEntity);
+        return "redirect:/default";
+    }
+
+    @DeleteMapping
+    public String deleteProductByAdmin(@PathVariable String productId) {
+        defaultProductService.deleteProductById(Integer.valueOf(productId));
         return "redirect:/default";
     }
 

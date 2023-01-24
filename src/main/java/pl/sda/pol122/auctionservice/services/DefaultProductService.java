@@ -1,5 +1,6 @@
 package pl.sda.pol122.auctionservice.services;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.sda.pol122.auctionservice.dao.CategoryDao;
 import pl.sda.pol122.auctionservice.dao.ProductDao;
@@ -13,19 +14,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class DefaultProductService implements ProductService {
 
     private final ProductDao productDao;
     private final CategoryDao categoryDao;
     private final ProductRepository productRepository;
-
-    public DefaultProductService(ProductDao productDao,
-                                 CategoryDao categoryDao,
-                                 ProductRepository productRepository) {
-        this.productDao = productDao;
-        this.categoryDao = categoryDao;
-        this.productRepository = productRepository;
-    }
 
     @Override
     public List<Product> getListOfProducts(Integer categoryId) {

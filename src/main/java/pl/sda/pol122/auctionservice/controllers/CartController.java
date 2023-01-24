@@ -2,29 +2,28 @@ package pl.sda.pol122.auctionservice.controllers;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.sda.pol122.auctionservice.model.Product;
-import pl.sda.pol122.auctionservice.services.CartService;
-import pl.sda.pol122.auctionservice.services.ProductService;
+import pl.sda.pol122.auctionservice.services.DefaultCartService;
+import pl.sda.pol122.auctionservice.services.DefaultProductService;
 
 @AllArgsConstructor
 @Controller
 @RequestMapping()
 public class CartController {
 
-    private final CartService cartService;
+    private final DefaultCartService defaultCartService;
 
-    private final ProductService productService;
+    private final DefaultProductService defaultProductService;
 
 
     @PutMapping("/add/{productId}")
     public String addToCart(@PathVariable String productId) {
-        Product productById = productService.getProductById(Integer.valueOf(productId));
-        cartService.addProductToCart(productById);
+        Product productById = defaultProductService.getProductById(Integer.valueOf(productId));
+        defaultCartService.addProductToCart(productById);
         return "null";
     }
 
