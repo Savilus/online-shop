@@ -13,6 +13,9 @@
 ![MySQL](https://img.shields.io/badge/MySQL-8.0.31-blue.svg)<br />
 ![Thymeleaf](https://img.shields.io/badge/Thymeleaf-3.1.1-blue.svg)<br />
 ![Project Lombok](https://img.shields.io/badge/Project%20Lombok-grey.svg)<br />
+![CSS](https://img.shields.io/badge/CSS-grey.svg)<br />
+![SCSS](https://img.shields.io/badge/SCSS-grey.svg)<br />
+![HTML](https://img.shields.io/badge/HTML-grey.svg)<br />
 ***
 
 Created by 
