@@ -40,5 +40,10 @@ public class UserController {
         return "redirect:/my-account";
     }
 
+    @GetMapping(path = "/account/editAccount")
+    public String editUserProfile(){
+        return "editUserProfile";
+    }
+
 
 }
