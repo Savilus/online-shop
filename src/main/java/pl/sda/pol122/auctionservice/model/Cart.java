@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -14,8 +15,23 @@ public class Cart {
 
     private List<CartItem> cartItemList;
 
+    private BigDecimal price;
+
     public Cart() {
         cartItemList = new ArrayList<>();
+        price = sumPrice();
+    }
+
+    public BigDecimal sumPrice(){
+        List<CartItem> itemsInCart = cartItemList;
+        BigDecimal finalCartValue = BigDecimal.ZERO;
+
+        for(int i = 0; i < itemsInCart.size(); i++){
+            int quantity = itemsInCart.get(i).getQuantity();
+            BigDecimal productPrice = itemsInCart.get(i).getProduct().getPrice().multiply(BigDecimal.valueOf(quantity));
+            finalCartValue = finalCartValue.add(productPrice);
+        }
+        return finalCartValue;
     }
 
     public void addToCart(Product product){
@@ -43,5 +59,7 @@ public class Cart {
         return cartItemList;
     }
 
-
+    public BigDecimal getPrice() {
+        return price;
+    }
 }

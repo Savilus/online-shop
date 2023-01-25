@@ -6,22 +6,26 @@ public class CartItem {
 
 
     private Product product;
-    private int amount;
+    private int quantity;
     private BigDecimal totalPrice;
 
     public CartItem(Product product,  int amount) {
         this.product = product;
-        this.amount = amount;
-        this.totalPrice = getTotalPrice().multiply(BigDecimal.valueOf(amount));
+        this.quantity = amount;
+        this.totalPrice = calculateTotalPrice();
+    }
+
+    private BigDecimal calculateTotalPrice(){
+        return product.getPrice().multiply(BigDecimal.valueOf(quantity));
     }
 
     public void addAmount(){
-        amount++;
+        quantity++;
         totalPrice = totalPrice.add(product.getPrice());
     }
 
     public void addAmount(int numberOfProducts){
-        amount+= numberOfProducts;
+        quantity += numberOfProducts;
         BigDecimal addPrizeOfProducts = product.getPrice().multiply(BigDecimal.valueOf(numberOfProducts));
         totalPrice = addPrizeOfProducts.add(totalPrice);
     }
@@ -34,8 +38,8 @@ public class CartItem {
         return totalPrice;
     }
 
-    public int getAmount() {
-        return amount;
+    public int getQuantity() {
+        return quantity;
     }
 
 }

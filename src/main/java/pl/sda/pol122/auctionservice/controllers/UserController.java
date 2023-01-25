@@ -34,7 +34,7 @@ public class UserController {
         return "redirect:/my-products";
     }
 
-    @PatchMapping
+    @PatchMapping("/")
     public String updateAccountChanges(UserEntity userEntity) {
         defaultUserService.saveAccountChangesByUser(userEntity);
         return "redirect:/my-account";
