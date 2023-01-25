@@ -59,7 +59,7 @@
                     <div class="product-info smart-form">
                         <div class="row">
                             <div class="col-md-12">
-                                <a href="javascript:void(0);" class="btn btn-danger">Add to cart</a>
+                                <a th:href="'/buyNow/' + ${product.getId()}" class="btn btn-danger">Buy now</a>
                                 <a th:href="'/product/details/' + ${product.getId()}" class="btn btn-info">More info</a>
                             </div>
                             <div class="col-md-12">

@@ -50,9 +50,10 @@ public class Cart {
         });
     }
 
-    public boolean deleteFromCart(CartItem cartItem){
-       return cartItemList.remove(cartItem);
-
+    public void deleteFromCart(CartItem cartItem){
+        int product = cartItem.getProduct().getId();
+        CartItem itemToDelete = cartItemList.stream().filter(x -> x.getProduct().getId() == product).findAny().get();
+        cartItemList.remove(itemToDelete);
     }
 
     public List<CartItem> getCartItemList() {

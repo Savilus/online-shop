@@ -22,6 +22,15 @@ public class MainController {
         return "products";
     }
 
+    @GetMapping(path = "/account")
+    public String loadUserProfile(){
+        return "userProfile";
+    }
+
+    @GetMapping(path = "/account/editAccount")
+    public String editUserProfile(){
+        return "editUserProfile";
+    }
 
 
 

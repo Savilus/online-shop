@@ -18,8 +18,8 @@ public class DefaultCartService implements CartService{
     }
 
     @Override
-    public boolean deleteProductFromCart(CartItem cartItem) {
-        return cart.deleteFromCart(cartItem);
+    public void deleteProductFromCart(CartItem cartItem) {
+        cart.deleteFromCart(cartItem);
     }
 
     @Override
