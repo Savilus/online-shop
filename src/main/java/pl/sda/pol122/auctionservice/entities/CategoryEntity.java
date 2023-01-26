@@ -1,11 +1,16 @@
 package pl.sda.pol122.auctionservice.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Entity
 @Table(name = "category")
+@Builder
+@AllArgsConstructor
 public class CategoryEntity {
 
     @Id
@@ -20,6 +25,9 @@ public class CategoryEntity {
     @OneToMany(mappedBy = "categoryEntity")
     @Column(name = "products")
     private List<ProductEntity> listOfProducts;
+
+    public CategoryEntity() {
+    }
 
     public Integer getId() {
         return id;

@@ -5,6 +5,7 @@ import pl.sda.pol122.auctionservice.dao.CategoryRepository;
 import pl.sda.pol122.auctionservice.entities.CategoryEntity;
 import pl.sda.pol122.auctionservice.model.Category;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -27,7 +28,12 @@ public class DefaultCategoriesService implements CategoriesService {
     }
 
     @Override
-    public void addNewCategory(CategoryEntity categoryEntity) {
+    public void addNewCategory(Category category) {
+        CategoryEntity categoryEntity = CategoryEntity
+                .builder()
+                .categoryName(category.getCategoryName())
+                .listOfProducts(new ArrayList<>())
+                .build();
         categoryRepository.save(categoryEntity);
     }
 }

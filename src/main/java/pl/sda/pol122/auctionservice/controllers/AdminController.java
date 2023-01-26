@@ -6,12 +6,13 @@ import org.springframework.web.bind.annotation.*;
 import pl.sda.pol122.auctionservice.entities.CategoryEntity;
 import pl.sda.pol122.auctionservice.entities.ProductEntity;
 import pl.sda.pol122.auctionservice.entities.UserEntity;
+import pl.sda.pol122.auctionservice.model.Category;
 import pl.sda.pol122.auctionservice.services.DefaultCategoriesService;
 import pl.sda.pol122.auctionservice.services.DefaultProductService;
 import pl.sda.pol122.auctionservice.services.DefaultUserService;
 
 @Controller
-@RequestMapping(value = "/admin")
+@RequestMapping(path = "/admin")
 @AllArgsConstructor
 public class AdminController {
 
@@ -19,13 +20,13 @@ public class AdminController {
     private final DefaultUserService defaultUserService;
     private final DefaultProductService defaultProductService;
 
-    @PostMapping("/add-category")
-    public String addNewCategoryByAdmin(CategoryEntity categoryEntity) {
-        defaultCategoriesService.addNewCategory(categoryEntity);
+    @GetMapping("/add-category")
+    public String addNewCategoryByAdmin(Category category) {
+        defaultCategoriesService.addNewCategory(category);
         return "redirect:/categories";
     }
 
-    @DeleteMapping("/users/{id}")
+    @GetMapping("/users/{id}")
     public String deleteUserByAdmin(@PathVariable String id) {
         defaultUserService.deleteById(Integer.valueOf(id));
         return "redirect:/users";
