@@ -75,7 +75,7 @@ public class DefaultProductService implements ProductService {
                 ProductEntity
                         .builder()
                         .name(product.getName())
-                        .categoryEntity(categoriesService.getCategoryEntityById(product.getCategory()))
+                        .categoryEntity(categoriesService.getCategoryEntityById(product.getCategory().getId()))
                         .availableAmount(product.getAvailableAmount())
                         .price(product.getPrice())
                         .image(product.getImage())
@@ -90,7 +90,7 @@ public class DefaultProductService implements ProductService {
                 ProductEntity
                         .builder()
                         .name(product.getName())
-                        .categoryEntity(categoriesService.getCategoryEntityById(product.getCategory()))
+                        .categoryEntity(categoriesService.getCategoryEntityById(product.getCategory().getId()))
                         .availableAmount(product.getAvailableAmount())
                         .price(product.getPrice())
                         .image(product.getImage())
