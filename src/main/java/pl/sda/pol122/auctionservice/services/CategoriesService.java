@@ -12,6 +12,6 @@ public interface CategoriesService {
     List<Category> getAllCategories();
 
     void addNewCategory(Category category);
-    CategoryEntity getCategoryEntityById(Category category);
+    CategoryEntity getCategoryEntityById(Integer id);
 
 }
