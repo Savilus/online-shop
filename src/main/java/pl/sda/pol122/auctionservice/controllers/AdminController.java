@@ -2,53 +2,54 @@ package pl.sda.pol122.auctionservice.controllers;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-import pl.sda.pol122.auctionservice.entities.CategoryEntity;
-import pl.sda.pol122.auctionservice.entities.ProductEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import pl.sda.pol122.auctionservice.entities.UserEntity;
 import pl.sda.pol122.auctionservice.model.Category;
-import pl.sda.pol122.auctionservice.services.DefaultCategoriesService;
-import pl.sda.pol122.auctionservice.services.DefaultProductService;
-import pl.sda.pol122.auctionservice.services.DefaultUserService;
+import pl.sda.pol122.auctionservice.model.Product;
+import pl.sda.pol122.auctionservice.services.CategoriesService;
+import pl.sda.pol122.auctionservice.services.ProductService;
+import pl.sda.pol122.auctionservice.services.UserService;
 
 @Controller
 @RequestMapping(path = "/admin")
 @AllArgsConstructor
 public class AdminController {
 
-    private final DefaultCategoriesService defaultCategoriesService;
-    private final DefaultUserService defaultUserService;
-    private final DefaultProductService defaultProductService;
+    private final CategoriesService categoriesService;
+    private final UserService userService;
+    private final ProductService productService;
 
     @GetMapping("/add-category")
     public String addNewCategoryByAdmin(Category category) {
-        defaultCategoriesService.addNewCategory(category);
+        categoriesService.addNewCategory(category);
         return "redirect:/categories";
     }
 
     @GetMapping("/users/{id}")
     public String deleteUserByAdmin(@PathVariable String id) {
-        defaultUserService.deleteById(Integer.valueOf(id));
+        userService.deleteById(Integer.valueOf(id));
         return "redirect:/users";
     }
 
-    @PatchMapping("/users/{id}")
+    @GetMapping("/users/{id}")
     public String updateAccountStatusByAdmin(@PathVariable String id, boolean enabledFromInput) {
-        UserEntity userFromInput = defaultUserService.getUserById(Integer.valueOf(id));
+        UserEntity userFromInput = userService.getUserById(Integer.valueOf(id));
         userFromInput.setEnabled(enabledFromInput);
-        defaultUserService.saveAccountStatusByAdmin(userFromInput);
+        userService.saveAccountStatusByAdmin(userFromInput);
         return "redirect:/users";
     }
 
-    @PatchMapping
-    public String updateProductChangesByAdmin(ProductEntity productEntity) {
-        defaultProductService.updateProductChanges(productEntity);
+    @GetMapping("/product/{id}")
+    public String updateProductChangesByAdmin(Product product, @PathVariable String id) {
+        productService.updateProductChanges(product);
         return "redirect:/default";
     }
 
-    @DeleteMapping
-    public String deleteProductByAdmin(@PathVariable String productId) {
-        defaultProductService.deleteProductById(Integer.valueOf(productId));
+    @GetMapping("/product/{id}")
+    public String deleteProductByAdmin(@PathVariable String id) {
+        productService.deleteProductById(id);
         return "redirect:/default";
     }
 

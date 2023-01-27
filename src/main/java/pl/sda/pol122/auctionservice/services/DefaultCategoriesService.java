@@ -36,4 +36,9 @@ public class DefaultCategoriesService implements CategoriesService {
                 .build();
         categoryRepository.save(categoryEntity);
     }
+
+    @Override
+    public CategoryEntity getCategoryEntityById(Category category) {
+        return null;
+    }
 }

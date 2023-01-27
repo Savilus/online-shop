@@ -2,46 +2,48 @@ package pl.sda.pol122.auctionservice.controllers;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-import pl.sda.pol122.auctionservice.entities.ProductEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import pl.sda.pol122.auctionservice.entities.UserEntity;
-import pl.sda.pol122.auctionservice.services.DefaultProductService;
-import pl.sda.pol122.auctionservice.services.DefaultUserService;
+import pl.sda.pol122.auctionservice.model.Product;
+import pl.sda.pol122.auctionservice.services.ProductService;
+import pl.sda.pol122.auctionservice.services.UserService;
 
 @Controller
 @RequestMapping(value = "/user")
 @AllArgsConstructor
 public class UserController {
 
-    private final DefaultUserService defaultUserService;
-    private final DefaultProductService defaultProductService;
+    private final UserService userService;
+    private final ProductService productService;
 
-    @PostMapping
-    public String addNewProductToSell(ProductEntity productEntity) {
-        defaultProductService.addNewProduct(productEntity);
+    @GetMapping
+    public String addNewProductToSell(Product product) {
+        productService.addNewProduct(product);
         return "redirect:/my-products";
     }
 
-    @DeleteMapping
+    @GetMapping
     public String deleteProduct(@PathVariable String id) {
-        defaultProductService.deleteProductById(Integer.valueOf(id));
+        productService.deleteProductById(id);
         return "redirect:/my-products";
     }
 
-    @PatchMapping
-    public String updateProductChanges(ProductEntity productEntity) {
-        defaultProductService.updateProductChanges(productEntity);
+    @GetMapping
+    public String updateProductChanges(Product product) {
+        productService.updateProductChanges(product);
         return "redirect:/my-products";
     }
 
-    @PatchMapping("/")
+    @GetMapping("/")
     public String updateAccountChanges(UserEntity userEntity) {
-        defaultUserService.saveAccountChangesByUser(userEntity);
+        userService.saveAccountChangesByUser(userEntity);
         return "redirect:/my-account";
     }
 
     @GetMapping(path = "/account/editAccount")
-    public String editUserProfile(){
+    public String editUserProfile() {
         return "editUserProfile";
     }
 

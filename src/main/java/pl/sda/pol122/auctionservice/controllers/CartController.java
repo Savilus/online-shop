@@ -25,21 +25,21 @@ public class CartController {
 
 
     @GetMapping("/addToCart/{productId}")
-    public String addToCart(Model model, @PathVariable Integer productId) {
+    public String addToCart(Model model, @PathVariable String productId) {
         defaultCartService.addProductToCart(defaultProductService.getProductById(productId));
         model.addAttribute("product", defaultProductService.getProductById(productId));
         return "redirect:/product/details/{productId}";
     }
 
     @GetMapping("/buyNow/{productId}")
-    public String buyNow(Model model, @PathVariable Integer productId) {
+    public String buyNow(Model model, @PathVariable String productId) {
         defaultCartService.addProductToCart(defaultProductService.getProductById(productId));
         model.addAttribute("product", defaultProductService.getProductById(productId));
         return "redirect:/cart";
     }
 
     @GetMapping("/deleteFromCart/{productId}")
-    public String deleteFromCart(Model model, @PathVariable Integer productId) {
+    public String deleteFromCart(Model model, @PathVariable String productId) {
         Product productById = defaultProductService.getProductById(productId);
         CartItem cartItem = new CartItem(productById, 0);
         defaultCartService.deleteProductFromCart(cartItem);

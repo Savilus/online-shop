@@ -1,11 +1,13 @@
 package pl.sda.pol122.auctionservice.entities;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "product")
+@Builder
 public class ProductEntity {
 
     @Id
@@ -30,6 +32,10 @@ public class ProductEntity {
     @ManyToOne
     @JoinColumn(name = "order_id")
     private OrderEntity orderEntity;
+
+    public ProductEntity() {
+
+    }
 
     public Integer getId() {
         return id;
