@@ -26,10 +26,10 @@ public class ProductController {
     }
 
 
-    @GetMapping(path = "/shop/productsList/{categoryId}")
-    public String loadHouseProductsList(Model model, @PathVariable String categoryId) {
-        List<Product> allProducts = productService.getListOfProducts(categoryId);
-        model.addAttribute("allProducts", allProducts);
+    @GetMapping(path = "/shop/houseProducts")
+    public String loadHouseProductsList(Model model) {
+        List<Product> allHouseProducts = productService.getListOfProducts(String.valueOf(1));
+        model.addAttribute("houseProducts", allHouseProducts);
         return "houseProducts";
     }
 
