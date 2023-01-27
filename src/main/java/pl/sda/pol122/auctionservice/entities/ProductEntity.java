@@ -1,6 +1,7 @@
 package pl.sda.pol122.auctionservice.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 
 import java.math.BigDecimal;
@@ -8,6 +9,7 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "product")
 @Builder
+@AllArgsConstructor
 public class ProductEntity {
 
     @Id

@@ -18,19 +18,19 @@ public class UserController {
     private final UserService userService;
     private final ProductService productService;
 
-    @GetMapping
+    @GetMapping("/addNewProduct")
     public String addNewProductToSell(Product product) {
         productService.addNewProduct(product);
         return "redirect:/my-products";
     }
 
-    @GetMapping
+    @GetMapping("/deleteProduct")
     public String deleteProduct(@PathVariable String id) {
         productService.deleteProductById(id);
         return "redirect:/my-products";
     }
 
-    @GetMapping
+    @GetMapping("/updateProduct")
     public String updateProductChanges(Product product) {
         productService.updateProductChanges(product);
         return "redirect:/my-products";
