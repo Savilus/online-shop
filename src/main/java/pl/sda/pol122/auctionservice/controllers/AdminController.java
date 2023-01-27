@@ -33,7 +33,7 @@ public class AdminController {
         return "redirect:/users";
     }
 
-    @GetMapping("/users/{id}")
+    @GetMapping("/updateUser/{id}")
     public String updateAccountStatusByAdmin(@PathVariable String id, boolean enabledFromInput) {
         UserEntity userFromInput = userService.getUserById(Integer.valueOf(id));
         userFromInput.setEnabled(enabledFromInput);
@@ -41,7 +41,7 @@ public class AdminController {
         return "redirect:/users";
     }
 
-    @GetMapping("/product/{id}")
+    @GetMapping("/updateProduct/{id}")
     public String updateProductChangesByAdmin(Product product, @PathVariable String id) {
         productService.updateProductChanges(product);
         return "redirect:/default";
