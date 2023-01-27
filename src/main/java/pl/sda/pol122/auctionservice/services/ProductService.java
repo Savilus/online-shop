@@ -7,14 +7,14 @@ import java.util.List;
 
 public interface ProductService{
 
-    List<Product> getListOfProducts(Integer categoryId);
+    List<Product> getListOfProducts(String categoryId);
 
-    Product getProductById(Integer id);
-    void deleteProductById(Integer id);
+    Product getProductById(String id);
+    void deleteProductById(String id);
 
-    void addNewProduct(ProductEntity productEntity);
+    void addNewProduct(Product product);
 
-    void updateProductChanges(ProductEntity productEntity);
+    void updateProductChanges(Product product);
 
 
 

@@ -20,12 +20,12 @@ public class DefaultProductService implements ProductService {
     private final ProductDao productDao;
     private final CategoryDao categoryDao;
     private final ProductRepository productRepository;
+    private final CategoriesService categoriesService;
 
     @Override
-    public List<Product> getListOfProducts(Integer categoryId) {
-        CategoryEntity categoryById = categoryDao.getCategoryById(categoryId);
+    public List<Product> getListOfProducts(String categoryId) {
+        CategoryEntity categoryById = categoryDao.getCategoryById(Integer.valueOf(categoryId));
         Category category = new Category(categoryById.getId(), categoryById.getCategoryName());
-
 
         List<ProductEntity> listOfProductsEntity = productDao.findProductsByCategory(categoryById);
         List<Product> productsByCategory = new ArrayList<>();
@@ -33,11 +33,11 @@ public class DefaultProductService implements ProductService {
         for (int i = 0; i < listOfProductsEntity.size(); i++) {
             ProductEntity productEntity = listOfProductsEntity.get(i);
             Product product = new Product(productEntity.getId(),
-                                           productEntity.getName(),
-                                            productEntity.getPrice(),
-                                             category,
-                                             productEntity.getImage(),
-                                             productEntity.getAvailableAmount());
+                    productEntity.getName(),
+                    productEntity.getPrice(),
+                    category,
+                    productEntity.getImage(),
+                    productEntity.getAvailableAmount());
 
 
             productsByCategory.add(product);
@@ -47,10 +47,12 @@ public class DefaultProductService implements ProductService {
     }
 
     @Override
-    public Product getProductById(Integer id) {
-        ProductEntity productEntity = productDao.findProduct(id);
-        Category category = new Category(productEntity.getCategoryEntity().getId()
-                , productEntity.getCategoryEntity().getCategoryName());
+    public Product getProductById(String id) {
+        ProductEntity productEntity = productDao.findProduct(Integer.valueOf(id));
+        Category category =
+                new Category(
+                        productEntity.getCategoryEntity().getId(),
+                        productEntity.getCategoryEntity().getCategoryName());
 
         return new Product(
                 productEntity.getId(),
@@ -62,18 +64,37 @@ public class DefaultProductService implements ProductService {
     }
 
     @Override
-    public void deleteProductById(Integer id) {
-        productRepository.deleteProductById(id);
+    public void deleteProductById(String id) {
+        productRepository.deleteProductById(Integer.valueOf(id));
 
     }
 
     @Override
-    public void addNewProduct(ProductEntity productEntity) {
+    public void addNewProduct(Product product) {
+        ProductEntity productEntity =
+                ProductEntity
+                        .builder()
+                        .name(product.getName())
+                        .categoryEntity(categoriesService.getCategoryEntityById(product.getCategory()))
+                        .availableAmount(product.getAvailableAmount())
+                        .price(product.getPrice())
+                        .image(product.getImage())
+                        .build();
+
         productRepository.save(productEntity);
     }
 
     @Override
-    public void updateProductChanges(ProductEntity productEntity) {
+    public void updateProductChanges(Product product) {
+        ProductEntity productEntity =
+                ProductEntity
+                        .builder()
+                        .name(product.getName())
+                        .categoryEntity(categoriesService.getCategoryEntityById(product.getCategory()))
+                        .availableAmount(product.getAvailableAmount())
+                        .price(product.getPrice())
+                        .image(product.getImage())
+                        .build();
         productRepository.save(productEntity);
     }
 
