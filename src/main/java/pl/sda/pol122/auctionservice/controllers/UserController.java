@@ -3,8 +3,8 @@ package pl.sda.pol122.auctionservice.controllers;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import pl.sda.pol122.auctionservice.entities.UserEntity;
 import pl.sda.pol122.auctionservice.model.Product;
+import pl.sda.pol122.auctionservice.model.User;
 import pl.sda.pol122.auctionservice.services.ProductService;
 import pl.sda.pol122.auctionservice.services.UserService;
 
@@ -37,8 +37,8 @@ public class UserController {
     }
 
     @PatchMapping("/")
-    public String updateAccountChanges(UserEntity userEntity) {
-        userService.saveAccountChangesByUser(userEntity);
+    public String updateAccountChanges(User user) {
+        userService.saveAccountChangesByUser(user);
         return "redirect:/my-account";
     }
 

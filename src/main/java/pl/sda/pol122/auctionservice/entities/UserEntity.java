@@ -1,11 +1,15 @@
 package pl.sda.pol122.auctionservice.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 
 import java.util.List;
 
 @Entity
 @Table(name = "users")
+@Builder
+@AllArgsConstructor
 public class UserEntity {
 
     @Id
@@ -35,6 +39,10 @@ public class UserEntity {
     joinColumns = @JoinColumn(name = "address_id"),
     inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<UserAddressEntity> userAddresses;
+
+    public UserEntity() {
+
+    }
 
     public Integer getId() {
         return id;
