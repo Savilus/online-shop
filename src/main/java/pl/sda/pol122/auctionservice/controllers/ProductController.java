@@ -21,28 +21,28 @@ public class ProductController {
 
     @GetMapping("product/details/{productId}")
     public String getProductsDetails(Model model, @PathVariable String productId) {
-        model.addAttribute("product", productService.getProductById(productId));
+        model.addAttribute("product", productService.getProductById(Integer.valueOf(productId)));
         return "productDetails";
     }
 
 
     @GetMapping(path = "/shop/productsList/{categoryId}")
     public String loadHouseProductsList(Model model, @PathVariable String categoryId) {
-        List<Product> allProducts = productService.getListOfProducts(categoryId);
+        List<Product> allProducts = productService.getListOfProducts(Integer.valueOf(categoryId));
         model.addAttribute("allProducts", allProducts);
         return "houseProducts";
     }
 
     @GetMapping(path = "/shop/sportProducts")
     public String loadSportProductList(Model model) {
-        List<Product> allSportProducts = productService.getListOfProducts(String.valueOf(2));
+        List<Product> allSportProducts = productService.getListOfProducts(2);
         model.addAttribute("sportProducts", allSportProducts);
         return "sportProducts";
     }
 
     @GetMapping(path = "/shop/electronicProducts")
     public String loadElectronicProducts(Model model) {
-        List<Product> allElectronicProducts = productService.getListOfProducts(String.valueOf(3));
+        List<Product> allElectronicProducts = productService.getListOfProducts(3);
         model.addAttribute("electronicProducts", allElectronicProducts);
         return "electronicProducts";
     }

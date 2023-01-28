@@ -23,7 +23,7 @@ public class DefaultProductService implements ProductService {
     private final CategoriesService categoriesService;
 
     @Override
-    public List<Product> getListOfProducts(String categoryId) {
+    public List<Product> getListOfProducts(Integer categoryId) {
         CategoryEntity categoryById = categoryDao.getCategoryById(Integer.valueOf(categoryId));
         Category category = new Category(categoryById.getId(), categoryById.getCategoryName());
 
@@ -47,8 +47,8 @@ public class DefaultProductService implements ProductService {
     }
 
     @Override
-    public Product getProductById(String id) {
-        ProductEntity productEntity = productDao.findProduct(Integer.valueOf(id));
+    public Product getProductById(Integer productId) {
+        ProductEntity productEntity = productDao.findProduct(productId);
         Category category =
                 new Category(
                         productEntity.getCategoryEntity().getId(),
@@ -64,8 +64,8 @@ public class DefaultProductService implements ProductService {
     }
 
     @Override
-    public void deleteProductById(String id) {
-        productRepository.deleteProductById(Integer.valueOf(id));
+    public void deleteProductById(Integer productId) {
+        productRepository.deleteProductById(productId);
 
     }
 
