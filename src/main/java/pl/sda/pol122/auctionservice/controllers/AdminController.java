@@ -31,6 +31,7 @@ public class AdminController {
         return "redirect:/users";
     }
 
+
     @PatchMapping("/updateUser/{id}")
     public String updateAccountStatusByAdmin(@PathVariable String id, boolean enabledFromInput) {
         UserEntity userFromInput = userService.getUserById(Integer.valueOf(id));

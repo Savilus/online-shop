@@ -16,11 +16,13 @@ public class UserController {
     private final UserService userService;
     private final ProductService productService;
 
+
     @PostMapping("/addNewProduct")
     public String addNewProductToSell(Product product) {
         productService.addNewProduct(product);
         return "redirect:/my-products";
     }
+
 
     @DeleteMapping("/deleteProduct")
     public String deleteProduct(@PathVariable String id) {

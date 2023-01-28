@@ -3,7 +3,6 @@ package pl.sda.pol122.auctionservice.entities;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.NoArgsConstructor;
 
 import java.util.List;
 
@@ -21,6 +20,8 @@ public class CategoryEntity {
     @Column(name = "category_name", nullable = false)
     private String categoryName;
 
+    @Column(name = "image")
+    private String image;
 
     @OneToMany(mappedBy = "categoryEntity")
     @Column(name = "products")
@@ -35,6 +36,10 @@ public class CategoryEntity {
 
     public String getCategoryName() {
         return categoryName;
+    }
+
+    public String getImage() {
+        return image;
     }
 
     public List<ProductEntity> getListOfProducts() {
