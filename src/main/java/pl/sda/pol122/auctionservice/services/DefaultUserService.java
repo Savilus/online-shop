@@ -3,6 +3,7 @@ package pl.sda.pol122.auctionservice.services;
 import org.springframework.stereotype.Service;
 import pl.sda.pol122.auctionservice.dao.UserRepository;
 import pl.sda.pol122.auctionservice.entities.UserEntity;
+import pl.sda.pol122.auctionservice.model.User;
 
 @Service
 public class DefaultUserService implements UserService {
@@ -24,12 +25,37 @@ public class DefaultUserService implements UserService {
     }
 
     @Override
-    public void saveAccountStatusByAdmin(UserEntity userEntity) {
+    public void createUserAccount(User user) {
+        UserEntity userEntity = UserEntity
+                .builder()
+                .userName(user.getUserName())
+                .password(user.getPassword())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .email(user.getEmail())
+                .enabled(true)
+                .build();
         userRepository.save(userEntity);
     }
 
     @Override
-    public void saveAccountChangesByUser(UserEntity userEntity) {
+    public void saveAccountStatusByAdmin(Integer userId, boolean accountStatus) {
+        UserEntity userEntityById = userRepository.getUserEntityById(userId);
+        userEntityById.setEnabled(accountStatus);
+        userRepository.save(userEntityById);
+    }
+
+    @Override
+    public void saveAccountChangesByUser(User user) {
+        UserEntity userEntity = UserEntity
+                .builder()
+                .userName(user.getUserName())
+                .password(user.getPassword())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .email(user.getEmail())
+                .enabled(true)
+                .build();
         userRepository.save(userEntity);
     }
 
