@@ -3,7 +3,6 @@ package pl.sda.pol122.auctionservice.controllers;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import pl.sda.pol122.auctionservice.entities.UserEntity;
 import pl.sda.pol122.auctionservice.model.Category;
 import pl.sda.pol122.auctionservice.model.Product;
 import pl.sda.pol122.auctionservice.services.CategoriesService;
@@ -33,10 +32,8 @@ public class AdminController {
 
 
     @PatchMapping("/updateUser/{id}")
-    public String updateAccountStatusByAdmin(@PathVariable String id, boolean enabledFromInput) {
-        UserEntity userFromInput = userService.getUserById(Integer.valueOf(id));
-        userFromInput.setEnabled(enabledFromInput);
-        userService.saveAccountStatusByAdmin(userFromInput);
+    public String updateAccountStatusByAdmin(@PathVariable String userId, boolean enabledFromInput) {
+        userService.saveAccountStatusByAdmin(Integer.valueOf(userId), enabledFromInput);
         return "redirect:/users";
     }
 
