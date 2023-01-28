@@ -3,9 +3,7 @@ package pl.sda.pol122.auctionservice.controllers;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import pl.sda.pol122.auctionservice.model.CartItem;
 import pl.sda.pol122.auctionservice.model.Product;
 import pl.sda.pol122.auctionservice.services.DefaultCartService;
@@ -24,23 +22,23 @@ public class CartController {
     private final DefaultProductService defaultProductService;
 
 
-    @GetMapping("/addToCart/{productId}")
+    @PostMapping("/addToCart/{productId}")
     public String addToCart(Model model, @PathVariable String productId) {
-        defaultCartService.addProductToCart(defaultProductService.getProductById(productId));
-        model.addAttribute("product", defaultProductService.getProductById(productId));
+        defaultCartService.addProductToCart(defaultProductService.getProductById(Integer.valueOf(productId)));
+        model.addAttribute("product", defaultProductService.getProductById(Integer.valueOf(productId)));
         return "redirect:/product/details/{productId}";
     }
 
     @GetMapping("/buyNow/{productId}")
     public String buyNow(Model model, @PathVariable String productId) {
-        defaultCartService.addProductToCart(defaultProductService.getProductById(productId));
-        model.addAttribute("product", defaultProductService.getProductById(productId));
+        defaultCartService.addProductToCart(defaultProductService.getProductById(Integer.valueOf(productId)));
+        model.addAttribute("product", defaultProductService.getProductById(Integer.valueOf(productId)));
         return "redirect:/cart";
     }
 
-    @GetMapping("/deleteFromCart/{productId}")
+    @DeleteMapping("/deleteFromCart/{productId}")
     public String deleteFromCart(Model model, @PathVariable String productId) {
-        Product productById = defaultProductService.getProductById(productId);
+        Product productById = defaultProductService.getProductById(Integer.valueOf(productId));
         CartItem cartItem = new CartItem(productById, 0);
         defaultCartService.deleteProductFromCart(cartItem);
         return "redirect:/cart";
