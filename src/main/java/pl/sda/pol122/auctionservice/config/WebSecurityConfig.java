@@ -29,7 +29,7 @@ public class WebSecurityConfig{
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((requests) -> requests
-                .requestMatchers("/", "/home").permitAll()
+                .requestMatchers("/", "/about", "/index", "/why").permitAll()
                 .anyRequest().authenticated());
         return http.build();
     }
