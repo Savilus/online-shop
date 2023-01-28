@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <link rel="icon" href="images/fevicon.png" type="image/gif" />
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+
+  <title>MAMIJA</title>
+
+
+
+  <link rel="stylesheet" th:href="@{/css/accountLogin.css}" type="text/css"/>
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" th:href="@{/css/bootstrap.css}" type="text/css"/>
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <!-- font awesome style -->
+  <link th:href="@{/css/font-awesome.min.css}" rel="stylesheet"/>
+
+  <!-- Custom styles for this template -->
+  <link th:href="@{/css/style.css}" rel="stylesheet"/>
+  <!-- responsive style -->
+  <link  th:href="@{/css/responsive.css}" rel="stylesheet"/>
+
+
+<body>
+
+<div th:replace="fragments :: menu"></div>
+
+
+<div class="container">
+  <div class="screen">
+    <div class="screen__content">
+      <form class="login">
+        <div class="login__field">
+
+          <input type="text" class="login__input" placeholder="User name / Email">
+        </div>
+        <div class="login__field">
+
+          <input type="password" class="login__input" placeholder="Password">
+        </div>
+        <button class="button login__submit">
+          <span class="button__text">Log In Now</span>
+
+        </button>
+
+
+          <button class="button login__submit">
+          <span  class="button__text">
+            <a th:href="@{/account/signUp}">Create Account</a></span>
+          </button>
+        <span><b>You don't have an account yet?</b></span>
+
+
+      </form>
+    </div>
+    <div class="screen__background">
+      <span class="screen__background__shape screen__background__shape4"></span>
+      <span class="screen__background__shape screen__background__shape3"></span>
+      <span class="screen__background__shape screen__background__shape2"></span>
+      <span class="screen__background__shape screen__background__shape1"></span>
+    </div>
+  </div>
+</div>
+</body>
+
+
+<div th:replace="fragments :: js_scripts"/>
+
+</html>

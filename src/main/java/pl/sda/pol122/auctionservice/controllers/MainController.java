@@ -20,7 +20,7 @@ public class MainController {
         return "shop";
     }
 
-    @GetMapping(path = "/account")
+    @GetMapping(path = "/account/userProfile")
     public String loadUserProfile(){
         return "userProfile";
     }
@@ -28,6 +28,16 @@ public class MainController {
     @GetMapping(path = "/account/editAccount")
     public String editUserProfile(){
         return "editUserProfile";
+    }
+
+    @GetMapping(path = "/account")
+    public String logInOrSignUpAccount(){
+        return "accountLogin";
+    }
+
+    @GetMapping(path = "/account/signUp")
+    public String createNewAccount(){
+        return "createAccount";
     }
 
 
