@@ -23,8 +23,10 @@ public class MainController {
         model.addAttribute("categoriesId", categoriesService.getAllCategories());
         return "shop";
     }
-    @GetMapping(path = "/account")
-    public String loadUserProfile() {
+
+    @GetMapping(path = "/account/userProfile")
+    public String loadUserProfile(){
+
         return "userProfile";
     }
 
@@ -33,11 +35,15 @@ public class MainController {
         return "editUserProfile";
     }
 
+    @GetMapping(path = "/account")
+    public String logInOrSignUpAccount(){
+        return "accountLogin";
+    }
+
     @PostMapping(path = "/account/sign-up")
     public String createNewAccount(User user) {
         userService.createUserAccount(user);
-        return "account";
+        return "createaccount";
     }
-
 
 }
