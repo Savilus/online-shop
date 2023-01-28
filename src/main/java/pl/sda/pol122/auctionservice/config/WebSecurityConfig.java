@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import static org.springframework.security.config.Customizer.withDefaults;
 
 import javax.sql.DataSource;
 
@@ -29,8 +30,10 @@ public class WebSecurityConfig{
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((requests) -> requests
-                .requestMatchers("/", "/about", "/index", "/why").permitAll()
-                .anyRequest().authenticated());
+                .requestMatchers("/", "/about", "/index", "/why", "/css/*", "/images/*").permitAll()
+                .anyRequest().authenticated())
+                .formLogin(withDefaults())
+                .logout((logout) -> logout.permitAll());;
         return http.build();
     }
 
