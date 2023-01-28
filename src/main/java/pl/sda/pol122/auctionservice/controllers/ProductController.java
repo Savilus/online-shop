@@ -27,7 +27,7 @@ public class ProductController {
 
     @GetMapping(path = "/shop/allProducts/{categoryId}")
     public String loadAllProducts(Model model,@PathVariable String categoryId) {
-        List<Product> allProducts = productService.getListOfProducts(categoryId);
+        List<Product> allProducts = productService.getListOfProducts(Integer.valueOf(categoryId));
         model.addAttribute("allProducts", allProducts);
         return "allProductsList";
     }
