@@ -33,15 +33,14 @@
 
 <section class="service_section ">
     <div class="container">
-        <div class="heading_container heading_center">
-            <h2>
-                Sport Products
+        <div th:each="product : ${allProducts}" class="heading_container heading_center">
+            <h2 th:text="${product.getCategory().getCategoryName()}">
             </h2>
         </div>
     </div>
     <div class="container ">
         <div class="row">
-            <div th:each="product : ${sportProducts}" class="col-md-6 col-lg-4">
+            <div th:each="product : ${allProducts}" class="col-md-6 col-lg-4">
                 <div class="box ">
                     <img th:src="${product.getImage()}" width="200" height="180" class="img-responsive">
                     <div class="product-detail">

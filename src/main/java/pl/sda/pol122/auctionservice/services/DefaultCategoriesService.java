@@ -24,7 +24,18 @@ public class DefaultCategoriesService implements CategoriesService {
 
     @Override
     public List<Category> getAllCategories() {
-        return null;
+        List<CategoryEntity> allCategoriesDAO = categoryRepository.findAll();
+        List<Category> categories = new ArrayList<>();
+        for(int i = 0; i < allCategoriesDAO.size(); i++){
+            CategoryEntity categoryEntity = allCategoriesDAO.get(i);
+            Category category = Category.builder()
+                            .id(categoryEntity.getId())
+                            .categoryName(categoryEntity.getCategoryName())
+                            .image(categoryEntity.getImage())
+                            .build();
+            categories.add(category);
+        }
+        return categories;
     }
 
     @Override

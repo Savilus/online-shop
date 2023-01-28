@@ -20,11 +20,6 @@ public class MainController {
         return "shop";
     }
 
-    @GetMapping(path = "/shop/product-list")
-    public String loadProductList(){
-        return "products";
-    }
-
     @GetMapping(path = "/account")
     public String loadUserProfile(){
         return "userProfile";
