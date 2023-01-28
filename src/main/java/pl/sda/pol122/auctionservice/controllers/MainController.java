@@ -4,9 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import pl.sda.pol122.auctionservice.model.User;
 import pl.sda.pol122.auctionservice.services.CategoriesService;
 import pl.sda.pol122.auctionservice.services.UserService;
 
@@ -40,10 +38,9 @@ public class MainController {
         return "accountLogin";
     }
 
-    @PostMapping(path = "/account/sign-up")
-    public String createNewAccount(User user) {
-        userService.createUserAccount(user);
-        return "createaccount";
+    @GetMapping(path = "/account/sign-up")
+    public String createNewAccount() {
+        return "accountLogin";
     }
 
 }

@@ -54,7 +54,7 @@ public class DefaultUserService implements UserService {
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
                 .email(user.getEmail())
-                .enabled(true)
+                .enabled(user.getEnabled())
                 .build();
         userRepository.save(userEntity);
     }
