@@ -18,7 +18,7 @@ public class DefaultCategoriesService implements CategoriesService {
     }
 
     @Override
-    public Category getCategoryById(String id) {
+    public Category getCategoryById(Integer categoryId) {
         return null;
     }
 
@@ -49,7 +49,7 @@ public class DefaultCategoriesService implements CategoriesService {
     }
 
     @Override
-    public CategoryEntity getCategoryEntityById(Integer id) {
-        return categoryRepository.findCategoryEntityById(id);
+    public CategoryEntity getCategoryEntityById(Integer entityId) {
+        return categoryRepository.findCategoryEntityById(entityId);
     }
 }

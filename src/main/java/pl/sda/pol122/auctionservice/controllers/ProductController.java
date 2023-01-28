@@ -21,9 +21,10 @@ public class ProductController {
 
     @GetMapping("product/details/{productId}")
     public String getProductsDetails(Model model, @PathVariable String productId) {
-        model.addAttribute("product", productService.getProductById(productId));
+        model.addAttribute("product", productService.getProductById(Integer.valueOf(productId)));
         return "productDetails";
     }
+
     @GetMapping(path = "/shop/allProducts/{categoryId}")
     public String loadAllProducts(Model model,@PathVariable String categoryId) {
         List<Product> allProducts = productService.getListOfProducts(categoryId);
