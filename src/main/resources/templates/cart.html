@@ -41,7 +41,13 @@
                         </td>
                         <td th:text="${product.product.getPrice()} + ' PLN'" data-th="Price"></td>
                         <td data-th="Quantity">
-                            <span th:text="${product.getQuantity()}" type="number" class="form-control form-control-lg text-center" />
+                            <div>
+                                <input type="number" id="tentacles" name="tentacles"
+                                       min="1" max="100">
+                            </div>
+                            <label for="tentacles">Amount (1-100)</label>
+                            <!--<span th:text="${product.getQuantity()}" type="number" class="form-control form-control-lg text-center"/>-->
+
                         </td>
                         <td class="actions" data-th="">
                             <div class="text-right">
@@ -60,7 +66,7 @@
                     <h1 th:text="${price} + ' PLN'"></h1>
 
                     <td data-th="Quantity">
-                        <input type="number" class="form-control form-control-lg text-center" value="1">
+                        <!--<input type="number" class="form-control form-control-lg text-center" value="1">-->
                     </td>
                 </div>
             </div>

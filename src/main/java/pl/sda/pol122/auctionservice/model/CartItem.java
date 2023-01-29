@@ -1,6 +1,8 @@
 package pl.sda.pol122.auctionservice.model;
 
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.Optional;
 
 public class CartItem {
 
@@ -9,22 +11,22 @@ public class CartItem {
     private int quantity;
     private BigDecimal totalPrice;
 
-    public CartItem(Product product,  int amount) {
+    public CartItem(Product product, int amount) {
         this.product = product;
         this.quantity = amount;
         this.totalPrice = calculateTotalPrice();
     }
 
-    private BigDecimal calculateTotalPrice(){
+    private BigDecimal calculateTotalPrice() {
         return product.getPrice().multiply(BigDecimal.valueOf(quantity));
     }
 
-    public void addAmount(){
+    public void addAmount() {
         quantity++;
         totalPrice = totalPrice.add(product.getPrice());
     }
 
-    public void addAmount(int numberOfProducts){
+    public void addAmount(int numberOfProducts) {
         quantity += numberOfProducts;
         BigDecimal addPrizeOfProducts = product.getPrice().multiply(BigDecimal.valueOf(numberOfProducts));
         totalPrice = addPrizeOfProducts.add(totalPrice);
