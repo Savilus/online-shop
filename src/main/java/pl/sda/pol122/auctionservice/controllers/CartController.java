@@ -22,7 +22,7 @@ public class CartController {
     private final DefaultProductService defaultProductService;
 
 
-    @PostMapping("/addToCart/{productId}")
+    @GetMapping("/addToCart/{productId}")
     public String addToCart(Model model, @PathVariable String productId) {
         defaultCartService.addProductToCart(defaultProductService.getProductById(Integer.valueOf(productId)));
         model.addAttribute("product", defaultProductService.getProductById(Integer.valueOf(productId)));
