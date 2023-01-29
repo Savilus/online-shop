@@ -16,13 +16,13 @@
   <title>MAMIJA</title>
 
 
-  <div th:replace="fragments :: style"></div>
+  <div th:replace="~{fragments :: style}"></div>
 
 </head>
 
 <body>
 
-<div th:replace="fragments :: menu"></div>
+<div th:replace="~{fragments :: menu}"></div>
 
 <!-- why section -->
 
@@ -100,7 +100,7 @@
 <!-- end why section -->
 
 
-<div th:replace="fragments :: footer"/>
+<div th:replace="~{fragments :: footer}"/>
 
 </body>
 
