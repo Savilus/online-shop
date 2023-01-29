@@ -58,11 +58,6 @@ public class ProductController {
         return "redirect:/default";
     }
 
-    @PatchMapping("/updateProduct/{id}")
-    public String updateProductChangesByAdmin(Product product) {
-        productService.updateProductChanges(product);
-        return "redirect:/default";
-    }
 
     @PatchMapping("/updateProduct")
     public String updateProductChanges(Product product) {
