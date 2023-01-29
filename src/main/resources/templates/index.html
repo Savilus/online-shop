@@ -16,365 +16,57 @@
   <title>MaMiJa</title>
 
 
-  <div th:replace="fragments :: style"></div>
+  <div th:replace="~{fragments :: style}"></div>
 
 </head>
 
 <body>
 
-  <div th:replace="fragments :: menu"></div>
+  <div th:replace="~{fragments :: menu}"></div>
 
   <!-- slider section -->
   <section class="slider_section ">
-    <div id="customCarousel1" class="carousel slide" data-ride="carousel">
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <div class="container ">
-            <div class="row">
-              <div class="col-md-6 col-lg-5">
-                <div class="detail-box">
-                  <div class="prod-info-main prod-wrap clearfix">
-                    <div class="row">
-                      <div class="col-md-5 col-sm-12 col-xs-12">
-                        <div class="product-image">
-                          <img src="images/products/p4.png" class="img-responsive">
-                          <span class="tag2 hot">
-							HOT
-						</span>
-                        </div>
-                      </div>
-                      <div class="col-md-7 col-sm-12 col-xs-12">
-                        <div class="product-deatil">
-                          <h5 class="name">
-                            <a href="#">
-                              Product Code/Name here
-                            </a>
-                            <a href="#">
-                              <span>Product Category</span>
-                            </a>
-
-                          </h5>
-                          <p class="price-container">
-                            <span>$199</span>
-                          </p>
-                          <span class="tag1"></span>
-                        </div>
-                        <div class="description">
-                          <p>A Short product description here </p>
-                        </div>
-                        <div class="product-info smart-form">
-                          <div class="row">
-                            <div class="col-md-12">
-                              <a href="javascript:void(0);" class="btn btn-danger">Add to cart</a>
-                              <a href="javascript:void(0);" class="btn btn-info">More info</a>
-                            </div>
-                            <div class="col-md-12">
-                              <div class="rating">Rating:
-                                <label for="stars-rating-5"><i class="fa fa-star text-danger"></i></label>
-                                <label for="stars-rating-4"><i class="fa fa-star text-danger"></i></label>
-                                <label for="stars-rating-3"><i class="fa fa-star text-danger"></i></label>
-                                <label for="stars-rating-2"><i class="fa fa-star text-warning"></i></label>
-                                <label for="stars-rating-1"><i class="fa fa-star text-warning"></i></label>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+    <div class="container ">
+      <center><h2>HOT PRODUCTS</h2></center>
+      <div class="row">
+        <div th:each="product : ${randomProducts}" class="col-md-6 col-lg-4">
+          <div class="box ">
+            <img th:src="${product.getImage()}" width="200" height="180" class="img-responsive">
+            <div class="product-detail">
+              <h5 class="name">
+                <a th:text="${product.getName()}">
+                </a>
+              </h5>
+              <p th:text="${product.getPrice()} + ' PLN'" class="price-container">
+              </p>
+              <span class="tag1"></span>
+            </div>
+            <div class="description">
+              <p th:text="'IN STOCK ' + ${product.getAvailableAmount()} + ' MORE PRODUCTS'" ></p>
+            </div>
+            <div class="product-info smart-form">
+              <div class="row">
+                <div class="col-md-12">
+                  <a th:href="'/buyNow/' + ${product.getId()}" class="btn btn-danger">Buy now</a>
+                  <a th:href="'/product/details/' + ${product.getId()}" class="btn btn-info">More info</a>
                 </div>
-              </div>
-              <div class="col-md-6 col-lg-5">
-                <div class="detail-box">
-                  <div class="prod-info-main prod-wrap clearfix">
-                    <div class="row">
-                      <div class="col-md-5 col-sm-12 col-xs-12">
-                        <div class="product-image">
-                          <img src="images/products/p4.png" class="img-responsive">
-                          <span class="tag2 hot">
-							HOT
-						</span>
-                        </div>
-                      </div>
-                      <div class="col-md-7 col-sm-12 col-xs-12">
-                        <div class="product-deatil">
-                          <h5 class="name">
-                            <a href="#">
-                              Product Code/Name here
-                            </a>
-                            <a href="#">
-                              <span>Product Category</span>
-                            </a>
+                <div class="col-md-12">
+                  <br>
 
-                          </h5>
-                          <p class="price-container">
-                            <span>$199</span>
-                          </p>
-                          <span class="tag1"></span>
-                        </div>
-                        <div class="description">
-                          <p>A Short product description here </p>
-                        </div>
-                        <div class="product-info smart-form">
-                          <div class="row">
-                            <div class="col-md-12">
-                              <a href="javascript:void(0);" class="btn btn-danger">Add to cart</a>
-                              <a href="javascript:void(0);" class="btn btn-info">More info</a>
-                            </div>
-                            <div class="col-md-12">
-                              <div class="rating">Rating:
-                                <label for="stars-rating-5"><i class="fa fa-star text-danger"></i></label>
-                                <label for="stars-rating-4"><i class="fa fa-star text-danger"></i></label>
-                                <label for="stars-rating-3"><i class="fa fa-star text-danger"></i></label>
-                                <label for="stars-rating-2"><i class="fa fa-star text-warning"></i></label>
-                                <label for="stars-rating-1"><i class="fa fa-star text-warning"></i></label>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                  <div class="rating">Rating:
+                    <label for="stars-rating-5"><i class="fa fa-star text-danger"></i></label>
+                    <label for="stars-rating-4"><i class="fa fa-star text-danger"></i></label>
+                    <label for="stars-rating-3"><i class="fa fa-star text-danger"></i></label>
+                    <label for="stars-rating-2"><i class="fa fa-star text-warning"></i></label>
+                    <label for="stars-rating-1"><i class="fa fa-star text-warning"></i></label>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-
-        <div class="carousel-item">
-          <div class="container ">
-            <div class="row">
-              <div class="col-md-6 col-lg-5">
-                <div class="detail-box">
-                  <div class="prod-info-main prod-wrap clearfix">
-                    <div class="row">
-                      <div class="col-md-5 col-sm-12 col-xs-12">
-                        <div class="product-image">
-                          <img src="images/products/p4.png" class="img-responsive">
-                          <span class="tag2 hot">
-							HOT
-						</span>
-                        </div>
-                      </div>
-                      <div class="col-md-7 col-sm-12 col-xs-12">
-                        <div class="product-deatil">
-                          <h5 class="name">
-                            <a href="#">
-                              Product Code/Name here
-                            </a>
-                            <a href="#">
-                              <span>Product Category</span>
-                            </a>
-
-                          </h5>
-                          <p class="price-container">
-                            <span>$199</span>
-                          </p>
-                          <span class="tag1"></span>
-                        </div>
-                        <div class="description">
-                          <p>A Short product description here </p>
-                        </div>
-                        <div class="product-info smart-form">
-                          <div class="row">
-                            <div class="col-md-12">
-                              <a href="javascript:void(0);" class="btn btn-danger">Add to cart</a>
-                              <a href="javascript:void(0);" class="btn btn-info">More info</a>
-                            </div>
-                            <div class="col-md-12">
-                              <div class="rating">Rating:
-                                <label for="stars-rating-5"><i class="fa fa-star text-danger"></i></label>
-                                <label for="stars-rating-4"><i class="fa fa-star text-danger"></i></label>
-                                <label for="stars-rating-3"><i class="fa fa-star text-danger"></i></label>
-                                <label for="stars-rating-2"><i class="fa fa-star text-warning"></i></label>
-                                <label for="stars-rating-1"><i class="fa fa-star text-warning"></i></label>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 col-lg-7">
-                <div class="detail-box">
-                  <div class="prod-info-main prod-wrap clearfix">
-                    <div class="row">
-                      <div class="col-md-5 col-sm-12 col-xs-12">
-                        <div class="product-image">
-                          <img src="images/products/p4.png" class="img-responsive">
-                          <span class="tag2 hot">
-							HOT
-						</span>
-                        </div>
-                      </div>
-                      <div class="col-md-7 col-sm-12 col-xs-12">
-                        <div class="product-deatil">
-                          <h5 class="name">
-                            <a href="#">
-                              Product Code/Name here
-                            </a>
-                            <a href="#">
-                              <span>Product Category</span>
-                            </a>
-
-                          </h5>
-                          <p class="price-container">
-                            <span>$199</span>
-                          </p>
-                          <span class="tag1"></span>
-                        </div>
-                        <div class="description">
-                          <p>A Short product description here </p>
-                        </div>
-                        <div class="product-info smart-form">
-                          <div class="row">
-                            <div class="col-md-12">
-                              <a href="javascript:void(0);" class="btn btn-danger">Add to cart</a>
-                              <a href="javascript:void(0);" class="btn btn-info">More info</a>
-                            </div>
-                            <div class="col-md-12">
-                              <div class="rating">Rating:
-                                <label for="stars-rating-5"><i class="fa fa-star text-danger"></i></label>
-                                <label for="stars-rating-4"><i class="fa fa-star text-danger"></i></label>
-                                <label for="stars-rating-3"><i class="fa fa-star text-danger"></i></label>
-                                <label for="stars-rating-2"><i class="fa fa-star text-warning"></i></label>
-                                <label for="stars-rating-1"><i class="fa fa-star text-warning"></i></label>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="carousel-item">
-          <div class="container ">
-            <div class="row">
-              <div class="col-md-6 col-lg-5">
-                <div class="detail-box">
-                  <div class="prod-info-main prod-wrap clearfix">
-                    <div class="row">
-                      <div class="col-md-5 col-sm-12 col-xs-12">
-                        <div class="product-image">
-                          <img src="images/products/p4.png" class="img-responsive">
-                          <span class="tag2 hot">
-							HOT
-						</span>
-                        </div>
-                      </div>
-                      <div class="col-md-7 col-sm-12 col-xs-12">
-                        <div class="product-deatil">
-                          <h5 class="name">
-                            <a href="#">
-                              Product Code/Name here
-                            </a>
-                            <a href="#">
-                              <span>Product Category</span>
-                            </a>
-
-                          </h5>
-                          <p class="price-container">
-                            <span>$199</span>
-                          </p>
-                          <span class="tag1"></span>
-                        </div>
-                        <div class="description">
-                          <p>A Short product description here </p>
-                        </div>
-                        <div class="product-info smart-form">
-                          <div class="row">
-                            <div class="col-md-12">
-                              <a href="javascript:void(0);" class="btn btn-danger">Add to cart</a>
-                              <a href="javascript:void(0);" class="btn btn-info">More info</a>
-                            </div>
-                            <div class="col-md-12">
-                              <div class="rating">Rating:
-                                <label for="stars-rating-5"><i class="fa fa-star text-danger"></i></label>
-                                <label for="stars-rating-4"><i class="fa fa-star text-danger"></i></label>
-                                <label for="stars-rating-3"><i class="fa fa-star text-danger"></i></label>
-                                <label for="stars-rating-2"><i class="fa fa-star text-warning"></i></label>
-                                <label for="stars-rating-1"><i class="fa fa-star text-warning"></i></label>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 col-lg-7">
-                <div class="detail-box">
-                  <div class="prod-info-main prod-wrap clearfix">
-                    <div class="row">
-                      <div class="col-md-5 col-sm-12 col-xs-12">
-                        <div class="product-image">
-                          <img src="images/products/p4.png" class="img-responsive">
-                          <span class="tag2 hot">
-							HOT
-						</span>
-                        </div>
-                      </div>
-                      <div class="col-md-7 col-sm-12 col-xs-12">
-                        <div class="product-deatil">
-                          <h5 class="name">
-                            <a href="#">
-                              Product Code/Name here
-                            </a>
-                            <a href="#">
-                              <span>Product Category</span>
-                            </a>
-
-                          </h5>
-                          <p class="price-container">
-                            <span>$199</span>
-                          </p>
-                          <span class="tag1"></span>
-                        </div>
-                        <div class="description">
-                          <p>A Short product description here </p>
-                        </div>
-                        <div class="product-info smart-form">
-                          <div class="row">
-                            <div class="col-md-12">
-                              <a href="javascript:void(0);" class="btn btn-danger">Add to cart</a>
-                              <a href="javascript:void(0);" class="btn btn-info">More info</a>
-                            </div>
-                            <div class="col-md-12">
-                              <div class="rating">Rating:
-                                <label for="stars-rating-5"><i class="fa fa-star text-danger"></i></label>
-                                <label for="stars-rating-4"><i class="fa fa-star text-danger"></i></label>
-                                <label for="stars-rating-3"><i class="fa fa-star text-danger"></i></label>
-                                <label for="stars-rating-2"><i class="fa fa-star text-warning"></i></label>
-                                <label for="stars-rating-1"><i class="fa fa-star text-warning"></i></label>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-
 
       </div>
-      <ol class="carousel-indicators">
-        <li data-target="#customCarousel1" data-slide-to="0" class="active"></li>
-        <li data-target="#customCarousel1" data-slide-to="1"></li>
-        <li data-target="#customCarousel1" data-slide-to="2"></li>
-      </ol>
     </div>
   </section>
   <!-- end slider section -->
@@ -696,14 +388,14 @@
   </section>
   <!-- end client section -->
 
-  <div th:replace="fragments :: contact"/>
+  <div th:replace="~{fragments :: contact}"/>
 
 
 
 
-  <div th:replace="fragments :: footer"/>
+  <div th:replace="~{fragments :: footer}"/>
 
-  <div th:replace="fragments :: js_scripts"/>
+  <div th:replace="~{fragments :: js_scripts}"/>
 </body>
 
 </html>

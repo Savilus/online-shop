@@ -6,10 +6,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import pl.sda.pol122.auctionservice.model.Category;
 import pl.sda.pol122.auctionservice.model.Product;
+import pl.sda.pol122.auctionservice.services.CategoriesService;
 import pl.sda.pol122.auctionservice.services.ProductService;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Controller
 @RequestMapping()
@@ -17,6 +21,8 @@ import java.util.List;
 public class ProductController {
 
     private final ProductService productService;
+
+    private final CategoriesService categoriesService;
 
 
     @GetMapping("product/details/{productId}")
@@ -27,7 +33,9 @@ public class ProductController {
 
     @GetMapping(path = "/shop/allProducts/{categoryId}")
     public String loadAllProducts(Model model,@PathVariable String categoryId) {
-        List<Product> allProducts = productService.getListOfProducts(Integer.valueOf(categoryId));
+        List<Product> allProducts = productService.getListOfProductsByCategoryId(Integer.valueOf(categoryId));
+        Category categoryById = categoriesService.getCategoryById(Integer.valueOf(categoryId));
+        model.addAttribute("categoryName", categoryById);
         model.addAttribute("allProducts", allProducts);
         return "allProductsList";
     }
@@ -36,6 +44,14 @@ public class ProductController {
     public String addProduct(Product product) {
         productService.addNewProduct(product);
         return "redirect:/products";
+    }
+
+    @GetMapping("/index")
+    public String showRandomProducts(Model model){
+
+        List<Product> randomProducts = productService.getRandomProducts();
+        model.addAttribute("randomProducts" , randomProducts);
+        return "/index";
     }
 
 

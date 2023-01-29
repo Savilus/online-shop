@@ -23,7 +23,7 @@ public class DefaultProductService implements ProductService {
     private final CategoriesService categoriesService;
 
     @Override
-    public List<Product> getListOfProducts(Integer categoryId) {
+    public List<Product> getListOfProductsByCategoryId(Integer categoryId) {
         CategoryEntity categoryById = categoryDao.getCategoryById(Integer.valueOf(categoryId));
         Category category = new Category(categoryById.getId(), categoryById.getCategoryName());
 
@@ -96,6 +96,25 @@ public class DefaultProductService implements ProductService {
                         .image(product.getImage())
                         .build();
         productRepository.save(productEntity);
+    }
+
+    @Override
+    public List<Product> getRandomProducts() {
+        List<ProductEntity> randomProductsById = productRepository.findRandomProductsById();
+        List<Product> randomProducts = new ArrayList<>();
+        randomProductsById.stream().forEach(productEntity -> randomProducts.add(Product.builder()
+                .id(productEntity.getId())
+                .name(productEntity.getName())
+                .price(productEntity.getPrice())
+                .image(productEntity.getImage())
+                .category(Category.builder()
+                        .id(productEntity.getCategoryEntity().getId())
+                        .categoryName(productEntity.getCategoryEntity().getCategoryName())
+                        .image(productEntity.getCategoryEntity().getImage())
+                        .build())
+                .availableAmount(productEntity.getAvailableAmount())
+                .build()));
+        return randomProducts;
     }
 
 

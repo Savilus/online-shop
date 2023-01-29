@@ -7,6 +7,7 @@ import pl.sda.pol122.auctionservice.model.Category;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DefaultCategoriesService implements CategoriesService {
@@ -19,7 +20,8 @@ public class DefaultCategoriesService implements CategoriesService {
 
     @Override
     public Category getCategoryById(Integer categoryId) {
-        return null;
+        Optional<CategoryEntity> byId = categoryRepository.findById(categoryId);
+        return new Category(byId.get().getId(), byId.get().getCategoryName(), byId.get().getImage());
     }
 
     @Override
