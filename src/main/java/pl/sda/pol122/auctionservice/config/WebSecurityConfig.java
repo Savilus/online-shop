@@ -30,10 +30,10 @@ public class WebSecurityConfig{
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((requests) -> requests
-                .requestMatchers("/", "/about", "/index", "/why", "/css/*", "/images/*").permitAll()
-                .anyRequest().authenticated())
-                .formLogin(withDefaults())
-                .logout((logout) -> logout.permitAll());;
+                        .requestMatchers("/", "/about", "/index", "/why","/shop", "/shop/*" , "/cart", "/css/*","/images/kategorie/*" ,  "/images/*", "/js/*").permitAll()
+                        .anyRequest().authenticated())
+                .formLogin(form -> form.loginPage("/login").permitAll())
+                .logout((logout) -> logout.permitAll());
         return http.build();
     }
 
