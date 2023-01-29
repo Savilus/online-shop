@@ -46,9 +46,11 @@ public class ProductController {
 
     @GetMapping("/index")
     public String showRandomProducts(Model model){
-
         List<Product> randomProducts = productService.getRandomProducts();
+        List<Category> allCategories = categoriesService.getAllCategories();
+        model.addAttribute("categories", allCategories);
         model.addAttribute("randomProducts" , randomProducts);
+
         return "/index";
     }
 
