@@ -8,8 +8,8 @@
 <body>
 
 
-<div th:replace="fragments :: style"></div>
-<div th:replace="fragments :: menu"></div>
+<div th:replace="~{fragments :: style}"></div>
+<div th:replace="~{fragments :: menu}"></div>
 
 <section class="pt-5 pb-5">
     <div class="container">
@@ -76,6 +76,8 @@
         </div>
     </div>
 </section>
+
+<div th:replace="~{fragments :: footer}"/>
 
 <!-- jQery -->
 <script src="js/cart.js"></script>

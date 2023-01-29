@@ -17,13 +17,13 @@
     <title>MaMiJa</title>
 
 
-    <div th:replace="fragments :: style"></div>
+    <div th:replace="~{fragments :: style}"></div>
 
 </head>
 
 <body>
 
-<div th:replace="fragments :: menu"></div>
+<div th:replace="~{fragments :: menu}"></div>
 
 <!-- shop section -->
 
@@ -63,7 +63,7 @@
 </section>
 
 <!-- end shop section -->
-
+<div th:replace="~{fragments :: footer}"/>
 
 <!-- jQery -->
 <script src="js/jquery-3.4.1.min.js"></script>

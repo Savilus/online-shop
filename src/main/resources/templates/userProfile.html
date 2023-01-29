@@ -21,11 +21,11 @@
     <title>MaMiJa</title>
 
 
-    <div th:replace="fragments :: style"></div>
+    <div th:replace="~{fragments :: style}"></div>
 
 <body>
 
-<div th:replace="fragments :: menu"></div>
+<div th:replace="~{fragments :: menu}"></div>
 
 <div class="container emp-profile">
     <form method="post">
@@ -157,9 +157,9 @@
     </form>
 </div>
 
-<div th:replace="fragments :: footer"/>
+<div th:replace="~{fragments :: footer}"/>
 
-<div th:replace="fragments :: js_scripts"/>
+<div th:replace="~{fragments :: js_scripts}"/>
 </body>
 
 </html>
