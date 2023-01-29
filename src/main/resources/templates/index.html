@@ -81,13 +81,11 @@
         </h2>
       </div>
     </div>
-    <div class="container ">
-      <div class="row">
-        <div class="col-md-6 col-lg-4">
-          <div th:each="categoryId : ${categories}"  class="box ">
-            <div class="img-box">
-              <img th:src="${categoryId.getImage()}" alt="">
-            </div>
+    <div  class="container ">
+      <div   class="row">
+        <div th:each="categoryId : ${categories}" class="col-md-6 col-lg-4">
+          <div  class="box ">
+              <img th:src="${categoryId.getImage()}" class="img-responsive" width="200" height="200">
             <div class="detail-box">
               <h4 th:text="${categoryId.getCategoryName()}">
               </h4>
