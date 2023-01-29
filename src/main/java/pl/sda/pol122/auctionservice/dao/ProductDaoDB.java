@@ -1,5 +1,6 @@
 package pl.sda.pol122.auctionservice.dao;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import pl.sda.pol122.auctionservice.entities.CategoryEntity;
 import pl.sda.pol122.auctionservice.entities.ProductEntity;
@@ -40,5 +41,7 @@ public class ProductDaoDB implements ProductDao {
         return productEntitiesByCategory;
 
     }
+
+
 
 }

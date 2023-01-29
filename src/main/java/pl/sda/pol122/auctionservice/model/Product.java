@@ -1,7 +1,10 @@
 package pl.sda.pol122.auctionservice.model;
 
+import lombok.Builder;
+
 import java.math.BigDecimal;
 
+@Builder
 public class Product {
 
 
