@@ -36,7 +36,7 @@ public class CartController {
         return "redirect:/cart";
     }
 
-    @DeleteMapping("/deleteFromCart/{productId}")
+    @GetMapping("/deleteFromCart/{productId}")
     public String deleteFromCart(Model model, @PathVariable String productId) {
         Product productById = defaultProductService.getProductById(Integer.valueOf(productId));
         CartItem cartItem = new CartItem(productById, 0);

@@ -44,7 +44,7 @@ public class ProductController {
         return "redirect:/products";
     }
 
-    @GetMapping("/index")
+    @GetMapping(path = {"/" , "/index"})
     public String showRandomProducts(Model model){
         List<Product> randomProducts = productService.getRandomProducts();
         List<Category> allCategories = categoriesService.getAllCategories();
@@ -67,7 +67,7 @@ public class ProductController {
         return "redirect:/my-products";
     }
 
-    @DeleteMapping("/deleteProduct")
+    @DeleteMapping("/deleteProduct/{id}")
     public String deleteProduct(@PathVariable String id) {
         productService.deleteProductById(Integer.valueOf(id));
         return "redirect:/my-products";

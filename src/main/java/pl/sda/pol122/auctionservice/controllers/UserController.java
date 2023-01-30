@@ -16,7 +16,6 @@ import pl.sda.pol122.auctionservice.services.UserService;
 public class UserController {
 
     private final UserService userService;
-    private final ProductService productService;
 
 
     @PatchMapping("/")
@@ -38,7 +37,7 @@ public class UserController {
     }
 
 
-    @PatchMapping("/updateUser/{id}")
+    @PatchMapping("/updateUser/{userId}")
     public String updateAccountStatusByAdmin(@PathVariable String userId, boolean enabledFromInput) {
         userService.saveAccountStatusByAdmin(Integer.valueOf(userId), enabledFromInput);
         return "redirect:/users";
