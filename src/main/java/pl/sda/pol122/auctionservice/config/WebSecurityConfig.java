@@ -19,6 +19,7 @@ public class WebSecurityConfig {
     @Autowired
     DataSource dataSource;
 
+
     @Bean
     public UserDetailsManager users(DataSource dataSource) {
         return new JdbcUserDetailsManager(dataSource);
@@ -28,11 +29,13 @@ public class WebSecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http.authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/", "/about", "/index", "/why","/shop", "/shop/*" , "/cart", "/css/*","/images/kategorie/electronic/*", "/images/kategorie/house/*", "/images/kategorie/sport/*" ,"/images" , "/images/*","/fonts/*", "/js/*").permitAll()
+                        .requestMatchers("/", "/about", "/index", "/why","/shop", "/product/details/*", "/shop/*" , "/cart", "/css/*","/images/kategorie/electronic/*", "/images/kategorie/house/*", "/images/kategorie/sport/*" ,"/images" , "/images/*","/fonts/*", "/js/*", "/shop/allProducts/*").permitAll()
                         .anyRequest()
                         .authenticated())
                 .formLogin(form -> form.loginPage("/login").permitAll())
