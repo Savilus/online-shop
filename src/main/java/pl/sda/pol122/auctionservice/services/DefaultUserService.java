@@ -28,7 +28,7 @@ public class DefaultUserService implements UserService {
     public void createUserAccount(User user) {
         UserEntity userEntity = UserEntity
                 .builder()
-                .userName(user.getUserName())
+                .login(user.getUserName())
                 .password(user.getPassword())
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
@@ -49,7 +49,7 @@ public class DefaultUserService implements UserService {
     public void saveAccountChangesByUser(User user) {
         UserEntity userEntity = UserEntity
                 .builder()
-                .userName(user.getUserName())
+                .login(user.getUserName())
                 .password(user.getPassword())
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
