@@ -2,12 +2,9 @@ package pl.sda.pol122.auctionservice.controllers;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import pl.sda.pol122.auctionservice.model.Category;
-import pl.sda.pol122.auctionservice.model.Product;
 import pl.sda.pol122.auctionservice.model.User;
-import pl.sda.pol122.auctionservice.services.CategoriesService;
-import pl.sda.pol122.auctionservice.services.ProductService;
 import pl.sda.pol122.auctionservice.services.UserService;
 
 @Controller
@@ -16,6 +13,7 @@ import pl.sda.pol122.auctionservice.services.UserService;
 public class UserController {
 
     private final UserService userService;
+
 
 
     @PatchMapping("/")
@@ -43,7 +41,17 @@ public class UserController {
         return "redirect:/users";
     }
 
+    @GetMapping(path = "/account")
+    public String loadUserProfile(Model model){
+        User authenticatedUser = userService.getAuthenticatedUser();
+        model.addAttribute("user", authenticatedUser);
+        return "userProfile";
+    }
 
+    @GetMapping(path = "/account/orderHistory")
+    public String loadUserOrderHistory(){
+        return "orderHistory";
+    }
 
 
 

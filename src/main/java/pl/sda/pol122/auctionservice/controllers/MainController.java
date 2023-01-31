@@ -22,11 +22,6 @@ public class MainController {
         return "shop";
     }
 
-    @GetMapping(path = "/account/userProfile")
-    public String loadUserProfile(){
-        return "userProfile";
-    }
-
     @GetMapping(path = "/account/editAccount")
     public String editUserProfile() {
         return "editUserProfile";
@@ -34,6 +29,7 @@ public class MainController {
 
     @GetMapping(path = "/login")
     public String logInOrSignUpAccount(){
+
         return "accountLogin";
     }
 
