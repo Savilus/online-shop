@@ -12,4 +12,6 @@ public interface UserService {
     void saveAccountChangesByUser(User user);
     void createUserAccount(User user);
 
+    User getAuthenticatedUser();
+
 }
