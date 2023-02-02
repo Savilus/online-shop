@@ -13,12 +13,10 @@ import java.util.regex.Pattern;
 @Component
 public class SignUpValidator implements Validator {
 
-    private UserService userService;
     private UserRepository userRepository;
 
 
-    public SignUpValidator(UserService userService, UserRepository userRepository) {
-        this.userService = userService;
+    public SignUpValidator( UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 

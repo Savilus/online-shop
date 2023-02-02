@@ -1,23 +1,29 @@
 package pl.sda.pol122.auctionservice.services;
 
 import org.springframework.stereotype.Service;
+
+import org.springframework.validation.DataBinder;
+import org.springframework.validation.ObjectError;
+import pl.sda.pol122.auctionservice.controllers.validators.SignUpValidator;
 import pl.sda.pol122.auctionservice.config.AuthenticatedUser;
 import pl.sda.pol122.auctionservice.dao.UserRepository;
 import pl.sda.pol122.auctionservice.entities.UserEntity;
 import pl.sda.pol122.auctionservice.model.User;
-
+import java.util.List;
 import java.util.Optional;
+
 
 @Service
 public class DefaultUserService implements UserService {
 
     private final UserRepository userRepository;
-
+    private final SignUpValidator signUpValidator;
     private final AuthenticatedUser authenticatedUser;
 
     public DefaultUserService(UserRepository userRepository, AuthenticatedUser authenticatedUser) {
         this.userRepository = userRepository;
         this.authenticatedUser = authenticatedUser;
+
     }
 
     @Override
@@ -44,7 +50,18 @@ public class DefaultUserService implements UserService {
         userRepository.save(userEntity);
     }
 
+    public List<ObjectError> validatePasswordAndLogin(User user) {
+        DataBinder dataBinder = new DataBinder(user);
+        dataBinder.addValidators(signUpValidator);
+        dataBinder.validate();
+        List<ObjectError> allErrors = dataBinder.getBindingResult().getAllErrors();
+        return allErrors;
+    }
+
     @Override
+
+    public void saveAccountStatus(Integer userId, boolean accountStatus) {
+
     public User getAuthenticatedUser() {
         Optional<UserEntity> userEntity = authenticatedUser.get();
         User user;
@@ -72,7 +89,7 @@ public class DefaultUserService implements UserService {
     }
 
     @Override
-    public void saveAccountChangesByUser(User user) {
+    public void saveAccountChanges(User user) {
         UserEntity userEntity = UserEntity
                 .builder()
                 .login(user.getUserName())
