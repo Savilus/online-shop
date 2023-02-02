@@ -20,8 +20,9 @@ public class DefaultUserService implements UserService {
     private final SignUpValidator signUpValidator;
     private final AuthenticatedUser authenticatedUser;
 
-    public DefaultUserService(UserRepository userRepository, AuthenticatedUser authenticatedUser) {
+    public DefaultUserService(UserRepository userRepository, SignUpValidator signUpValidator, AuthenticatedUser authenticatedUser) {
         this.userRepository = userRepository;
+        this.signUpValidator = signUpValidator;
         this.authenticatedUser = authenticatedUser;
 
     }
@@ -62,6 +63,8 @@ public class DefaultUserService implements UserService {
 
     public void saveAccountStatus(Integer userId, boolean accountStatus) {
 
+    }
+
     public User getAuthenticatedUser() {
         Optional<UserEntity> userEntity = authenticatedUser.get();
         User user;
@@ -81,7 +84,6 @@ public class DefaultUserService implements UserService {
         return user ;
     }
 
-    @Override
     public void saveAccountStatusByAdmin(Integer userId, boolean accountStatus) {
         UserEntity userEntityById = userRepository.getUserEntityById(userId);
         userEntityById.setEnabled(accountStatus);
