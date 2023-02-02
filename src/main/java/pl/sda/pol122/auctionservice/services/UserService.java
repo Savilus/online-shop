@@ -15,5 +15,8 @@ public interface UserService {
     void saveAccountChanges(User user);
     void createUserAccount(User user);
     List<ObjectError> validatePasswordAndLogin(User user);
+    User getAuthenticatedUser();
+
+
 }
 

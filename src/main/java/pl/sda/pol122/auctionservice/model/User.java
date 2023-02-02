@@ -1,8 +1,10 @@
 package pl.sda.pol122.auctionservice.model;
 
+import lombok.Builder;
 import lombok.Getter;
 
 @Getter
+@Builder
 public class User {
 
     private Integer id;
@@ -27,5 +29,8 @@ public class User {
         this.lastName = lastName;
         this.email = email;
         this.enabled = enabled;
+    }
+
+    public User() {
     }
 }

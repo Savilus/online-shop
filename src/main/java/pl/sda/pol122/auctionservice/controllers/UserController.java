@@ -3,7 +3,11 @@ package pl.sda.pol122.auctionservice.controllers;
 import com.google.gson.Gson;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
+
 import org.springframework.validation.ObjectError;
+
+import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.*;
 import pl.sda.pol122.auctionservice.model.User;
 import pl.sda.pol122.auctionservice.services.UserService;
@@ -16,6 +20,7 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+
 
 
     @PatchMapping("/")
@@ -49,6 +54,7 @@ public class UserController {
         return "redirect:/users";
     }
 
+
     @PostMapping("/account/signUp/save")
     public String signUpNewUser (User user){
         List<ObjectError> allErrors = userService.validatePasswordAndLogin(user);
@@ -59,6 +65,18 @@ public class UserController {
             userService.createUserAccount(user);
             return "redirect:/account";
         }
+    }
+
+    @GetMapping(path = "/account")
+    public String loadUserProfile(Model model){
+        User authenticatedUser = userService.getAuthenticatedUser();
+        model.addAttribute("user", authenticatedUser);
+        return "userProfile";
+    }
+
+    @GetMapping(path = "/account/orderHistory")
+    public String loadUserOrderHistory(){
+        return "orderHistory";
     }
 
 }

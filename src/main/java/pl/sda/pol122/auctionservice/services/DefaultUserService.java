@@ -1,24 +1,29 @@
 package pl.sda.pol122.auctionservice.services;
 
 import org.springframework.stereotype.Service;
+
 import org.springframework.validation.DataBinder;
 import org.springframework.validation.ObjectError;
 import pl.sda.pol122.auctionservice.controllers.validators.SignUpValidator;
+import pl.sda.pol122.auctionservice.config.AuthenticatedUser;
 import pl.sda.pol122.auctionservice.dao.UserRepository;
 import pl.sda.pol122.auctionservice.entities.UserEntity;
 import pl.sda.pol122.auctionservice.model.User;
-
 import java.util.List;
+import java.util.Optional;
+
 
 @Service
 public class DefaultUserService implements UserService {
 
     private final UserRepository userRepository;
     private final SignUpValidator signUpValidator;
+    private final AuthenticatedUser authenticatedUser;
 
-    public DefaultUserService(UserRepository userRepository, SignUpValidator signUpValidator) {
+    public DefaultUserService(UserRepository userRepository, AuthenticatedUser authenticatedUser) {
         this.userRepository = userRepository;
-        this.signUpValidator = signUpValidator;
+        this.authenticatedUser = authenticatedUser;
+
     }
 
     @Override
@@ -54,7 +59,30 @@ public class DefaultUserService implements UserService {
     }
 
     @Override
+
     public void saveAccountStatus(Integer userId, boolean accountStatus) {
+
+    public User getAuthenticatedUser() {
+        Optional<UserEntity> userEntity = authenticatedUser.get();
+        User user;
+        if(userEntity.isPresent()){
+            UserEntity existingEntityUser = userEntity.get();
+            user = User.builder()
+                    .id(existingEntityUser.getId())
+                    .userName(existingEntityUser.getFirstName())
+                    .lastName(existingEntityUser.getLastName())
+                    .email(existingEntityUser.getEmail())
+                    .build();
+
+
+        }else {
+            throw new RuntimeException("This user does not exist");
+        }
+        return user ;
+    }
+
+    @Override
+    public void saveAccountStatusByAdmin(Integer userId, boolean accountStatus) {
         UserEntity userEntityById = userRepository.getUserEntityById(userId);
         userEntityById.setEnabled(accountStatus);
         userRepository.save(userEntityById);
