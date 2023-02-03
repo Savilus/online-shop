@@ -3,8 +3,8 @@ package pl.sda.pol122.auctionservice.controllers;
 import com.google.gson.Gson;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.ObjectError;
 import org.springframework.ui.Model;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import pl.sda.pol122.auctionservice.model.User;
 import pl.sda.pol122.auctionservice.services.UserService;
@@ -19,20 +19,18 @@ public class UserController {
     private final UserService userService;
 
 
-
     @PatchMapping("/")
     public String updateAccountChanges(User user) {
         List<ObjectError> allErrors = userService.validatePasswordAndLogin(user);
-        if(!allErrors.isEmpty()){
+        if (!allErrors.isEmpty()) {
             return new Gson().toJson(allErrors);
-        }
-        else{
+        } else {
             userService.saveAccountChanges(user);
             return "redirect:/my-account";
         }
     }
 
-    @PatchMapping(path = "/account/editAccount")
+    @GetMapping(path = "/account/editAccount")
     public String editUserProfile() {
         return "editUserProfile";
     }
@@ -52,39 +50,33 @@ public class UserController {
     }
 
     @GetMapping(path = "/account")
-    public String loadUserProfile(Model model){
+    public String loadUserProfile(Model model) {
         User authenticatedUser = userService.getAuthenticatedUser();
         model.addAttribute("user", authenticatedUser);
         return "userProfile";
     }
 
     @GetMapping(path = "/account/orderHistory")
-    public String loadUserOrderHistory(){
+    public String loadUserOrderHistory() {
         return "orderHistory";
     }
 
-    @PostMapping("/account/signUp/save")
-    public String signUpNewUser (User user){
-        List<ObjectError> allErrors = userService.validatePasswordAndLogin(user);
-        if(!allErrors.isEmpty()){
-            return new Gson().toJson(allErrors);
-        }
-        else{
-            userService.createUserAccount(user);
-            return "redirect:/account";
-        }
+    @GetMapping("/signUp")
+    public String showFormToSignUp(Model model) {
+        model.addAttribute("user", new User());
+        return "signUp";
     }
 
-    @GetMapping(path = "/account")
-    public String loadUserProfile(Model model){
-        User authenticatedUser = userService.getAuthenticatedUser();
-        model.addAttribute("user", authenticatedUser);
-        return "userProfile";
+    @PostMapping(value = "/signUp")
+    public String createNewUser(@ModelAttribute User user, Model model) {
+        model.addAttribute("user", user);
+        // not working yet
+//        List<ObjectError> allErrors = userService.validatePasswordAndLogin(user);
+//        if (!allErrors.isEmpty()) {
+//            return new Gson().toJson(allErrors);
+//        } else {
+//        }
+        userService.createUserAccount(user);
+        return "redirect:/index";
     }
-
-    @GetMapping(path = "/account/orderHistory")
-    public String loadUserOrderHistory(){
-        return "orderHistory";
-    }
-
 }

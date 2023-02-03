@@ -17,8 +17,5 @@ public interface UserService {
     List<ObjectError> validatePasswordAndLogin(User user);
     User getAuthenticatedUser();
 
-
-    User getAuthenticatedUser();
-
 }
 
