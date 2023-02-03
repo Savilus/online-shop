@@ -1,5 +1,6 @@
 package pl.sda.pol122.auctionservice.services;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.sda.pol122.auctionservice.config.AuthenticatedUser;
 import pl.sda.pol122.auctionservice.dao.UserRepository;
@@ -13,10 +14,13 @@ public class DefaultUserService implements UserService {
 
     private final UserRepository userRepository;
 
+    private final PasswordEncoder passwordEncoder;
+
     private final AuthenticatedUser authenticatedUser;
 
-    public DefaultUserService(UserRepository userRepository, AuthenticatedUser authenticatedUser) {
+    public DefaultUserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthenticatedUser authenticatedUser) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
         this.authenticatedUser = authenticatedUser;
     }
 
@@ -32,10 +36,11 @@ public class DefaultUserService implements UserService {
 
     @Override
     public void createUserAccount(User user) {
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
         UserEntity userEntity = UserEntity
                 .builder()
                 .login(user.getUserName())
-                .password(user.getPassword())
+                .password(encodedPassword)
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
                 .email(user.getEmail())
@@ -50,13 +55,14 @@ public class DefaultUserService implements UserService {
         User user;
         if(userEntity.isPresent()){
             UserEntity existingEntityUser = userEntity.get();
+
             user = User.builder()
                     .id(existingEntityUser.getId())
                     .userName(existingEntityUser.getFirstName())
+                    .firstName(existingEntityUser.getFirstName())
                     .lastName(existingEntityUser.getLastName())
                     .email(existingEntityUser.getEmail())
                     .build();
-
 
         }else {
             throw new RuntimeException("This user does not exist");

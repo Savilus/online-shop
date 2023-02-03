@@ -1,26 +1,19 @@
 package pl.sda.pol122.auctionservice.model;
 
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 @Builder
 public class User {
 
     private Integer id;
-    @NotEmpty
-    @NotNull
     private String userName;
-    @NotNull
-    @NotEmpty
     private String password;
-    @NotEmpty
     private String firstName;
-    @NotEmpty
     private String lastName;
-    @NotEmpty
     private String email;
     private Boolean enabled;
 
@@ -42,4 +35,5 @@ public class User {
 
     public User() {
     }
+
 }

@@ -30,51 +30,12 @@
     <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-md-8 col-md-offset-2">
       <div id="userform">
         <ul class="nav nav-tabs nav-justified" role="tablist">
-          <li class="active"><a href="#signup"  role="tab" data-toggle="tab">Sign up</a></li>
-          <li><a href="#login"  role="tab" data-toggle="tab">Log in</a></li>
+          <li class="active"><a href="#login"  role="tab" data-toggle="tab">Log in</a></li>
+
         </ul>
         <div class="tab-content">
           <div class="tab-pane fade active in" id="signup">
-            <h2 class="text-uppercase text-center"> Sign Up for Free</h2>
-            <form th:action="@{/login}" th:object="${user}" method="post" id="signup">
-              <div class="row">
-                <div class="col-xs-12 col-sm-6">
-                  <div class="form-group">
-                    <p>First Name </p>
-                    <input type="text" th:field="*{firstName}" class="form-control"  id="firstName" >
-                  </div>
-                </div>
-                <div class="col-xs-12 col-sm-6">
-                  <div class="form-group">
-                    <p> Last Name </p>
-                    <input type="text" th:field="*{lastName}" class="form-control"  id="lastName" >
-                  </div>
-                </div>
-              </div>
-              <div class="form-group">
-                <p> Your Email </p>
-                <input type="email"th:field="*{email}" class="form-control" id="email" >
-                <p class="help-block text-danger"></p>
-              </div>
-              <div class="form-group">
-                <p> Your Username </p>
-                <input type="text" th:field="*{userName}"  class="form-control" id="userName" >
-                <p class="help-block text-danger"></p>
-              </div>
-              <div class="form-group">
-                <p> Password </p>
-                <input type="password" th:field="*{password}" class="form-control" id="password" >
-                <p class="help-block text-danger"></p>
-              </div>
-              <div class="mrgn-30-top">
-                <button type="submit" class="btn btn-larger btn-block"/>
-                Sign up
-                </button>
-              </div>
-            </form>
-          </div>
-          <div class="tab-pane fade in" id="login">
-            <h2 class="text-uppercase text-center"> Log in</h2>
+            <h2 class="text-uppercase text-center"> LOG IN</h2>
             <form th:action="@{/login}" method="post">
               <div class="form-group">
                 <p> Your Email </p>
@@ -90,6 +51,10 @@
                 </button>
               </div>
             </form>
+          </div>
+          <div class="tab-pane fade in" id="login">
+            <h2 class="text-uppercase text-center"> Log in</h2>
+
           </div>
         </div>
       </div>

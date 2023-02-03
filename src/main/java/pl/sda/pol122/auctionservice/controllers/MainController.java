@@ -36,16 +36,22 @@ public class MainController {
 //        return "accountLogin";
 //    }
 
-    @GetMapping(value = "/login")
+    @GetMapping("/login")
     public String showCreateUserFormOrLoginToShop(Model model){
         model.addAttribute("user", new User());
         return "accountLogin";
     }
 
-    @PostMapping(value = "/login")
-    public String createNewUser(@ModelAttribute("user") @Valid User user,
-                                BindingResult bindingResult){
+    @GetMapping("/signUp")
+    public String showFormToSignUp(Model model){
+        model.addAttribute("user", new User());
+        return "signUp";
+    }
 
+    @PostMapping(value = "/signUp")
+    public String createNewUser(User user, Model model,
+                                BindingResult bindingResult){
+        model.addAttribute("user", user);
         if(bindingResult.hasErrors()){
             return "redirect:/login";
         }
