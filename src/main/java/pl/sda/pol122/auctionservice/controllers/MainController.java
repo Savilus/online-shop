@@ -30,12 +30,6 @@ public class MainController {
         return "editUserProfile";
     }
 
-//    @GetMapping(path = "/login")
-//    public String logInOrSignUpAccount(){
-//
-//        return "accountLogin";
-//    }
-
     @GetMapping("/login")
     public String showCreateUserFormOrLoginToShop(Model model){
         model.addAttribute("user", new User());
