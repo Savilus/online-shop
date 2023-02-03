@@ -12,33 +12,23 @@ import pl.sda.pol122.auctionservice.model.User;
 import java.util.List;
 import java.util.Optional;
 
-
-import java.util.Optional;
-
 @Service
 public class DefaultUserService implements UserService {
 
     private final UserRepository userRepository;
     private final SignUpValidator signUpValidator;
     private final AuthenticatedUser authenticatedUser;
-
-
     private final PasswordEncoder passwordEncoder;
 
-    private final AuthenticatedUser authenticatedUser;
 
-    public DefaultUserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthenticatedUser authenticatedUser) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.authenticatedUser = authenticatedUser;
 
-    public DefaultUserService(UserRepository userRepository, SignUpValidator signUpValidator, AuthenticatedUser authenticatedUser) {
+    public DefaultUserService(UserRepository userRepository, SignUpValidator signUpValidator, PasswordEncoder passwordEncoder, AuthenticatedUser authenticatedUser) {
         this.userRepository = userRepository;
         this.signUpValidator = signUpValidator;
+        this.passwordEncoder = passwordEncoder;
         this.authenticatedUser = authenticatedUser;
-
-
     }
+
 
     @Override
     public UserEntity getUserById(Integer id) {
@@ -75,6 +65,9 @@ public class DefaultUserService implements UserService {
 
     @Override
     public void saveAccountStatus(Integer userId, boolean accountStatus) {
+        UserEntity userEntityById = userRepository.getUserEntityById(userId);
+        userEntityById.setEnabled(accountStatus);
+        userRepository.save(userEntityById);
     }
 
     public User getAuthenticatedUser() {
@@ -82,8 +75,6 @@ public class DefaultUserService implements UserService {
         User user;
         if(userEntity.isPresent()){
             UserEntity existingEntityUser = userEntity.get();
-
-
             user = User.builder()
                     .id(existingEntityUser.getId())
                     .userName(existingEntityUser.getFirstName())
@@ -95,14 +86,6 @@ public class DefaultUserService implements UserService {
             throw new RuntimeException("This user does not exist");
         }
         return user ;
-    }
-
-
-    @Override
-    public void saveAccountStatusByAdmin(Integer userId, boolean accountStatus) {
-        UserEntity userEntityById = userRepository.getUserEntityById(userId);
-        userEntityById.setEnabled(accountStatus);
-        userRepository.save(userEntityById);
     }
 
     @Override

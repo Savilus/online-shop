@@ -39,7 +39,7 @@ public class WebSecurityConfig {
                                 "/", "/about", "/index", "/why","/shop", "/product/details/*", "/shop/*" ,
                                 "/cart", "/css/*","/images/kategorie/electronic/*", "/images/kategorie/house/*",
                                 "/images/kategorie/sport/*" ,"/images" , "/images/*","/fonts/*", "/js/*", "/shop/allProducts/*",
-                                "/signUp")
+                                "/user/signUp")
                         .permitAll()
                         .anyRequest()
                         .authenticated())
