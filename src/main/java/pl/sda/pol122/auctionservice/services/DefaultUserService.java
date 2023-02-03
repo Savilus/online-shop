@@ -1,7 +1,7 @@
 package pl.sda.pol122.auctionservice.services;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import org.springframework.validation.DataBinder;
 import org.springframework.validation.ObjectError;
 import pl.sda.pol122.auctionservice.controllers.validators.SignUpValidator;
@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Optional;
 
 
+import java.util.Optional;
+
 @Service
 public class DefaultUserService implements UserService {
 
@@ -20,10 +22,21 @@ public class DefaultUserService implements UserService {
     private final SignUpValidator signUpValidator;
     private final AuthenticatedUser authenticatedUser;
 
+
+    private final PasswordEncoder passwordEncoder;
+
+    private final AuthenticatedUser authenticatedUser;
+
+    public DefaultUserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthenticatedUser authenticatedUser) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.authenticatedUser = authenticatedUser;
+
     public DefaultUserService(UserRepository userRepository, SignUpValidator signUpValidator, AuthenticatedUser authenticatedUser) {
         this.userRepository = userRepository;
         this.signUpValidator = signUpValidator;
         this.authenticatedUser = authenticatedUser;
+
 
     }
 
@@ -39,10 +52,11 @@ public class DefaultUserService implements UserService {
 
     @Override
     public void createUserAccount(User user) {
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
         UserEntity userEntity = UserEntity
                 .builder()
                 .login(user.getUserName())
-                .password(user.getPassword())
+                .password(encodedPassword)
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
                 .email(user.getEmail())
@@ -60,9 +74,7 @@ public class DefaultUserService implements UserService {
     }
 
     @Override
-
     public void saveAccountStatus(Integer userId, boolean accountStatus) {
-
     }
 
     public User getAuthenticatedUser() {
@@ -70,20 +82,23 @@ public class DefaultUserService implements UserService {
         User user;
         if(userEntity.isPresent()){
             UserEntity existingEntityUser = userEntity.get();
+
+
             user = User.builder()
                     .id(existingEntityUser.getId())
                     .userName(existingEntityUser.getFirstName())
+                    .firstName(existingEntityUser.getFirstName())
                     .lastName(existingEntityUser.getLastName())
                     .email(existingEntityUser.getEmail())
                     .build();
-
-
         }else {
             throw new RuntimeException("This user does not exist");
         }
         return user ;
     }
 
+
+    @Override
     public void saveAccountStatusByAdmin(Integer userId, boolean accountStatus) {
         UserEntity userEntityById = userRepository.getUserEntityById(userId);
         userEntityById.setEnabled(accountStatus);

@@ -18,5 +18,7 @@ public interface UserService {
     User getAuthenticatedUser();
 
 
+    User getAuthenticatedUser();
+
 }
 

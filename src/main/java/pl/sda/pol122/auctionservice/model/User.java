@@ -2,8 +2,10 @@ package pl.sda.pol122.auctionservice.model;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 @Builder
 public class User {
 
