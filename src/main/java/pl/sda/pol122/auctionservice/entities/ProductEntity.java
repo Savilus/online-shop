@@ -3,12 +3,14 @@ package pl.sda.pol122.auctionservice.entities;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "product")
 @Builder
+@Getter
 @AllArgsConstructor
 public class ProductEntity {
 
@@ -37,33 +39,5 @@ public class ProductEntity {
 
     public ProductEntity() {
 
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public CategoryEntity getCategoryEntity() {
-        return categoryEntity;
-    }
-
-    public Integer getAvailableAmount() {
-        return availableAmount;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public OrderEntity getOrderEntity() {
-        return orderEntity;
-    }
-
-    public String getImage() {
-        return image;
     }
 }

@@ -6,22 +6,11 @@ create table category (
                           primary key (category_id)
 ) engine=InnoDB;
 
-create table evaluation_of_transaction (
-                                           id integer not null auto_increment,
-                                           comment varchar(250) not null,
-                                           rating varchar(255),
-                                           buyer_user_entity integer,
-                                           order_entity integer,
-                                           seller_user_entity integer,
-                                           primary key (id)
-) engine=InnoDB;
 
 
 create table orders (
                         id integer not null auto_increment,
                         value decimal(38,2),
-                        buyer_user_entity integer,
-                        seller_user_entity integer,
                         primary key (id)
 ) engine=InnoDB;
 
@@ -69,40 +58,6 @@ create table users (
                        username varchar(30) not null,
                        primary key (id)
 ) engine=InnoDB;
-
-
-alter table orders
-    add constraint UK_p9r6o9j1h9889ucanh8vhb9qh unique (buyer_user_entity);
-
-
-alter table orders
-    add constraint UK_fexafhx2s4501sw62oj3aid7f unique (seller_user_entity);
-
-alter table evaluation_of_transaction
-    add constraint FKrb4vykl52rpe323j7opmsvusm
-        foreign key (buyer_user_entity)
-            references orders (buyer_user_entity);
-
-alter table evaluation_of_transaction
-    add constraint FKsb7wqt2huxjt5l3w7842b5ewf
-        foreign key (order_entity)
-            references orders (id);
-
-alter table evaluation_of_transaction
-    add constraint FK84ttfn0r6bcg9jg6q3kcd8iae
-        foreign key (seller_user_entity)
-            references orders (seller_user_entity);
-
-alter table orders
-    add constraint FKlkjuy5yq1v60t155dovfe6rqy
-        foreign key (buyer_user_entity)
-            references users (id);
-
-
-alter table orders
-    add constraint FKok23wr4wrioh635lse6v1dkn2
-        foreign key (seller_user_entity)
-            references users (id);
 
 
 alter table product

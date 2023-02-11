@@ -16,7 +16,7 @@
         <div class="row w-100">
             <div  class="col-lg-12 col-md-12 col-12">
                 <h3 class="display-5 mb-2 text-center">Shopping Cart</h3>
-                <table th:each="product: ${cartItems}" id="shoppingCart" class="table table-condensed table-responsive">
+                <table th:each="product: ${cartItems}"  id="shoppingCart" class="table table-condensed table-responsive">
                     <thead>
                     <tr>
                         <th style="width:60%">Product</th>
@@ -69,7 +69,7 @@
         </div>
         <div class="row mt-4 d-flex align-items-center">
             <div class="col-sm-6 order-md-2 text-right">
-                <a th:href="@{/cart/checkout}" class="btn btn-primary mb-4 btn-lg pl-5 pr-5">Checkout</a>
+                <a th:href="@{/cart/checkout}"  class="btn btn-primary mb-4 btn-lg pl-5 pr-5">Checkout</a>
             </div>
             <div class="col-sm-6 mb-3 mb-m-1 order-md-1 text-md-left">
                 <a th:href="@{/index}">
@@ -87,5 +87,6 @@
 <script src="js/cart-bootstrap.js"></script>
 <!-- custom js -->
 <script src="js/pooper-cart.js"></script>
+
 </body>
 </html>
