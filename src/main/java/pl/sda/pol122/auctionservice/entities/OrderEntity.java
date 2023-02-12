@@ -7,6 +7,7 @@ import lombok.Getter;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 
 @Entity
@@ -23,8 +24,11 @@ public class OrderEntity {
     @Column(name = "value")
     private BigDecimal valueOfOrder;
 
-    @OneToMany(mappedBy = "orderEntity")
-    private List<OrderItemEntity> listOfProducts;
+    @ElementCollection
+    @MapKeyColumn(name="product_id")
+    @Column(name="quantity")
+    @CollectionTable(name="products_of_order", joinColumns=@JoinColumn(name="id"))
+    private Map<Integer, Integer> orderedProductsWithQuantity;
 
     @Column(name = "userId")
     private Integer buyerUserId;

@@ -4,14 +4,16 @@ import org.springframework.stereotype.Service;
 import pl.sda.pol122.auctionservice.dao.OrderRepository;
 import pl.sda.pol122.auctionservice.dao.ProductDao;
 import pl.sda.pol122.auctionservice.entities.OrderEntity;
-import pl.sda.pol122.auctionservice.entities.OrderItemEntity;
+import pl.sda.pol122.auctionservice.entities.ProductEntity;
 import pl.sda.pol122.auctionservice.model.Cart;
 import pl.sda.pol122.auctionservice.model.CartItem;
 import pl.sda.pol122.auctionservice.model.Product;
 import pl.sda.pol122.auctionservice.model.User;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Service
@@ -57,29 +59,20 @@ public class DefaultCartService implements CartService {
 
     @Override
     public void submitPayment(List<CartItem> orderedProducts) {
-        List<CartItem> purchasedProducts = cart.getCartItemList();
         User buyer = userService.getAuthenticatedUser();
-        String userOrderId = UUID.randomUUID().toString();
+        Map<Integer, Integer> orderedProductsWithQuantity = new HashMap<>();
 
-        List<OrderItemEntity> orderedItems = purchasedProducts.stream()
-                .map(cartItem -> OrderItemEntity.builder()
-                        .product(productRepository.findProduct(cartItem.getProduct().getId()))
-                        .quantity(cartItem.getQuantity())
-                        .price(cartItem.getTotalPrice())
-                        .build())
-                .toList();
-
+        for(CartItem cartItem : orderedProducts){
+            orderedProductsWithQuantity.put(cartItem.getProduct().getId(), cartItem.getQuantity());
+        }
 
         OrderEntity userOrder = OrderEntity.builder()
-                .listOfProducts(orderedItems)
+                .orderedProductsWithQuantity(orderedProductsWithQuantity)
                 .buyerUserId(buyer.getId())
                 .valueOfOrder(cart.sumPrice())
                 .build();
 
         orderRepository.save(userOrder);
-
-
-
     }
 
     @Override
