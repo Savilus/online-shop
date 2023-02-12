@@ -1,5 +1,6 @@
 package pl.sda.pol122.auctionservice.model;
 
+import lombok.Getter;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
+@Getter
 @Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class Cart {
 
@@ -56,11 +58,7 @@ public class Cart {
         cartItemList.remove(itemToDelete);
     }
 
-    public List<CartItem> getCartItemList() {
-        return cartItemList;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
+    public void clearCart(){
+        cartItemList = new ArrayList<>();
     }
 }

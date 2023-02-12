@@ -3,12 +3,17 @@ package pl.sda.pol122.auctionservice.controllers;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.jsf.FacesContextUtils;
 import pl.sda.pol122.auctionservice.model.CartItem;
 import pl.sda.pol122.auctionservice.model.Product;
-import pl.sda.pol122.auctionservice.services.DefaultCartService;
-import pl.sda.pol122.auctionservice.services.DefaultProductService;
+import pl.sda.pol122.auctionservice.services.CartService;
+import pl.sda.pol122.auctionservice.services.ProductService;
 
+import javax.swing.*;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -17,43 +22,55 @@ import java.util.List;
 @RequestMapping()
 public class CartController {
 
-    private final DefaultCartService defaultCartService;
+    private final CartService cartService;
 
-    private final DefaultProductService defaultProductService;
-
+    private final ProductService productService;
 
     @GetMapping("/addToCart/{productId}")
     public String addToCart(Model model, @PathVariable String productId) {
-        defaultCartService.addProductToCart(defaultProductService.getProductById(Integer.valueOf(productId)));
-        model.addAttribute("product", defaultProductService.getProductById(Integer.valueOf(productId)));
+        cartService.addProductToCart(productService.getProductById(Integer.valueOf(productId)));
+        model.addAttribute("product", productService.getProductById(Integer.valueOf(productId)));
         return "redirect:/product/details/{productId}";
     }
 
     @GetMapping("/buyNow/{productId}")
     public String buyNow(Model model, @PathVariable String productId) {
-        defaultCartService.addProductToCart(defaultProductService.getProductById(Integer.valueOf(productId)));
-        model.addAttribute("product", defaultProductService.getProductById(Integer.valueOf(productId)));
+        cartService.addProductToCart(productService.getProductById(Integer.valueOf(productId)));
+        model.addAttribute("product", productService.getProductById(Integer.valueOf(productId)));
         return "redirect:/cart";
     }
 
     @GetMapping("/deleteFromCart/{productId}")
     public String deleteFromCart(Model model, @PathVariable String productId) {
-        Product productById = defaultProductService.getProductById(Integer.valueOf(productId));
+        Product productById = productService.getProductById(Integer.valueOf(productId));
         CartItem cartItem = new CartItem(productById, 0);
-        defaultCartService.deleteProductFromCart(cartItem);
+        cartService.deleteProductFromCart(cartItem);
         return "redirect:/cart";
     }
 
 
     @GetMapping(path = "/cart/checkout")
     public String loadCartCheckout() {
-        return "checkout";
+        if (cartService.getAllProducts().isEmpty()) {
+            return "redirect:/cart";
+        } else {
+            return "checkout";
+        }
+    }
+
+
+    @PostMapping("/cart/checkout")
+    public String submitUserPayment() {
+        List<CartItem> orderedProducts = cartService.getAllProducts();
+        cartService.submitPayment(orderedProducts);
+        cartService.clearCart();
+        return "redirect:/cart";
     }
 
     @GetMapping(path = "/cart")
     public String loadUserCart(Model model) {
-        List<CartItem> cartItems = defaultCartService.getAllProducts();
-        BigDecimal totalPriceOfCart = defaultCartService.getTotalPriceOfCart();
+        List<CartItem> cartItems = cartService.getAllProducts();
+        BigDecimal totalPriceOfCart = cartService.getTotalPriceOfCart();
         model.addAttribute("price", totalPriceOfCart);
         model.addAttribute("cartItems", cartItems);
         return "cart";

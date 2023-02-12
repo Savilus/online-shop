@@ -18,4 +18,8 @@ public interface CartService {
     List<CartItem> getAllProducts();
 
     BigDecimal getTotalPriceOfCart();
+
+    void submitPayment(List<CartItem> orderedProducts);
+
+    void clearCart();
 }

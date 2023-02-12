@@ -9,9 +9,7 @@ import pl.sda.pol122.auctionservice.model.Product;
 import pl.sda.pol122.auctionservice.services.CategoriesService;
 import pl.sda.pol122.auctionservice.services.ProductService;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 @Controller
 @RequestMapping()

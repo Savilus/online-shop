@@ -1,11 +1,18 @@
 package pl.sda.pol122.auctionservice.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
 
 import java.math.BigDecimal;
 import java.util.List;
 
+
 @Entity
+@Builder
+@Getter
+@AllArgsConstructor
 @Table(name = "orders")
 public class OrderEntity {
 
@@ -19,13 +26,9 @@ public class OrderEntity {
     @OneToMany(mappedBy = "orderEntity")
     private List<OrderItemEntity> listOfProducts;
 
-    @OneToOne
-    @JoinColumn(name = "sellerUserEntity", referencedColumnName = "id")
-    private UserEntity sellerUserEntity;
+    @Column(name = "userId")
+    private Integer buyerUserId;
 
-    @OneToOne
-    @JoinColumn(name = "buyerUserEntity", referencedColumnName = "id")
-    private UserEntity buyerUserEntity;
-
-
+    public OrderEntity() {
+    }
 }
