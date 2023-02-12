@@ -24,14 +24,7 @@ create table product (
                          category_id integer not null,
                          order_id integer,
                          primary key (id)
-) engine=InnoDB;
 
-create table purchase (
-                          id integer not null auto_increment,
-                          amount integer not null,
-                          order_id integer not null,
-                          product integer,
-                          primary key (id)
 ) engine=InnoDB;
 create table user_address (
                               id integer not null auto_increment,
@@ -70,17 +63,6 @@ alter table product
     add constraint FK18j7hot76crqfb6x6xn7mlxt6
         foreign key (order_id)
             references orders (id);
-
-
-alter table purchase
-    add constraint FKo5sl3gdfviy5exad6txitpsbd
-        foreign key (order_id)
-            references orders (id);
-
-alter table purchase
-    add constraint FKfn00smnaqmj33g3v0qbrtpeec
-        foreign key (product)
-            references product (id);
 
 alter table user_addresses
     add constraint FKs3hhkal8hpn9wu8m9qp04f4tn
