@@ -6,6 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
+import pl.sda.pol122.auctionservice.model.Order;
+import pl.sda.pol122.auctionservice.model.Product;
 import pl.sda.pol122.auctionservice.model.User;
 import pl.sda.pol122.auctionservice.services.UserService;
 
@@ -57,7 +59,8 @@ public class UserController {
     }
 
     @GetMapping(path = "/account/orderHistory")
-    public String loadUserOrderHistory() {
+    public String loadUserOrderHistory(Model model) {
+        model.addAttribute("orderHistory", userService.getUserOrderHistory());
         return "orderHistory";
     }
 

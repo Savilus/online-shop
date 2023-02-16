@@ -9,14 +9,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <!-- Site Metas -->
   <link rel="icon" href="images/fevicon.png" type="image/gif" />
-  <meta name="keywords" content="" />
-  <meta name="description" content="" />
-  <meta name="author" content="" />
+
 
   <title>MaMiJa</title>
 
 
-  <div th:replace="~{fragments :: style}"></div>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.css}" type="text/css"/>
+  <link rel="stylesheet" th:href="@{/css/orderhistory.css}" type="text/css"/>
+  <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" />
+  <link th:href="@{/css/style.css}" rel="stylesheet"/>
+  <link  th:href="@{/css/responsive.css}" rel="stylesheet"/>
 
 </head>
 
@@ -24,55 +26,60 @@
 
 <div th:replace="~{fragments :: menu}"></div>
 
-<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese" rel="stylesheet">
-<!-- Fonts referenced in mdbootstrap, moved up to reduce page load time -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"/>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.css" rel="stylesheet"/>
-<!-- Font Awesome -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<!-- Bootstrap core CSS -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet"/>
-<!-- Material Design Bootstrap -->
-<link rel="stylesheet" href="https://gensuiteqa.genalphacatalog.com/gensuite/css/ps/mdb.min.css?version=0707050300507050503" type='text/css'/>
-<link rel="stylesheet" href="https://gensuiteqa.genalphacatalog.com/gensuite/css/ps/storefront.css?version=0707050300507050503" type='text/css'/>
-<link rel="stylesheet" href="https://gensuiteqa.genalphacatalog.com/gensuite/css/ps/autocomplete.css?version=0707050300507050503"/>
-<link rel="stylesheet" type="text/css" href="../css/ps/theme.css?version=0707050300507050503">
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
 
-<link href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
-
-<link href="//cdn.datatables.net/plug-ins/1.10.19/integration/font-awesome/dataTables.fontAwesome.css" rel="stylesheet" type="text/css" />
-<link rel="stylesheet"  type="text/css" href="https://gensuiteqa.genalphacatalog.com/gensuite/css/ps/orderhistory.css?version=0707050300507050503" />
-
-<div class="table-responsive pb-5">
-  <table id="tbOrderHistory" class="table border ps-table w-100 mb-3">
-    <thead>
-    <tr>
-      <th class="font-weight-bold py-2 border-0">Document Type</th>
-      <th class="font-weight-bold py-2 border-0 quantity">Number</th>
-      <th class="font-weight-bold py-2 border-0 ">Created</th>
-      <th class="font-weight-bold py-2 border-0 ">Expiration</th>
-      <th class="font-weight-bold py-2 border-0 ">PO</th>
-      <th class="font-weight-bold py-2 border-0 ">Customer</th>
-      <th class="font-weight-bold py-2 border-0 ">Total</th>
-      <th class="font-weight-bold py-2 border-0 ">Status</th>
-      <th class="font-weight-bold py-2 border-0 ">Action</th>
-    </tr>
-    <tr>
-      <th>TEST</th>
-      <th>TEST</th>
-      <th>TEST</th>
-      <th>TEST</th>
-      <th>TEST</th>
-      <th>TEST</th>
-      <th>TEST</th>
-      <th>TEST</th>
-      <th>TEST</th>
-    </tr>
-    </thead>
-    <tbody>
-    </tbody>
-  </table>
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-sm-12 col-md-12">
+      <div th:each="order : ${orderHistory}" class="card">
+        <div class="card-header">
+          <h4>Order History</h4>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive" id="proTeamScroll" tabindex="2" style="height: 400px; overflow: hidden; outline: none;">
+            <table class="table table-striped">
+              <thead>
+              <tr>
+                <th>Order Id</th>
+                <th>Order Date</th>
+                <th>Price of order</th>
+                <th>Ordered on</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td th:text="${order.getOrderId()}">
+                </td>
+                <td>
+                  <h6 class="mb-0 font-13">Wordpress Website</h6>
+                  <p class="m-0 font-12">
+                    Assigned to<span class="col-green font-weight-bold"> Airi Satou</span>
+                  </p>
+                </td>
+                <td th:text="${order.getValueOfOrder()}"></td>
+              <thead>
+              <tr >
+                  <th >Ordered items</th>
+                  <th >Name</th>
+                  <th >Quantity</th>
+                  <th >Unit price</th>
+              </thead>
+              <tr th:each="orderedItemsWithQuantity : ${order.getProductQuantityMap()}" >
+                  <th ><img th:src="${orderedItemsWithQuantity.key.getImage()}" th:width="50" , th:height="50"></th>
+                  <th th:text="${orderedItemsWithQuantity.key.getName()}"></th>
+                  <th th:text="${orderedItemsWithQuantity.value}"> </th>
+                  <th th:text="${orderedItemsWithQuantity.key.getPrice()}"></th>
+              </tr>
+              </tr>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 </body>
