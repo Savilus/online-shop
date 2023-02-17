@@ -4,7 +4,6 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.Map;
 
 @Builder
@@ -15,5 +14,7 @@ public class Order {
 
     private BigDecimal valueOfOrder;
 
-    Map<Product,Integer> productQuantityMap;
+    private Map<Product,Integer> productQuantityMap;
+
+    private String orderTimeStamp;
 }

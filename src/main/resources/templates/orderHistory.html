@@ -42,7 +42,7 @@
               <thead>
               <tr>
                 <th>Order Id</th>
-                <th>Order Date</th>
+                <th></th>
                 <th>Price of order</th>
                 <th>Ordered on</th>
               </tr>
@@ -51,13 +51,9 @@
               <tr>
                 <td th:text="${order.getOrderId()}">
                 </td>
-                <td>
-                  <h6 class="mb-0 font-13">Wordpress Website</h6>
-                  <p class="m-0 font-12">
-                    Assigned to<span class="col-green font-weight-bold"> Airi Satou</span>
-                  </p>
-                </td>
-                <td th:text="${order.getValueOfOrder()}"></td>
+                <td></td>
+                <td th:text="${order.getValueOfOrder()} + ' PLN'"></td>
+                <td th:text="${order.getOrderTimeStamp()}"></td>
               <thead>
               <tr >
                   <th >Ordered items</th>
@@ -69,7 +65,7 @@
                   <th ><img th:src="${orderedItemsWithQuantity.key.getImage()}" th:width="50" , th:height="50"></th>
                   <th th:text="${orderedItemsWithQuantity.key.getName()}"></th>
                   <th th:text="${orderedItemsWithQuantity.value}"> </th>
-                  <th th:text="${orderedItemsWithQuantity.key.getPrice()}"></th>
+                  <th th:text="${orderedItemsWithQuantity.key.getPrice()} + ' PLN'"></th>
               </tr>
               </tr>
               </tr>

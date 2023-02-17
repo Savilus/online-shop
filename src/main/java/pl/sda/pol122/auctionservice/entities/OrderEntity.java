@@ -6,8 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
-import java.lang.annotation.Native;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.Map;
 
 
@@ -25,6 +25,9 @@ public class OrderEntity {
 
     @Column(name = "value")
     private BigDecimal valueOfOrder;
+
+    @Column(name="order_timestamp")
+    private Timestamp orderTimeStamp;
 
     @ElementCollection
     @MapKeyColumn(name="product_id")

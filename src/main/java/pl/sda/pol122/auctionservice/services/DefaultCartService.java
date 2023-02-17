@@ -11,10 +11,9 @@ import pl.sda.pol122.auctionservice.model.Product;
 import pl.sda.pol122.auctionservice.model.User;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 public class DefaultCartService implements CartService {
@@ -70,6 +69,7 @@ public class DefaultCartService implements CartService {
                 .orderedProductsWithQuantity(orderedProductsWithQuantity)
                 .buyerUserId(buyer.getId())
                 .valueOfOrder(cart.sumPrice())
+                .orderTimeStamp(new Timestamp(new Date().getTime()))
                 .build();
 
         orderRepository.save(userOrder);

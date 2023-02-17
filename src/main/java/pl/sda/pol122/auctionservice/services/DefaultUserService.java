@@ -4,8 +4,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.DataBinder;
 import org.springframework.validation.ObjectError;
-import pl.sda.pol122.auctionservice.controllers.validators.SignUpValidator;
 import pl.sda.pol122.auctionservice.config.AuthenticatedUser;
+import pl.sda.pol122.auctionservice.controllers.validators.SignUpValidator;
 import pl.sda.pol122.auctionservice.dao.OrderRepository;
 import pl.sda.pol122.auctionservice.dao.ProductRepository;
 import pl.sda.pol122.auctionservice.dao.UserRepository;
@@ -16,6 +16,7 @@ import pl.sda.pol122.auctionservice.model.Order;
 import pl.sda.pol122.auctionservice.model.Product;
 import pl.sda.pol122.auctionservice.model.User;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
@@ -105,7 +106,7 @@ public class DefaultUserService implements UserService {
 
         for (OrderEntity oneOrder : allByBuyerUserId) {
             Map<Integer, Integer> orderedProductsWithQuantity = oneOrder.getOrderedProductsWithQuantity();
-            Map<Product,Integer> productsQuantityMap = new HashMap<>();
+            Map<Product, Integer> productsQuantityMap = new HashMap<>();
             for (Map.Entry<Integer, Integer> entry : orderedProductsWithQuantity.entrySet()) {
                 Integer productId = entry.getKey();
                 Integer productQuantity = entry.getValue();
@@ -122,9 +123,8 @@ public class DefaultUserService implements UserService {
                     .orderId(oneOrder.getId())
                     .productQuantityMap(productsQuantityMap)
                     .valueOfOrder(oneOrder.getValueOfOrder())
+                    .orderTimeStamp(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(oneOrder.getOrderTimeStamp()))
                     .build());
-
-
         }
         return orders;
     }
