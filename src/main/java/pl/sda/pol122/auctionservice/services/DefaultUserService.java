@@ -87,7 +87,7 @@ public class DefaultUserService implements UserService {
             UserEntity existingEntityUser = userEntity.get();
             user = User.builder()
                     .id(existingEntityUser.getId())
-                    .userName(existingEntityUser.getFirstName())
+                    .userName(existingEntityUser.getLogin())
                     .firstName(existingEntityUser.getFirstName())
                     .lastName(existingEntityUser.getLastName())
                     .email(existingEntityUser.getEmail())
