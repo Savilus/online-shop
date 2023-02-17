@@ -2,6 +2,8 @@ package pl.sda.pol122.auctionservice.services;
 
 import org.springframework.validation.ObjectError;
 import pl.sda.pol122.auctionservice.entities.UserEntity;
+import pl.sda.pol122.auctionservice.model.Order;
+import pl.sda.pol122.auctionservice.model.Product;
 import pl.sda.pol122.auctionservice.model.User;
 
 import java.util.List;
@@ -17,5 +19,6 @@ public interface UserService {
     List<ObjectError> validatePasswordAndLogin(User user);
     User getAuthenticatedUser();
 
+    List<Order> getUserOrderHistory();
 }
 
