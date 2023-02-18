@@ -3,6 +3,7 @@ package pl.sda.pol122.auctionservice.model;
 import lombok.Builder;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 @Builder
 public class Product {
@@ -49,5 +50,18 @@ public class Product {
 
     public Integer getAvailableAmount() {
         return availableAmount;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return id == product.id && Objects.equals(name, product.name) && Objects.equals(price, product.price) && Objects.equals(category, product.category) && Objects.equals(image, product.image) && Objects.equals(availableAmount, product.availableAmount);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, price, category, image, availableAmount);
     }
 }
