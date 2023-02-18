@@ -8,9 +8,11 @@ import pl.sda.pol122.auctionservice.controllers.validators.SignUpValidator;
 import pl.sda.pol122.auctionservice.config.AuthenticatedUser;
 import pl.sda.pol122.auctionservice.dao.UserRepository;
 import pl.sda.pol122.auctionservice.entities.UserEntity;
+import pl.sda.pol122.auctionservice.enums.ERole;
 import pl.sda.pol122.auctionservice.model.User;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class DefaultUserService implements UserService {
@@ -19,8 +21,6 @@ public class DefaultUserService implements UserService {
     private final SignUpValidator signUpValidator;
     private final AuthenticatedUser authenticatedUser;
     private final PasswordEncoder passwordEncoder;
-
-
 
     public DefaultUserService(UserRepository userRepository, SignUpValidator signUpValidator, PasswordEncoder passwordEncoder, AuthenticatedUser authenticatedUser) {
         this.userRepository = userRepository;
@@ -51,6 +51,22 @@ public class DefaultUserService implements UserService {
                 .lastName(user.getLastName())
                 .email(user.getEmail())
                 .enabled(true)
+                .roles(Set.of(ERole.USER))
+                .build();
+        userRepository.save(userEntity);
+    }
+    @Override
+    public void createAdminAccount(User user) {
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        UserEntity userEntity = UserEntity
+                .builder()
+                .login(user.getUserName())
+                .password(encodedPassword)
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .email(user.getEmail())
+                .enabled(true)
+                .roles(Set.of(ERole.ADMIN, ERole.USER))
                 .build();
         userRepository.save(userEntity);
     }
@@ -87,6 +103,7 @@ public class DefaultUserService implements UserService {
         }
         return user ;
     }
+
 
     @Override
     public void saveAccountChanges(User user) {

@@ -6,8 +6,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
+import pl.sda.pol122.auctionservice.enums.ERole;
 import pl.sda.pol122.auctionservice.model.User;
 import pl.sda.pol122.auctionservice.services.UserService;
+import pl.sda.pol122.auctionservice.utils.AuthenticatedUserProvider;
 
 import java.util.List;
 
@@ -38,14 +40,28 @@ public class UserController {
 
     @DeleteMapping("/users/{id}")
     public String deleteUser(@PathVariable String id) {
-        userService.deleteById(Integer.valueOf(id));
+        if ((AuthenticatedUserProvider.checkIfLoggedUserIsAdmin() ||
+                AuthenticatedUserProvider.checkIfLoggedUserIsSuperAdmin()) &&
+                !userService.getUserById(Integer.valueOf(id)).getRoles().contains(ERole.ADMIN) ||
+                !userService.getUserById(Integer.valueOf(id)).getRoles().contains(ERole.SUPER_ADMIN)
+        ) {
+            userService.deleteById(Integer.valueOf(id));
+        } else {
+            return "Your permissions do not allow you to delete account or user doesn't exist. " +
+                    "If you want to delete your account please contact the site administrator.";
+        }
         return "redirect:/users";
     }
 
 
     @PatchMapping("/updateUser/{userId}")
     public String updateAccountStatus(@PathVariable String userId, boolean enabledFromInput) {
-        userService.saveAccountStatus(Integer.valueOf(userId), enabledFromInput);
+        if (AuthenticatedUserProvider.checkIfLoggedUserIsAdmin() ||
+                AuthenticatedUserProvider.checkIfLoggedUserIsSuperAdmin()) {
+            userService.saveAccountStatus(Integer.valueOf(userId), enabledFromInput);
+        } else {
+            return "Unauthorized! Only the admin can change account status. Please contact with the site administrator.";
+        }
         return "redirect:/users";
     }
 

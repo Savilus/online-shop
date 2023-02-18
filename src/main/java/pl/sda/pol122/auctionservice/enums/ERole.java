@@ -8,7 +8,9 @@ import lombok.Getter;
 public enum ERole {
     USER("role.user"),
 
-    ADMIN("role.admin");
+    ADMIN("role.admin"),
+
+    SUPER_ADMIN("role.superAdmin");
 
     private String roleName;
 
