@@ -1,5 +1,6 @@
 package pl.sda.pol122.auctionservice.services;
 
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.DataBinder;
@@ -13,13 +14,10 @@ import pl.sda.pol122.auctionservice.entities.OrderEntity;
 import pl.sda.pol122.auctionservice.entities.ProductEntity;
 import pl.sda.pol122.auctionservice.entities.UserEntity;
 import pl.sda.pol122.auctionservice.enums.ERole;
-import pl.sda.pol122.auctionservice.model.User;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 import pl.sda.pol122.auctionservice.model.Order;
 import pl.sda.pol122.auctionservice.model.Product;
 import pl.sda.pol122.auctionservice.model.User;
+
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -34,13 +32,16 @@ public class DefaultUserService implements UserService {
     private final ProductRepository productRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public DefaultUserService(UserRepository userRepository, SignUpValidator signUpValidator, OrderRepository orderRepository, PasswordEncoder passwordEncoder, AuthenticatedUser authenticatedUser, ProductRepository productRepository) {
+    private final JdbcTemplate jdbcTemplate;
+
+    public DefaultUserService(UserRepository userRepository, SignUpValidator signUpValidator, OrderRepository orderRepository, PasswordEncoder passwordEncoder, AuthenticatedUser authenticatedUser, ProductRepository productRepository, JdbcTemplate jdbcTemplate) {
         this.userRepository = userRepository;
         this.signUpValidator = signUpValidator;
         this.orderRepository = orderRepository;
         this.passwordEncoder = passwordEncoder;
         this.authenticatedUser = authenticatedUser;
         this.productRepository = productRepository;
+        this.jdbcTemplate = jdbcTemplate;
     }
 
 
@@ -68,6 +69,7 @@ public class DefaultUserService implements UserService {
                 .roles(Set.of(ERole.USER))
                 .build();
         userRepository.save(userEntity);
+        addUserAuthorities(user);
     }
     @Override
     public void createAdminAccount(User user) {
@@ -149,7 +151,6 @@ public class DefaultUserService implements UserService {
         return orders;
     }
 
-
     @Override
     public void saveAccountChanges(User user) {
         UserEntity userEntity = UserEntity
@@ -162,6 +163,13 @@ public class DefaultUserService implements UserService {
                 .enabled(user.getEnabled())
                 .build();
         userRepository.save(userEntity);
+    }
+
+
+    private void addUserAuthorities(User user) {
+        String sqlAddAuthorities = "INSERT INTO authorities (username, authority) VALUES (?,?)";
+
+        jdbcTemplate.update(sqlAddAuthorities, user.getUserName(), "User");
     }
 
 }
