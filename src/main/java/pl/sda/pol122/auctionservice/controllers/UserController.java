@@ -7,9 +7,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import pl.sda.pol122.auctionservice.enums.ERole;
-import pl.sda.pol122.auctionservice.model.Order;
-import pl.sda.pol122.auctionservice.model.Product;
-
 import pl.sda.pol122.auctionservice.model.User;
 import pl.sda.pol122.auctionservice.services.UserService;
 import pl.sda.pol122.auctionservice.utils.AuthenticatedUserProvider;
@@ -90,12 +87,6 @@ public class UserController {
     @PostMapping(value = "/signUp")
     public String createNewUser(@ModelAttribute User user, Model model) {
         model.addAttribute("user", user);
-        // not working yet
-//        List<ObjectError> allErrors = userService.validatePasswordAndLogin(user);
-//        if (!allErrors.isEmpty()) {
-//            return new Gson().toJson(allErrors);
-//        } else {
-//        }
         userService.createUserAccount(user);
         return "redirect:/index";
     }
