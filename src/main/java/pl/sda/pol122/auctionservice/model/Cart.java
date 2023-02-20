@@ -39,16 +39,8 @@ public class Cart {
     public void addToCart(Product product){
         Optional<CartItem> cartItem =
                 cartItemList.stream().filter(item -> item.getProduct().getId() == product.getId()).findAny();
-        cartItem.ifPresentOrElse(CartItem::addAmount, () -> {
+        cartItem.ifPresentOrElse(CartItem::addQuantity, () -> {
             cartItemList.add(new CartItem(product, 1));
-        });
-    }
-
-    public void addToCart(Product product, Integer numberOfProducts){
-        Optional<CartItem> cartItem =
-                cartItemList.stream().filter(item -> item.getProduct().getId() == product.getId()).findAny();
-        cartItem.ifPresentOrElse(item -> item.addAmount(numberOfProducts), () -> {
-            cartItemList.add(new CartItem(product, numberOfProducts));
         });
     }
 
@@ -56,6 +48,13 @@ public class Cart {
         int product = cartItem.getProduct().getId();
         CartItem itemToDelete = cartItemList.stream().filter(x -> x.getProduct().getId() == product).findAny().get();
         cartItemList.remove(itemToDelete);
+    }
+
+    public void decreaseTheAmount(Product product){
+         Optional<CartItem> cartItem =
+                cartItemList.stream().filter(item -> item.getProduct().getId() == product.getId()).findAny();
+        cartItem.ifPresent(CartItem::decreaseQuantity);
+
     }
 
     public void clearCart(){

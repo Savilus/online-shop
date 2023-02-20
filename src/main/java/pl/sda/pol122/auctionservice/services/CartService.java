@@ -13,7 +13,7 @@ public interface CartService {
 
     void addProductToCart(Product product);
 
-    void addMoreProductsToCart(Product product, int numberOfProduct);
+    void decreaseProductQuantityInCart(Product product);
 
     List<CartItem> getAllProducts();
 

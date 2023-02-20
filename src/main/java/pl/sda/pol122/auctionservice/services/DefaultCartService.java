@@ -2,9 +2,7 @@ package pl.sda.pol122.auctionservice.services;
 
 import org.springframework.stereotype.Service;
 import pl.sda.pol122.auctionservice.dao.OrderRepository;
-import pl.sda.pol122.auctionservice.dao.ProductDao;
 import pl.sda.pol122.auctionservice.entities.OrderEntity;
-import pl.sda.pol122.auctionservice.entities.ProductEntity;
 import pl.sda.pol122.auctionservice.model.Cart;
 import pl.sda.pol122.auctionservice.model.CartItem;
 import pl.sda.pol122.auctionservice.model.Product;
@@ -12,22 +10,22 @@ import pl.sda.pol122.auctionservice.model.User;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class DefaultCartService implements CartService {
 
     private final Cart cart;
     private final OrderRepository orderRepository;
-    private final ProductDao productRepository;
     private final UserService userService;
 
 
-    public DefaultCartService(Cart cart, OrderRepository orderRepository, ProductDao productRepository1, UserService userService) {
+    public DefaultCartService(Cart cart, OrderRepository orderRepository, UserService userService) {
         this.cart = cart;
         this.orderRepository = orderRepository;
-        this.productRepository = productRepository1;
         this.userService = userService;
     }
 
@@ -42,8 +40,8 @@ public class DefaultCartService implements CartService {
     }
 
     @Override
-    public void addMoreProductsToCart(Product product, int numberOfProduct) {
-        cart.addToCart(product, numberOfProduct);
+    public void decreaseProductQuantityInCart(Product product) {
+        cart.decreaseTheAmount(product);
     }
 
     @Override
