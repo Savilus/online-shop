@@ -1,72 +1,41 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 <head>
-  <!-- Basic -->
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <!-- Mobile Metas -->
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <!-- Site Metas -->
-  <link rel="icon" href="images/fevicon.png" type="image/gif" />
-  <meta name="keywords" content="" />
-  <meta name="description" content="" />
-  <meta name="author" content="" />
-
-  <title>MAMIJA</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="author" content="Saurav">
 
 
-  <!-- bootstrap core css -->
-  <link rel="stylesheet" th:href="@{/css/accountLogin.css}" type="text/css"/>
+  <div th:replace="~{fragments :: style}"></div>
+</head>
 
+<body class="bg-light">
 
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-  </head>
+<div th:replace="~{fragments :: menu}"></div>
 
-<body>
-<div id="form">
-  <div class="container">
-    <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-md-8 col-md-offset-2">
-      <div id="userform">
-        <ul class="nav nav-tabs nav-justified" role="tablist">
-          <li class="active"><a href="#login"  role="tab" data-toggle="tab">Log in</a></li>
-
-        </ul>
-        <div class="tab-content">
-          <div class="tab-pane fade active in" id="signup">
-            <h2 class="text-uppercase text-center"> LOG IN</h2>
-            <form th:action="@{/login}" method="post">
-              <div class="form-group">
-                <p> Your Login </p>
-                <input type="text" name="username" class="form-control">
-              </div>
-              <div class="form-group">
-                <p> Password</p>
-                <input type="password" name="password" class="form-control">
-              </div>
-              <div class="mrgn-30-top">
-                <button type="submit" class="btn btn-larger btn-block"/>
-                Log in
-                </button>
-              </div>
-            </form>
-          </div>
-          <div class="tab-pane fade in" id="login">
-            <h2 class="text-uppercase text-center"> Log in</h2>
-
-          </div>
+<div class="container">
+  <div class="py-5 text-center">
+    <h2>LOG IN</h2>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <form th:action="@{/login}" method="post">
+        <div class="form-group">
+          <label>Username</label>
+          <input type="text" name="username" class="form-control">
         </div>
-      </div>
+
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" name="password" class="form-control">
+        </div>
+          <hr class="mb-4">
+          <button type="submit" class="btn btn-primary btn-lg btn-block">LOG IN</button>
+        </form>
     </div>
   </div>
-  <!-- /.container -->
 </div>
-<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </body>
-
-<div th:replace="~{fragments :: js_scripts}"/>
-
 </html>
