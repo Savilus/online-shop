@@ -23,7 +23,7 @@ public class MainController {
     @GetMapping("/login")
     public String showLoginFormToShop(){
         return "accountLogin";
-    }
+
 
     @GetMapping("/logout")
     public String logoutUser(){
