@@ -7,13 +7,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.jsf.FacesContextUtils;
 import pl.sda.pol122.auctionservice.model.CartItem;
 import pl.sda.pol122.auctionservice.model.Product;
 import pl.sda.pol122.auctionservice.services.CartService;
 import pl.sda.pol122.auctionservice.services.ProductService;
 
-import javax.swing.*;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -41,7 +39,7 @@ public class CartController {
     }
 
     @GetMapping("/cart/{productId}")
-    public String changeQuantityOfProductsInCart(Model model, @PathVariable String productId) {
+    public String decreaseQuantityOfProductsInCart(Model model, @PathVariable String productId) {
         cartService.decreaseProductQuantityInCart(productService.getProductById(Integer.valueOf(productId)));
         model.addAttribute("product", productService.getProductById(Integer.valueOf(productId)));
         return "redirect:/cart";
