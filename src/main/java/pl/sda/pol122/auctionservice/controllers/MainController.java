@@ -21,14 +21,12 @@ public class MainController {
     }
 
     @GetMapping("/login")
-    public String showLoginFormToShop(){
+    public String showLoginFormToShop() {
         return "accountLogin";
-
-
-    @GetMapping("/logout")
-    public String logoutUser(){
-        return "redirect:/login";
     }
 
-
+    @GetMapping("/logout")
+    public String logoutUser() {
+        return "redirect:/login";
+    }
 }
