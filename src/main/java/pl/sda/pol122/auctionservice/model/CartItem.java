@@ -19,12 +19,19 @@ public class CartItem {
         return product.getPrice().multiply(BigDecimal.valueOf(quantity));
     }
 
-    public void addAmount(){
+    public void addQuantity(){
         quantity++;
         totalPrice = totalPrice.add(product.getPrice());
     }
 
-    public void addAmount(int numberOfProducts){
+    public void decreaseQuantity(){
+        if(quantity > 1){
+            quantity--;
+            totalPrice = totalPrice.add(product.getPrice());
+        }
+    }
+
+    public void addQuantity(int numberOfProducts){
         quantity += numberOfProducts;
         BigDecimal addPrizeOfProducts = product.getPrice().multiply(BigDecimal.valueOf(numberOfProducts));
         totalPrice = addPrizeOfProducts.add(totalPrice);

@@ -40,6 +40,13 @@ public class CartController {
         return "redirect:/cart";
     }
 
+    @GetMapping("/cart/{productId}")
+    public String changeQuantityOfProductsInCart(Model model, @PathVariable String productId) {
+        cartService.decreaseProductQuantityInCart(productService.getProductById(Integer.valueOf(productId)));
+        model.addAttribute("product", productService.getProductById(Integer.valueOf(productId)));
+        return "redirect:/cart";
+    }
+
     @GetMapping("/deleteFromCart/{productId}")
     public String deleteFromCart(Model model, @PathVariable String productId) {
         Product productById = productService.getProductById(Integer.valueOf(productId));
