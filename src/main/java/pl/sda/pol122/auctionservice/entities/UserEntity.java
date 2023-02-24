@@ -34,7 +34,7 @@ public class UserEntity {
     @Column(name = "lastname", length = 45, nullable = false)
     private String lastName;
 
-    @Column(name = "email", length = 30, nullable = false)
+    @Column(name = "email", length = 100, nullable = false)
     private String email;
 
     @Column(name = "enabled", nullable = false)

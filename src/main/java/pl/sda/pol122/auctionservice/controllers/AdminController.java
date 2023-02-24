@@ -1,6 +1,7 @@
 package pl.sda.pol122.auctionservice.controllers;
 
 import ch.qos.logback.core.model.Model;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +27,7 @@ public class AdminController {
     }
 
     @PostMapping()
-    public String createAdminAccount(@ModelAttribute User user, Model model){
+    public String createAdminAccount(@Valid @ModelAttribute User user, Model model){
         userService.createAdminAccount(user);
 
         return "redirect:/index";

@@ -1,8 +1,12 @@
 package pl.sda.pol122.auctionservice.model;
 
+import jakarta.validation.constraints.Past;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import pl.sda.pol122.auctionservice.utils.validators.EmailConstraint;
+import pl.sda.pol122.auctionservice.utils.validators.PasswordConstraint;
+import pl.sda.pol122.auctionservice.utils.validators.UserNameConstraint;
 
 @Getter
 @Setter
@@ -10,10 +14,13 @@ import lombok.Setter;
 public class User {
 
     private Integer id;
+    @UserNameConstraint
     private String userName;
+    @PasswordConstraint
     private String password;
     private String firstName;
     private String lastName;
+    @EmailConstraint
     private String email;
     private Boolean enabled;
 
