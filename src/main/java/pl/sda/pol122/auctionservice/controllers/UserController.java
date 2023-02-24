@@ -1,17 +1,14 @@
 package pl.sda.pol122.auctionservice.controllers;
 
-import com.google.gson.Gson;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import pl.sda.pol122.auctionservice.enums.ERole;
 import pl.sda.pol122.auctionservice.model.User;
 import pl.sda.pol122.auctionservice.services.UserService;
 import pl.sda.pol122.auctionservice.utils.AuthenticatedUserProvider;
-
-import java.util.List;
 
 @Controller
 @RequestMapping(value = "/user")
@@ -22,14 +19,9 @@ public class UserController {
 
 
     @PatchMapping("/")
-    public String updateAccountChanges(User user) {
-        List<ObjectError> allErrors = userService.validatePasswordAndLogin(user);
-        if (!allErrors.isEmpty()) {
-            return new Gson().toJson(allErrors);
-        } else {
-            userService.saveAccountChanges(user);
-            return "redirect:/my-account";
-        }
+    public String updateAccountChanges(@Valid User user) {
+        userService.saveAccountChanges(user);
+        return "redirect:/my-account";
     }
 
     @GetMapping(path = "/account/editAccount")
@@ -85,7 +77,7 @@ public class UserController {
     }
 
     @PostMapping(value = "/signUp")
-    public String createNewUser(@ModelAttribute User user, Model model) {
+    public String createNewUser(@Valid @ModelAttribute User user, Model model) {
         model.addAttribute("user", user);
         userService.createUserAccount(user);
         return "redirect:/index";

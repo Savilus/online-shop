@@ -22,8 +22,6 @@ public interface UserService {
     void createUserAccount(User user);
     void createAdminAccount(User user);
 
-    List<ObjectError> validatePasswordAndLogin(User user);
-
     User getAuthenticatedUser();
 
     List<Order> getUserOrderHistory();

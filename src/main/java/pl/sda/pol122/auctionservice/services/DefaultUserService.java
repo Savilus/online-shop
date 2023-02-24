@@ -3,10 +3,7 @@ package pl.sda.pol122.auctionservice.services;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.DataBinder;
-import org.springframework.validation.ObjectError;
 import pl.sda.pol122.auctionservice.config.AuthenticatedUser;
-import pl.sda.pol122.auctionservice.controllers.validators.SignUpValidator;
 import pl.sda.pol122.auctionservice.dao.OrderRepository;
 import pl.sda.pol122.auctionservice.dao.ProductRepository;
 import pl.sda.pol122.auctionservice.dao.UserRepository;
@@ -26,7 +23,6 @@ import java.util.*;
 public class DefaultUserService implements UserService {
 
     private final UserRepository userRepository;
-    private final SignUpValidator signUpValidator;
     private final OrderRepository orderRepository;
     private final AuthenticatedUser authenticatedUser;
     private final ProductRepository productRepository;
@@ -34,9 +30,8 @@ public class DefaultUserService implements UserService {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public DefaultUserService(UserRepository userRepository, SignUpValidator signUpValidator, OrderRepository orderRepository, PasswordEncoder passwordEncoder, AuthenticatedUser authenticatedUser, ProductRepository productRepository, JdbcTemplate jdbcTemplate) {
+    public DefaultUserService(UserRepository userRepository, OrderRepository orderRepository, PasswordEncoder passwordEncoder, AuthenticatedUser authenticatedUser, ProductRepository productRepository, JdbcTemplate jdbcTemplate) {
         this.userRepository = userRepository;
-        this.signUpValidator = signUpValidator;
         this.orderRepository = orderRepository;
         this.passwordEncoder = passwordEncoder;
         this.authenticatedUser = authenticatedUser;
@@ -85,14 +80,6 @@ public class DefaultUserService implements UserService {
                 .roles(Set.of(ERole.ADMIN, ERole.USER))
                 .build();
         userRepository.save(userEntity);
-    }
-
-    public List<ObjectError> validatePasswordAndLogin(User user) {
-        DataBinder dataBinder = new DataBinder(user);
-        dataBinder.addValidators(signUpValidator);
-        dataBinder.validate();
-        List<ObjectError> allErrors = dataBinder.getBindingResult().getAllErrors();
-        return allErrors;
     }
 
     @Override
