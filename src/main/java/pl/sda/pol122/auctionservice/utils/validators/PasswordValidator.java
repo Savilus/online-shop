@@ -5,6 +5,8 @@ import jakarta.validation.ConstraintValidatorContext;
 
 public class PasswordValidator implements ConstraintValidator<PasswordConstraint, String> {
 
+    private static final String PASSWORD_REGEX =
+            "(?=^.{8,}$)((?=.*\\d)|(?=.*\\W+))(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$";
     @Override
     public void initialize(PasswordConstraint constraintAnnotation) {
         ConstraintValidator.super.initialize(constraintAnnotation);
@@ -13,7 +15,7 @@ public class PasswordValidator implements ConstraintValidator<PasswordConstraint
     @Override
     public boolean isValid(String password, ConstraintValidatorContext constraintValidatorContext) {
         return password != null &&
-                password.matches("(?=^.{8,}$)((?=.*\\d)|(?=.*\\W+))(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$");
+                password.matches(PASSWORD_REGEX);
 
     }
 }
