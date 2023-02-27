@@ -24,11 +24,11 @@ public class Cart {
         price = sumPrice();
     }
 
-    public BigDecimal sumPrice(){
+    public BigDecimal sumPrice() {
         List<CartItem> itemsInCart = cartItemList;
         BigDecimal finalCartValue = BigDecimal.ZERO;
 
-        for(int i = 0; i < itemsInCart.size(); i++){
+        for (int i = 0; i < itemsInCart.size(); i++) {
             int quantity = itemsInCart.get(i).getQuantity();
             BigDecimal productPrice = itemsInCart.get(i).getProduct().getPrice().multiply(BigDecimal.valueOf(quantity));
             finalCartValue = finalCartValue.add(productPrice);
@@ -36,7 +36,7 @@ public class Cart {
         return finalCartValue;
     }
 
-    public void addToCart(Product product){
+    public void addToCart(Product product) {
         Optional<CartItem> cartItem =
                 cartItemList.stream().filter(item -> item.getProduct().getId() == product.getId()).findAny();
         cartItem.ifPresentOrElse(CartItem::addQuantity, () -> {
@@ -44,14 +44,19 @@ public class Cart {
         });
     }
 
-    public void deleteFromCart(CartItem cartItem){
+    public void deleteFromCart(CartItem cartItem) {
         int product = cartItem.getProduct().getId();
         CartItem itemToDelete = cartItemList.stream().filter(x -> x.getProduct().getId() == product).findAny().get();
         cartItemList.remove(itemToDelete);
     }
 
-    public void decreaseTheAmount(Product product){
-         Optional<CartItem> cartItem =
+    public void increaseTheAmount(Product product) {
+        Optional<CartItem> cartItem = cartItemList.stream().filter(item -> item.getProduct().getId() == product.getId()).findAny();
+        cartItem.ifPresent(CartItem::addQuantity);
+    }
+
+    public void decreaseTheAmount(Product product) {
+        Optional<CartItem> cartItem =
                 cartItemList.stream().filter(item -> item.getProduct().getId() == product.getId()).findAny();
         cartItem.ifPresent(CartItem::decreaseQuantity);
 
