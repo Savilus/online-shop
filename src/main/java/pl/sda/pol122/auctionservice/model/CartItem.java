@@ -20,8 +20,10 @@ public class CartItem {
     }
 
     public void addQuantity(){
-        quantity++;
-        totalPrice = totalPrice.add(product.getPrice());
+        if(product.getAvailableAmount() > quantity){
+            quantity++;
+            totalPrice = totalPrice.add(product.getPrice());
+        }
     }
 
     public void decreaseQuantity(){
@@ -31,11 +33,6 @@ public class CartItem {
         }
     }
 
-    public void addQuantity(int numberOfProducts){
-        quantity += numberOfProducts;
-        BigDecimal addPrizeOfProducts = product.getPrice().multiply(BigDecimal.valueOf(numberOfProducts));
-        totalPrice = addPrizeOfProducts.add(totalPrice);
-    }
 
     public Product getProduct() {
         return product;

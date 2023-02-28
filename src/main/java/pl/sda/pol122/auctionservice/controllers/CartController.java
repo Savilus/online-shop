@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.sda.pol122.auctionservice.model.CartItem;
 import pl.sda.pol122.auctionservice.model.Product;
 import pl.sda.pol122.auctionservice.services.CartService;
@@ -33,8 +34,17 @@ public class CartController {
 
     @GetMapping("/buyNow/{productId}")
     public String buyNow(Model model, @PathVariable String productId) {
-        cartService.addProductToCart(productService.getProductById(Integer.valueOf(productId)));
-        model.addAttribute("product", productService.getProductById(Integer.valueOf(productId)));
+        Product productById = productService.getProductById(Integer.valueOf(productId));
+        cartService.addProductToCart(productById);
+        model.addAttribute("product", productById);
+        return "redirect:/cart";
+    }
+
+    @GetMapping("/cart/increase/{productId}")
+    public String increaseQuantityOfProductsInCart(Model model, @PathVariable String productId){
+        Product productById = productService.getProductById(Integer.valueOf(productId));
+        cartService.increaseProductQuantityInCart(productById);
+        model.addAttribute("product", productById);
         return "redirect:/cart";
     }
 
@@ -46,7 +56,7 @@ public class CartController {
     }
 
     @GetMapping("/deleteFromCart/{productId}")
-    public String deleteFromCart(Model model, @PathVariable String productId) {
+    public String deleteFromCart(@PathVariable String productId) {
         Product productById = productService.getProductById(Integer.valueOf(productId));
         CartItem cartItem = new CartItem(productById, 0);
         cartService.deleteProductFromCart(cartItem);
@@ -56,7 +66,7 @@ public class CartController {
 
     @GetMapping(path = "/cart/checkout")
     public String loadCartCheckout() {
-        if (cartService.getAllProducts().isEmpty()) {
+        if (cartService.getAllProducts().isEmpty() && cartService.checkIfStockIsAvailable()) {
             return "redirect:/cart";
         } else {
             return "checkout";
@@ -66,10 +76,13 @@ public class CartController {
 
     @PostMapping("/cart/checkout")
     public String submitUserPayment() {
-        List<CartItem> orderedProducts = cartService.getAllProducts();
-        cartService.submitPayment(orderedProducts);
-        cartService.clearCart();
+        if(cartService.checkIfStockIsAvailable()){
+            List<CartItem> orderedProducts = cartService.getAllProducts();
+            cartService.submitPayment(orderedProducts);
+            cartService.clearCart();
+        }
         return "redirect:/cart";
+
     }
 
     @GetMapping(path = "/cart")

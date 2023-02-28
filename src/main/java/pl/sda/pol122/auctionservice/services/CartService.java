@@ -13,6 +13,8 @@ public interface CartService {
 
     void addProductToCart(Product product);
 
+    void increaseProductQuantityInCart(Product product);
+
     void decreaseProductQuantityInCart(Product product);
 
     List<CartItem> getAllProducts();
@@ -20,6 +22,8 @@ public interface CartService {
     BigDecimal getTotalPriceOfCart();
 
     void submitPayment(List<CartItem> orderedProducts);
+
+    boolean checkIfStockIsAvailable();
 
     void clearCart();
 }
