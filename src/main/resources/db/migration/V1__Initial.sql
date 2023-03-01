@@ -93,11 +93,11 @@ VALUES ('jakub@onet.pl', 'Jakub', true, 'Lanoszka', '$2a$10$wvVbmWzuL4Xv43TkhzRW
 
 
 INSERT INTO category(category_name, image)
-values ('house', "/images/s2.png");
+values ('House', "/images/s2.png");
 INSERT INTO category(category_name, image)
-values ('sport', "/images/s1.png");
+values ('Sport', "/images/s1.png");
 INSERT INTO category(category_name, image)
-values ('electronic', "/images/s3.png");
+values ('Electronic', "/images/s3.png");
 
 INSERT INTO product(amount, name, price, category_id, image) values
                                                                  ('5', "Camera" , 160, 3, "/images/kategorie/electronic/aparat.png"),
