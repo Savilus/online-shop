@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+
+<head>
+    <!-- Basic -->
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <!-- Site Metas -->
+    <link rel="icon" href="images/fevicon.png" type="image/gif"/>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+
+    <title>MaMiJa</title>
+
+
+    <div th:replace="~{fragments :: style}"></div>
+
+<body>
+
+<div th:replace="~{fragments :: menu}"></div>
+
+<div class="container emp-profile">
+    <form method="post">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="profile-head">
+                    <h5  th:text="${user.getFirstName()} + ' ' + ${user.getLastName()}">
+                    </h5>
+                    <p class="proile-rating">OPINIONS : <span>8/10</span></p>
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                               aria-controls="home" aria-selected="true">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="profile-tab" data-toggle="tab" th:href="@{/user/account/orderHistory}" role="tab"
+                               aria-controls="profile" aria-selected="false">Order History</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <a th:href="@{/admin/adminSettings}" class="btn btn-info"/>
+                ADMIN  SETTINGS</a>
+            </div>
+            <div class="col-md-2">
+                <a th:href="@{/user/account/editAccount}" class="btn btn-info"/>
+                EDIT ACCOUNT</a>
+            </div>
+            <div class="col-md-2">
+                <a th:href="@{/logout}" class="btn btn-danger"/>
+                LOG OUT</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-8">
+                <div class="tab-content profile-tab" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>User Id</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p th:text="${user.getId()}"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label> First Name</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p th:text="${user.getFirstName()}"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Last Name</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p th:text="${user.getLastName()}"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>E-mail</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p th:text="${user.getEmail()}"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Username</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p th:text="${user.getUserName()}"></p>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div th:replace="~{fragments :: footer}"/>
+
+
+</body>
+
+</html>

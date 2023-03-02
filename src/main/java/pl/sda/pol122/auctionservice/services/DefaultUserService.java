@@ -1,8 +1,12 @@
 package pl.sda.pol122.auctionservice.services;
 
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
 import pl.sda.pol122.auctionservice.config.AuthenticatedUser;
 import pl.sda.pol122.auctionservice.dao.OrderRepository;
 import pl.sda.pol122.auctionservice.dao.ProductRepository;

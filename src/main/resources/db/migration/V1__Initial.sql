@@ -77,11 +77,11 @@ alter table user_addresses
 Create table authorities (username varchar(100) , authority varchar(50));
 
 INSERT INTO authorities (username, authority)
-VALUES ('marcin_kol', 'Admin');
+VALUES ('marcin_kol', 'ADMIN');
 INSERT INTO authorities (username, authority)
-VALUES ('michal_lan', 'Admin');
+VALUES ('michal_lan', 'ADMIN');
 INSERT INTO authorities (username, authority)
-VALUES ('jakub_lan', 'Admin');
+VALUES ('jakub_lan', 'ADMIN');
 
 
 INSERT INTO users (email, firstname, enabled, lastname, password, username)
