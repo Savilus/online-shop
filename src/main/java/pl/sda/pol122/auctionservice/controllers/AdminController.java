@@ -20,8 +20,7 @@ public class AdminController {
         if (AuthenticatedUserProvider.checkIfLoggedUserIsSuperAdmin()) {
             userService.deleteById(Integer.valueOf(id));
         } else {
-            return "Your permissions do not allow you to delete account. " +
-                    "If you want to delete your account please contact the site administrator.";
+            return "redirect:/index";
         }
         return "redirect:/users";
     }
@@ -29,8 +28,17 @@ public class AdminController {
     @PostMapping()
     public String createAdminAccount(@Valid @ModelAttribute User user, Model model){
         userService.createAdminAccount(user);
-
         return "redirect:/index";
+    }
+
+    @GetMapping("/adminSettings")
+    public String loadAdminSettings(){
+        return "adminSettings";
+    }
+
+    @GetMapping("/userList")
+    public String loadUserListForAdmin(){
+        return "userListForAdmin";
     }
 
 }

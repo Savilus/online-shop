@@ -39,8 +39,7 @@ public class UserController {
         ) {
             userService.deleteById(Integer.valueOf(id));
         } else {
-            return "Your permissions do not allow you to delete account or user doesn't exist. " +
-                    "If you want to delete your account please contact the site administrator.";
+            return "redirect:/index";
         }
         return "redirect:/users";
     }
@@ -52,17 +51,12 @@ public class UserController {
                 AuthenticatedUserProvider.checkIfLoggedUserIsSuperAdmin()) {
             userService.saveAccountStatus(Integer.valueOf(userId), enabledFromInput);
         } else {
-            return "Unauthorized! Only the admin can change account status. Please contact with the site administrator.";
+            return "redirect:/index";
         }
         return "redirect:/users";
     }
 
-    @GetMapping(path = "/account")
-    public String loadUserProfile(Model model) {
-        User authenticatedUser = userService.getAuthenticatedUser();
-        model.addAttribute("user", authenticatedUser);
-        return "userProfile";
-    }
+
 
     @GetMapping(path = "/account/orderHistory")
     public String loadUserOrderHistory(Model model) {
