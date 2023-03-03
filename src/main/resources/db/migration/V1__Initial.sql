@@ -77,19 +77,19 @@ alter table user_addresses
 Create table authorities (username varchar(100) , authority varchar(50));
 
 INSERT INTO authorities (username, authority)
-VALUES ('marcin_kol', 'ADMIN');
+VALUES ('superAdminDef', 'SUPER_ADMIN');
 INSERT INTO authorities (username, authority)
-VALUES ('michal_lan', 'ADMIN');
+VALUES ('adminDef', 'ADMIN');
 INSERT INTO authorities (username, authority)
-VALUES ('jakub_lan', 'ADMIN');
+VALUES ('userDef', 'USER');
 
 
 INSERT INTO users (email, firstname, enabled, lastname, password, username)
-VALUES ('marcin@onet.pl', 'Marcin', true, 'Kolodziejczyk', '$2a$10$wvVbmWzuL4Xv43TkhzRWOeHHxBQhkJBLpLJnWyPZXt9mvdWAKA4NS', 'marcin_kol');
+VALUES ('superadmindef@onet.pl', 'Tom', true, 'Jones', '$2a$10$wvVbmWzuL4Xv43TkhzRWOeHHxBQhkJBLpLJnWyPZXt9mvdWAKA4NS', 'superAdminDef');
 INSERT INTO users (email, firstname, enabled, lastname, password, username)
-VALUES ('michal@onet.pl', 'Michal', true, 'Langner', '$2a$10$wvVbmWzuL4Xv43TkhzRWOeHHxBQhkJBLpLJnWyPZXt9mvdWAKA4NS', 'michal_lan');
+VALUES ('admindef@onet.pl', 'Tom', true, 'Jones', '$2a$10$wvVbmWzuL4Xv43TkhzRWOeHHxBQhkJBLpLJnWyPZXt9mvdWAKA4NS', 'adminDef');
 INSERT INTO users (email, firstname, enabled, lastname, password, username)
-VALUES ('jakub@onet.pl', 'Jakub', true, 'Lanoszka', '$2a$10$wvVbmWzuL4Xv43TkhzRWOeHHxBQhkJBLpLJnWyPZXt9mvdWAKA4NS', 'jakub_lan');
+VALUES ('user@onet.pl', 'Tom', true, 'Jones', '$2a$10$wvVbmWzuL4Xv43TkhzRWOeHHxBQhkJBLpLJnWyPZXt9mvdWAKA4NS', 'userDef');
 
 
 INSERT INTO category(category_name, image)
