@@ -2,8 +2,8 @@
 ***
 ### Introduce
 ***
-This project is fully working web application which is an online store. 
-The main part is REST API which allows users:
+This project is fully functioning web application that is an online shop. 
+The main part is REST API that allows users:
 - sell and buy items
 - manage sales
 - managing users
@@ -21,8 +21,8 @@ the database is populated with initial data and three default users are created.
 
 **API is responsive** - can be used on other electronic devices, not only on a computer.
 
-**Tests** - project include unit and integration tests. The scope of tests is to verify the operation of the Controllers 
-and check if all layers together work properly.
+**Tests** - the project include unit and integration tests. The scope of tests is to verify the operation of the Controllers 
+and check that all layers together work correctly.
 
 **Default accounts** - if you want to check all API features select one of the available default users
 
