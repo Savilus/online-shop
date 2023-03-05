@@ -53,7 +53,7 @@
                         <span class="tag1"></span>
                     </div>
                     <div class="description">
-                        <p th:text="'IN STOCK ' + ${product.getAvailableAmount()} + ' MORE PRODUCTS'" ></p>
+                        <p th:text="${product.getAvailableAmount() > 0} ? 'IN STOCK ' + ${product.getAvailableAmount()} + ' MORE PRODUCTS' : 'NO IN STOCK'" ></p>
                     </div>
                     <div class="product-info smart-form">
                         <div class="row">
@@ -65,11 +65,11 @@
                                 <br>
 
                                 <div class="rating">Rating:
-                                    <label for="stars-rating-5"><i class="fa fa-star text-danger"></i></label>
-                                    <label for="stars-rating-4"><i class="fa fa-star text-danger"></i></label>
-                                    <label for="stars-rating-3"><i class="fa fa-star text-danger"></i></label>
-                                    <label for="stars-rating-2"><i class="fa fa-star text-warning"></i></label>
-                                    <label for="stars-rating-1"><i class="fa fa-star text-warning"></i></label>
+                                    <label><i class="fa fa-star text-danger"></i></label>
+                                    <label><i class="fa fa-star text-danger"></i></label>
+                                    <label><i class="fa fa-star text-danger"></i></label>
+                                    <label><i class="fa fa-star text-warning"></i></label>
+                                    <label><i class="fa fa-star text-warning"></i></label>
                                 </div>
                             </div>
                         </div>

@@ -11,6 +11,7 @@ import pl.sda.pol122.auctionservice.model.CartItem;
 import pl.sda.pol122.auctionservice.model.Product;
 import pl.sda.pol122.auctionservice.services.CartService;
 import pl.sda.pol122.auctionservice.services.ProductService;
+import pl.sda.pol122.auctionservice.utils.PopUpMessage;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -26,21 +27,28 @@ public class CartController {
 
     @GetMapping("/addToCart/{productId}")
     public String addToCart(Model model, @PathVariable String productId) {
-        cartService.addProductToCart(productService.getProductById(Integer.valueOf(productId)));
-        model.addAttribute("product", productService.getProductById(Integer.valueOf(productId)));
-        return "redirect:/product/details/{productId}";
+        Product productById = productService.getProductById(Integer.valueOf(productId));
+        if (productById.getAvailableAmount() > 0) {
+            cartService.addProductToCart(productById);
+            model.addAttribute("product", productService.getProductById(Integer.valueOf(productId)));
+            return "redirect:/product/details/{productId}";
+        }
+        return "redirect:/index";
     }
 
     @GetMapping("/buyNow/{productId}")
     public String buyNow(Model model, @PathVariable String productId) {
         Product productById = productService.getProductById(Integer.valueOf(productId));
-        cartService.addProductToCart(productById);
-        model.addAttribute("product", productById);
-        return "redirect:/cart";
+        if (productById.getAvailableAmount() > 0) {
+            cartService.addProductToCart(productById);
+            model.addAttribute("product", productById);
+            return "redirect:/cart";
+        }
+        return "redirect:/index";
     }
 
     @GetMapping("/cart/increase/{productId}")
-    public String increaseQuantityOfProductsInCart(Model model, @PathVariable String productId){
+    public String increaseQuantityOfProductsInCart(Model model, @PathVariable String productId) {
         Product productById = productService.getProductById(Integer.valueOf(productId));
         cartService.increaseProductQuantityInCart(productById);
         model.addAttribute("product", productById);
@@ -66,6 +74,7 @@ public class CartController {
     @GetMapping(path = "/cart/checkout")
     public String loadCartCheckout() {
         if (cartService.getAllProducts().isEmpty() && cartService.checkIfStockIsAvailable()) {
+            PopUpMessage.createPopUpMessage("You have empty cart or product is out of stock.");
             return "redirect:/cart";
         } else {
             return "checkout";
@@ -75,11 +84,15 @@ public class CartController {
 
     @PostMapping("/cart/checkout")
     public String submitUserPayment() {
-        if(cartService.checkIfStockIsAvailable()){
+        if (cartService.checkIfStockIsAvailable()) {
             List<CartItem> orderedProducts = cartService.getAllProducts();
             cartService.submitPayment(orderedProducts);
             cartService.clearCart();
+
+        }else {
+            PopUpMessage.createPopUpMessage("Sorry. We are out of stock");
         }
+
         return "redirect:/cart";
 
     }
