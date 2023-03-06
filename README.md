@@ -12,7 +12,7 @@ The main part is REST API that allows users:
 ***
 **API is secured** - some actions are allowed only for proper user. There are three types of users:
 - **user** - buy, sell, edit item information
-- **admin** - edit item information, change user account status, delete use
+- **admin** - edit item information, change user account status, delete user
 - **super-admin** - delete or add admin account
 
 **MySQL** - this database is used. All tables can be generated automatically thanks to Hibernate. 
