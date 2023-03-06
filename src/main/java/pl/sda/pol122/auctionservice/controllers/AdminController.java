@@ -1,13 +1,16 @@
 package pl.sda.pol122.auctionservice.controllers;
 
-import ch.qos.logback.core.model.Model;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import pl.sda.pol122.auctionservice.model.User;
 import pl.sda.pol122.auctionservice.services.UserService;
 import pl.sda.pol122.auctionservice.utils.AuthenticatedUserProvider;
+import org.springframework.ui.Model;
+
+import java.awt.print.Pageable;
 
 @Controller
 @RequestMapping(path = "/admin")
@@ -37,7 +40,8 @@ public class AdminController {
     }
 
     @GetMapping("/userList")
-    public String loadUserListForAdmin(){
+    public String loadUserListForAdmin(Model model){
+        model.addAttribute("users" , userService.listOfUsers());
         return "userListForAdmin";
     }
 

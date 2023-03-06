@@ -26,52 +26,34 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
 
 <div class="container">
-  <div class="row">
-    <div class="col-12 col-sm-12 col-md-12">
-      <div th:each="order : ${orderHistory}" class="card">
-        <div class="card-header">
-          <h4>Order History</h4>
-        </div>
-        <div class="card-body">
-          <div class="table-responsive" id="proTeamScroll" tabindex="2" style="height: 400px; overflow: hidden; outline: none;">
-            <table class="table table-striped">
-              <thead>
-              <tr>
-                <th>Order Id</th>
-                <th></th>
-                <th>Price of order</th>
-                <th>Ordered on</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr>
-                <td th:text="${order.getOrderId()}">
-                </td>
-                <td></td>
-                <td th:text="${order.getValueOfOrder()} + ' PLN'"></td>
-                <td th:text="${order.getOrderTimeStamp()}"></td>
-              <thead>
-              <tr >
-                  <th >Ordered items</th>
-                  <th >Name</th>
-                  <th >Quantity</th>
-                  <th >Unit price</th>
-              </thead>
-              <tr th:each="orderedItemsWithQuantity : ${order.getProductQuantityMap()}" >
-                  <th ><img th:src="${orderedItemsWithQuantity.key.getImage()}" th:width="50" , th:height="50"></th>
-                  <th th:text="${orderedItemsWithQuantity.key.getName()}"></th>
-                  <th th:text="${orderedItemsWithQuantity.value}"> </th>
-                  <th th:text="${orderedItemsWithQuantity.key.getPrice()} + ' PLN'"></th>
-              </tr>
-              </tr>
-              </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <h2>Order History</h2>
+  <ul th:each="order : ${orderHistory}"  class="responsive-table">
+    <li class="table-header">
+      <div class="col col-1"><b>Order Id</b></div>
+      <div class="col col-2"><b>Ordered By</b></div>
+      <div class="col col-3"><b>Price of order</b></div>
+      <div class="col col-4"><b>Ordered on</b></div>
+    </li>
+    <li class="table-row">
+      <div th:text="${order.getOrderId()}" class="col col-1" ></div>
+      <div class="col col-2" data-label="Customer Name">John Doe</div>
+      <div th:text="${order.getValueOfOrder()} + ' PLN'" class="col col-3" ></div>
+      <div th:text="${order.getOrderTimeStamp()}" class="col col-4" ></div>
+    </li>
+    <li class="table-header">
+      <div class="col col-1"><b>Ordered items</b></div>
+      <div class="col col-2"><b>Item Name</b> </div>
+      <div class="col col-3"><b>Quantity</b></div>
+      <div class="col col-4"><b>Unit price</b></div>
+    </li>
+    <li th:each="orderedItemsWithQuantity : ${order.getProductQuantityMap()}" class="table-row">
+      <div class="col col-1" > <img th:src="${orderedItemsWithQuantity.key.getImage()}" th:width="50" , th:height="50"> </div>
+      <div  th:text="${orderedItemsWithQuantity.key.getName()}" class="col col-2" ></div>
+      <div th:text="${orderedItemsWithQuantity.value}" class="col col-3" ></div>
+      <div th:text="${orderedItemsWithQuantity.key.getPrice()} + ' PLN'" class="col col-4" ></div>
+    </li>
+
+  </ul>
 </div>
 
 </body>

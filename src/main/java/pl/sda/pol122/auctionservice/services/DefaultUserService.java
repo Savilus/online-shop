@@ -1,12 +1,8 @@
 package pl.sda.pol122.auctionservice.services;
 
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.request.RequestContextHolder;
 import pl.sda.pol122.auctionservice.config.AuthenticatedUser;
 import pl.sda.pol122.auctionservice.dao.OrderRepository;
 import pl.sda.pol122.auctionservice.dao.ProductRepository;
@@ -54,6 +50,7 @@ public class DefaultUserService implements UserService {
         userRepository.deleteById(id);
     }
 
+
     @Override
     public void createUserAccount(User user) {
         String encodedPassword = passwordEncoder.encode(user.getPassword());
@@ -70,6 +67,7 @@ public class DefaultUserService implements UserService {
         userRepository.save(userEntity);
         addUserAuthorities(user);
     }
+
     @Override
     public void createAdminAccount(User user) {
         String encodedPassword = passwordEncoder.encode(user.getPassword());
@@ -143,6 +141,19 @@ public class DefaultUserService implements UserService {
     }
 
     @Override
+    public List<User> listOfUsers() {
+        return userRepository.findAll().stream().map(userEntity -> User.builder()
+                        .firstName(userEntity.getFirstName())
+                        .lastName(userEntity.getLastName())
+                        .password(userEntity.getPassword())
+                        .email(userEntity.getEmail())
+                        .enabled(userEntity.getEnabled())
+                        .userName(userEntity.getLogin())
+                        .build())
+                .toList();
+    }
+
+    @Override
     public void saveAccountChanges(User user) {
         UserEntity userEntity = UserEntity
                 .builder()
@@ -160,7 +171,7 @@ public class DefaultUserService implements UserService {
     private void addUserAuthorities(User user) {
         String sqlAddAuthorities = "INSERT INTO authorities (username, authority) VALUES (?,?)";
 
-        jdbcTemplate.update(sqlAddAuthorities, user.getUserName(), "User");
+        jdbcTemplate.update(sqlAddAuthorities, user.getUserName(), "USER");
     }
 
 }
