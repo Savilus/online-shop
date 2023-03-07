@@ -1,11 +1,13 @@
 package pl.sda.pol122.auctionservice.entities;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 
 import java.util.List;
 
 @Entity
 @Table(name = "user_address")
+@Getter
 public class UserAddressEntity {
 
     @Id

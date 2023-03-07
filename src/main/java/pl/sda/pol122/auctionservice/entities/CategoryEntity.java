@@ -3,6 +3,8 @@ package pl.sda.pol122.auctionservice.entities;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
@@ -10,6 +12,8 @@ import java.util.List;
 @Table(name = "category")
 @Builder
 @AllArgsConstructor
+@Getter
+@NoArgsConstructor
 public class CategoryEntity {
 
     @Id
@@ -27,22 +31,5 @@ public class CategoryEntity {
     @Column(name = "products")
     private List<ProductEntity> listOfProducts;
 
-    public CategoryEntity() {
-    }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public String getCategoryName() {
-        return categoryName;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public List<ProductEntity> getListOfProducts() {
-        return listOfProducts;
-    }
 }

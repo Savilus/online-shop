@@ -90,7 +90,7 @@ public class CartController {
             cartService.clearCart();
 
         }else {
-            PopUpMessage.createPopUpMessage("Sorry. We don't have the quantity you want in one or more products ");
+            PopUpMessage.createPopUpMessage("Sorry! We don't have the quantity you want in one or more products.");
         }
 
         return "redirect:/cart";
