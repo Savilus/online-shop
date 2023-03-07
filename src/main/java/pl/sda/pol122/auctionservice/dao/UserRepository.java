@@ -1,5 +1,7 @@
 package pl.sda.pol122.auctionservice.dao;
 
+import jakarta.transaction.Transactional;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -21,4 +23,12 @@ public interface UserRepository extends ListCrudRepository<UserEntity, Integer> 
             nativeQuery = true)
     Integer checkIfUsernameIsAvailable(@Param("userName") String userName);
 
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE users u SET u.enabled = :enabled WHERE u.id= :id",
+            nativeQuery = true)
+    void banOrUnbanUser(@Param("enabled") Boolean setEnabledAccount, @Param("id") Integer id);
+
+    @Query(value = "SELECT username FROM authorities WHERE authority != 'SUPER_ADMIN'", nativeQuery = true)
+    List<String> getUserAndAdminsFromDB();
 }

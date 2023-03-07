@@ -1,5 +1,6 @@
 package pl.sda.pol122.auctionservice.services;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.sda.pol122.auctionservice.dao.CategoryRepository;
 import pl.sda.pol122.auctionservice.entities.CategoryEntity;
@@ -10,13 +11,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class DefaultCategoriesService implements CategoriesService {
 
     private final CategoryRepository categoryRepository;
 
-    public DefaultCategoriesService(CategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
-    }
 
     @Override
     public Category getCategoryById(Integer categoryId) {

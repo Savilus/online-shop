@@ -1,7 +1,5 @@
 package pl.sda.pol122.auctionservice.services;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import pl.sda.pol122.auctionservice.entities.UserEntity;
 import pl.sda.pol122.auctionservice.model.Order;
 import pl.sda.pol122.auctionservice.model.User;
@@ -26,7 +24,7 @@ public interface UserService {
 
     List<Order> getUserOrderHistory();
 
-    List<User> listOfUsers();
+
 
 }
 
