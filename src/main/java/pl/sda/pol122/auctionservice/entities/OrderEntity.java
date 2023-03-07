@@ -5,6 +5,7 @@ import jdk.jfr.Name;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -15,6 +16,7 @@ import java.util.Map;
 @Builder
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "orders")
 public class OrderEntity {
 
@@ -38,6 +40,4 @@ public class OrderEntity {
     @Column(name = "userId")
     private Integer buyerUserId;
 
-    public OrderEntity() {
-    }
 }

@@ -1,10 +1,7 @@
 package pl.sda.pol122.auctionservice.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import pl.sda.pol122.auctionservice.enums.ERole;
 
 import java.util.List;
@@ -14,6 +11,7 @@ import java.util.Set;
 @Table(name = "users")
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 public class UserEntity {
@@ -51,7 +49,4 @@ public class UserEntity {
     @CollectionTable(name = "user_roles")
     private Set<ERole> roles;
 
-    public UserEntity() {
-
-    }
 }
