@@ -40,13 +40,13 @@
             <div th:text="${user.getFirstName()}" class="col col-1" ></div>
             <div th:text="${user.getLastName()}" class="col col-1" ></div>
             <div th:text="${user.getEmail()}" class="col col-2" ></div>
-            <div th:text="${user.getEnabled()}" class="col col-3" ></div>
-            <div  class="col col-4" ><div>
-                <a  class="btn btn-info"/>
-                BAN</a>
-                <a  class="btn btn-info"/>
+            <div  th:text="${user.getEnabled()} ? 'ENABLED' : 'BANNED'" class="col col-3" ></div>
+            <div  class="col col-4" >
+                <a th:href="'/admin/userList/banOrUnban/' + ${user.getId()}"  class="btn btn-info"/>
+                BAN / UNBAN</a>
+                <a th:href="'/admin/userList/delete/' + ${user.getId()}"  class="btn btn-danger"/>
                 DELETE</a>
-            </div></div>
+            </div>
         </li>
     </ul>
 </div>

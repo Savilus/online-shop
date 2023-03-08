@@ -1,5 +1,6 @@
 package pl.sda.pol122.auctionservice.services;
 
+import lombok.AllArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ import java.util.*;
 
 
 @Service
+@AllArgsConstructor
 public class DefaultUserService implements UserService {
 
     private final UserRepository userRepository;
@@ -29,16 +31,6 @@ public class DefaultUserService implements UserService {
     private final PasswordEncoder passwordEncoder;
 
     private final JdbcTemplate jdbcTemplate;
-
-    public DefaultUserService(UserRepository userRepository, OrderRepository orderRepository, PasswordEncoder passwordEncoder, AuthenticatedUser authenticatedUser, ProductRepository productRepository, JdbcTemplate jdbcTemplate) {
-        this.userRepository = userRepository;
-        this.orderRepository = orderRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.authenticatedUser = authenticatedUser;
-        this.productRepository = productRepository;
-        this.jdbcTemplate = jdbcTemplate;
-    }
-
 
     @Override
     public UserEntity getUserById(Integer id) {
@@ -98,6 +90,7 @@ public class DefaultUserService implements UserService {
             UserEntity existingEntityUser = userEntity.get();
             user = User.builder()
                     .id(existingEntityUser.getId())
+                    .enabled(existingEntityUser.getEnabled())
                     .userName(existingEntityUser.getLogin())
                     .firstName(existingEntityUser.getFirstName())
                     .lastName(existingEntityUser.getLastName())
@@ -140,18 +133,6 @@ public class DefaultUserService implements UserService {
         return orders;
     }
 
-    @Override
-    public List<User> listOfUsers() {
-        return userRepository.findAll().stream().map(userEntity -> User.builder()
-                        .firstName(userEntity.getFirstName())
-                        .lastName(userEntity.getLastName())
-                        .password(userEntity.getPassword())
-                        .email(userEntity.getEmail())
-                        .enabled(userEntity.getEnabled())
-                        .userName(userEntity.getLogin())
-                        .build())
-                .toList();
-    }
 
     @Override
     public void saveAccountChanges(User user) {

@@ -1,5 +1,6 @@
 package pl.sda.pol122.auctionservice.services;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.sda.pol122.auctionservice.dao.OrderRepository;
 import pl.sda.pol122.auctionservice.dao.ProductRepository;
@@ -18,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
+@AllArgsConstructor
 public class DefaultCartService implements CartService {
 
     private final Cart cart;
@@ -26,13 +28,6 @@ public class DefaultCartService implements CartService {
     private final ProductRepository productRepository;
     private final UserService userService;
 
-
-    public DefaultCartService(Cart cart, OrderRepository orderRepository, ProductRepository productRepository, UserService userService) {
-        this.cart = cart;
-        this.orderRepository = orderRepository;
-        this.productRepository = productRepository;
-        this.userService = userService;
-    }
 
     @Override
     public void deleteProductFromCart(CartItem cartItem) {
