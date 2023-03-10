@@ -44,7 +44,7 @@
             <div  class="col col-4" >
                 <a th:href="'/admin/userList/banOrUnban/' + ${user.getId()}"  class="btn btn-info"/>
                 BAN / UNBAN</a>
-                <a th:href="'/admin/userList/delete/' + ${user.getId()}"  class="btn btn-danger"/>
+                <a th:href="'/admin/userList/delete/' + ${user.getUserName()}"  class="btn btn-danger"/>
                 DELETE</a>
             </div>
         </li>
