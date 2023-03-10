@@ -44,7 +44,8 @@ public class MainController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Collection<? extends GrantedAuthority> authorities =  authentication.getAuthorities();
 
-        if (authorities.contains(new SimpleGrantedAuthority("ADMIN"))){
+        if (authorities.contains(new SimpleGrantedAuthority("ADMIN")) ||
+                authorities.contains(new SimpleGrantedAuthority("SUPER_ADMIN"))){
             User authenticatedAdmin = userService.getAuthenticatedUser();
             model.addAttribute("user", authenticatedAdmin);
             return "adminProfile";

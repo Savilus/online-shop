@@ -51,14 +51,7 @@
 
                     <h2 th:text="${product.getName()}" class="product-title"></h2>
 
-                    <div class="product-rating">
-                        <span><i class="bx bxs-star"></i></span>
-                        <span><i class="bx bxs-star"></i></span>
-                        <span><i class="bx bxs-star"></i></span>
-                        <span><i class="bx bxs-star"></i></span>
-                        <span><i class="bx bxs-star"></i></span>
-                        <span class="review">(47 Review)</span>
-                    </div>
+
                     <div class="product-price">
                         <span th:text="${product.getPrice()} + ' PLN'" class="offer-price"></span>
                         <!--        Mozliwość dodania przekreślonej ceny, jeżeli chcemy coś dać na zniżkę-->

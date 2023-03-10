@@ -29,6 +29,17 @@ public interface UserRepository extends ListCrudRepository<UserEntity, Integer> 
             nativeQuery = true)
     void banOrUnbanUser(@Param("enabled") Boolean setEnabledAccount, @Param("id") Integer id);
 
-    @Query(value = "SELECT username FROM authorities WHERE authority != 'SUPER_ADMIN'", nativeQuery = true)
+    @Query(value = "SELECT username FROM authorities WHERE authority != 'SUPER_ADMIN'",
+            nativeQuery = true)
     List<String> getUserAndAdminsFromDB();
+
+    @Query(value = "SELECT authority FROM authorities WHERE username = :username",
+            nativeQuery = true)
+    String getAuthorityByUsername(@Param("username") String userName);
+
+    @Transactional
+    @Modifying
+    @Query(value = "DELETE FROM authorities where username = :username" , nativeQuery = true)
+    void deleteAuthorityByUserName(@Param("username") String username);
 }
+

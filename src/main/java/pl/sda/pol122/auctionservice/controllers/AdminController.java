@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import pl.sda.pol122.auctionservice.model.User;
 import pl.sda.pol122.auctionservice.services.AdminService;
 import pl.sda.pol122.auctionservice.services.UserService;
-import pl.sda.pol122.auctionservice.utils.AuthenticatedUserProvider;
 
 @Controller
 @RequestMapping(path = "/admin")
@@ -18,14 +17,10 @@ public class AdminController {
 
     private final AdminService adminService;
 
-    @DeleteMapping("/users/{id}")
-    public String deleteAccountBySuperAdmin(@PathVariable String id) {
-        if (AuthenticatedUserProvider.checkIfLoggedUserIsSuperAdmin()) {
-            userService.deleteById(Integer.valueOf(id));
-        } else {
-            return "redirect:/index";
-        }
-        return "redirect:/users";
+    @GetMapping("/userList/delete/{userName}")
+    public String deleteAccount(@PathVariable String userName){
+        adminService.deleteAccount(userName);
+        return "redirect:/admin/userList";
     }
 
     @PostMapping()
@@ -50,6 +45,8 @@ public class AdminController {
         adminService.banOrUnbanUser(Integer.valueOf(id));
         return "redirect:/admin/userList";
     }
+
+
 
 
 }
