@@ -1,7 +1,6 @@
 package pl.sda.pol122.auctionservice.services;
 
 import lombok.AllArgsConstructor;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,7 +18,7 @@ public class DefaultAdminService implements AdminService {
 
     private final UserRepository userRepository;
 
-    private final JdbcTemplate jdbcTemplate;
+
 
 
     @Override

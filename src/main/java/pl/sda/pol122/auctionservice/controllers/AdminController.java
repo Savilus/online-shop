@@ -5,11 +5,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import pl.sda.pol122.auctionservice.entities.UserEntity;
 import pl.sda.pol122.auctionservice.model.User;
 import pl.sda.pol122.auctionservice.services.AdminService;
 import pl.sda.pol122.auctionservice.services.UserService;
-import pl.sda.pol122.auctionservice.utils.AuthenticatedUserProvider;
 
 @Controller
 @RequestMapping(path = "/admin")
