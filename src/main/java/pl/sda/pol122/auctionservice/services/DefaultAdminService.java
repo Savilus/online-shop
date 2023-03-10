@@ -3,6 +3,7 @@ package pl.sda.pol122.auctionservice.services;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import pl.sda.pol122.auctionservice.dao.UserRepository;
@@ -51,7 +52,7 @@ public class DefaultAdminService implements AdminService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Collection<? extends GrantedAuthority> loggedInAccountAuthority =  authentication.getAuthorities();
 
-        if(loggedInAccountAuthority.contains("SUPER_ADMIN")){
+        if(loggedInAccountAuthority.contains(new SimpleGrantedAuthority("SUPER_ADMIN"))){
             Integer everyAccountId = userRepository.findByLogin(username).getId();
             userRepository.deleteById(everyAccountId);
             userRepository.deleteAuthorityByUserName(username);
