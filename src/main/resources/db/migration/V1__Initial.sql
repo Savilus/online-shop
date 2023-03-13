@@ -43,7 +43,7 @@ create table user_addresses (
 
 create table users (
                        id integer not null auto_increment,
-                       email varchar(30) not null,
+                       email varchar(100) not null,
                        enabled bit not null,
                        firstname varchar(30) not null,
                        lastname varchar(45) not null,
