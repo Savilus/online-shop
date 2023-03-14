@@ -2,13 +2,9 @@ package pl.sda.pol122.auctionservice.utils.validators;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.sda.pol122.auctionservice.dao.UserRepository;
 
-@AllArgsConstructor
-@NoArgsConstructor
 public class UserNameValidator implements ConstraintValidator<UserNameConstraint, String> {
 
     @Autowired
