@@ -1,16 +1,21 @@
 package pl.sda.pol122.auctionservice.services;
 
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import pl.sda.pol122.auctionservice.dao.UserRepository;
 import pl.sda.pol122.auctionservice.entities.UserEntity;
 import pl.sda.pol122.auctionservice.model.User;
 
+import java.util.Collection;
 import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class DefaultAdminService implements AdminService{
+public class DefaultAdminService implements AdminService {
 
     private final UserRepository userRepository;
 
@@ -39,4 +44,33 @@ public class DefaultAdminService implements AdminService{
                         .build())
                 .toList();
     }
+
+    @Override
+    public void deleteAccount(String username) {
+        String userToDelete = userRepository.getAuthorityByUsername(username);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Collection<? extends GrantedAuthority> loggedInAccountAuthority =  authentication.getAuthorities();
+
+        if(loggedInAccountAuthority.contains(new SimpleGrantedAuthority("SUPER_ADMIN"))){
+            Integer everyAccountId = userRepository.findByLogin(username).getId();
+            userRepository.deleteById(everyAccountId);
+            userRepository.deleteAuthorityByUserName(username);
+
+
+        } else {
+            if(userToDelete.equals("USER")){
+                Integer userAccountId = userRepository.findByLogin(username).getId();
+                userRepository.deleteById(userAccountId);
+                userRepository.deleteAuthorityByUserName(username);
+            }
+        }
+
+
+
+    }
+
+
 }
+
+

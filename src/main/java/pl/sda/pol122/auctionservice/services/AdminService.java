@@ -9,4 +9,6 @@ public interface AdminService {
     void banOrUnbanUser(Integer id);
 
     List<User> listOfUsers();
+
+    void deleteAccount(String username);
 }
