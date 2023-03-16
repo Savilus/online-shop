@@ -45,6 +45,7 @@ public class DefaultCategoriesService implements CategoriesService {
                 .builder()
                 .categoryName(category.getCategoryName())
                 .listOfProducts(new ArrayList<>())
+                .image(category.getImage())
                 .build();
         categoryRepository.save(categoryEntity);
     }

@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 import pl.sda.pol122.auctionservice.enums.ERole;
 
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -18,6 +17,7 @@ public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer id;
 
     @Column(name = "username", length = 30, nullable = false)
@@ -38,11 +38,9 @@ public class UserEntity {
     @Column(name = "enabled", nullable = false)
     private Boolean enabled;
 
-    @ManyToMany
-    @JoinTable(name = "user_addresses",
-            joinColumns = @JoinColumn(name = "address_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private List<UserAddressEntity> userAddresses;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
+    private UserAddressEntity address;
 
     @Enumerated(EnumType.STRING)
     @ElementCollection(fetch = FetchType.EAGER)

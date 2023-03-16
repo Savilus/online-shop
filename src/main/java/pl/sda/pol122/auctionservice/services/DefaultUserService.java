@@ -10,11 +10,13 @@ import pl.sda.pol122.auctionservice.dao.ProductRepository;
 import pl.sda.pol122.auctionservice.dao.UserRepository;
 import pl.sda.pol122.auctionservice.entities.OrderEntity;
 import pl.sda.pol122.auctionservice.entities.ProductEntity;
+import pl.sda.pol122.auctionservice.entities.UserAddressEntity;
 import pl.sda.pol122.auctionservice.entities.UserEntity;
 import pl.sda.pol122.auctionservice.enums.ERole;
 import pl.sda.pol122.auctionservice.model.Order;
 import pl.sda.pol122.auctionservice.model.Product;
 import pl.sda.pol122.auctionservice.model.User;
+import pl.sda.pol122.auctionservice.model.UserAddress;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -86,7 +88,24 @@ public class DefaultUserService implements UserService {
     public User getAuthenticatedUser() {
         Optional<UserEntity> userEntity = authenticatedUser.get();
         User user;
-        if (userEntity.isPresent()) {
+        if (userEntity.isPresent() && userEntity.get().getAddress() != null) {
+            UserEntity existingEntityUser = userEntity.get();
+            user = User.builder()
+                    .id(existingEntityUser.getId())
+                    .enabled(existingEntityUser.getEnabled())
+                    .userName(existingEntityUser.getLogin())
+                    .firstName(existingEntityUser.getFirstName())
+                    .lastName(existingEntityUser.getLastName())
+                    .email(existingEntityUser.getEmail())
+                    .userAddress(UserAddress.builder()
+                            .city(existingEntityUser.getAddress().getCity())
+                            .postCode(existingEntityUser.getAddress().getPostCode())
+                            .buildingNumber(existingEntityUser.getAddress().getBuildingNumber())
+                            .flatNumber(existingEntityUser.getAddress().getFlatNumber())
+                            .street(existingEntityUser.getAddress().getStreet())
+                            .build())
+                    .build();
+        } else if (userEntity.isPresent() && userEntity.get().getAddress() == null){
             UserEntity existingEntityUser = userEntity.get();
             user = User.builder()
                     .id(existingEntityUser.getId())
@@ -97,7 +116,7 @@ public class DefaultUserService implements UserService {
                     .email(existingEntityUser.getEmail())
                     .build();
         } else {
-            throw new RuntimeException("This user does not exist");
+            throw new RuntimeException("This admin does not exist");
         }
         return user;
     }
@@ -135,17 +154,29 @@ public class DefaultUserService implements UserService {
 
 
     @Override
-    public void saveAccountChanges(User user) {
-        UserEntity userEntity = UserEntity
-                .builder()
-                .login(user.getUserName())
-                .password(user.getPassword())
-                .firstName(user.getFirstName())
-                .lastName(user.getLastName())
-                .email(user.getEmail())
-                .enabled(user.getEnabled())
-                .build();
-        userRepository.save(userEntity);
+    public void saveAccountChanges(User user, UserAddress userAddress) {
+        UserEntity userEntityById = userRepository.getUserEntityById(authenticatedUser.get().orElseThrow(RuntimeException::new).getId());
+
+        if (user.getFirstName() != null && !user.getFirstName().isBlank()) {
+            userEntityById.setFirstName(user.getFirstName().trim());
+        }
+        if (user.getLastName() != null && !user.getLastName().isBlank()) {
+            userEntityById.setLastName(user.getLastName().trim());
+        }
+        if (user.getEmail() != null && !user.getEmail().isBlank()) {
+            userEntityById.setEmail(user.getEmail().trim());
+        }
+
+        UserAddressEntity userAddressEntity;
+        if(userEntityById.getAddress() == null){
+            userAddressEntity = new UserAddressEntity();
+        }else {
+            userAddressEntity = userEntityById.getAddress();
+        }
+        UserAddressEntity updatedUserAddress = updateUserAddressEntity(userAddressEntity, userAddress);
+
+        userEntityById.setAddress(updatedUserAddress);
+        userRepository.save(userEntityById);
     }
 
 
@@ -153,6 +184,28 @@ public class DefaultUserService implements UserService {
         String sqlAddAuthorities = "INSERT INTO authorities (username, authority) VALUES (?,?)";
 
         jdbcTemplate.update(sqlAddAuthorities, user.getUserName(), "USER");
+    }
+
+    private UserAddressEntity updateUserAddressEntity(UserAddressEntity userAddressEntity, UserAddress userAddress){
+
+        if (userAddress.getCity() != null && !userAddress.getCity().isBlank()) {
+            userAddressEntity.setCity(userAddress.getCity());
+        }
+
+        if (userAddress.getPostCode() != null && !userAddress.getPostCode().isBlank()) {
+            userAddressEntity.setPostCode(userAddress.getPostCode());
+        }
+        if (userAddress.getBuildingNumber() != null && !userAddress.getBuildingNumber().isBlank()) {
+            userAddressEntity.setBuildingNumber(userAddress.getBuildingNumber());
+        }
+        if (userAddress.getFlatNumber() != null && !userAddress.getFlatNumber().isBlank()) {
+            userAddressEntity.setFlatNumber(userAddress.getFlatNumber());
+        }
+        if (userAddress.getStreet() != null && !userAddress.getStreet().isBlank()) {
+            userAddressEntity.setStreet(userAddress.getStreet());
+        }
+
+        return  userAddressEntity;
     }
 
 }

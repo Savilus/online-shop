@@ -4,11 +4,14 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import pl.sda.pol122.auctionservice.enums.ERole;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import pl.sda.pol122.auctionservice.model.User;
+import pl.sda.pol122.auctionservice.model.UserAddress;
 import pl.sda.pol122.auctionservice.services.UserService;
-import pl.sda.pol122.auctionservice.utils.AuthenticatedUserProvider;
 
 @Controller
 @RequestMapping(value = "/user")
@@ -17,46 +20,27 @@ public class UserController {
 
     private final UserService userService;
 
-
-    @PatchMapping("/")
-    public String updateAccountChanges(@Valid User user) {
-        userService.saveAccountChanges(user);
-        return "redirect:/my-account";
-    }
-
     @GetMapping(path = "/account/editAccount")
-    public String editUserProfile() {
+    public String editUserProfile(Model model) {
+        model.addAttribute("user", new User());
+        model.addAttribute("userAddress", new UserAddress());
         return "editUserProfile";
     }
 
+    @PostMapping("/account/editAccount")
+    public String updateAccountChanges(@ModelAttribute User user,
+                                       @ModelAttribute UserAddress userAddress,
+                                       Model model
+                                       ) {
 
-    @DeleteMapping("/users/{id}")
-    public String deleteUser(@PathVariable String id) {
-        if ((AuthenticatedUserProvider.checkIfLoggedUserIsAdmin() ||
-                AuthenticatedUserProvider.checkIfLoggedUserIsSuperAdmin()) &&
-                !userService.getUserById(Integer.valueOf(id)).getRoles().contains(ERole.ADMIN) ||
-                !userService.getUserById(Integer.valueOf(id)).getRoles().contains(ERole.SUPER_ADMIN)
-        ) {
-            userService.deleteById(Integer.valueOf(id));
-        } else {
-            return "redirect:/index";
-        }
-        return "redirect:/users";
+
+
+        model.addAttribute("user", user);
+        model.addAttribute("userAddress", userAddress);
+
+        userService.saveAccountChanges(user, userAddress);
+        return "redirect:/user/account";
     }
-
-
-    @PatchMapping("/updateUser/{userId}")
-    public String updateAccountStatus(@PathVariable String userId, boolean enabledFromInput) {
-        if (AuthenticatedUserProvider.checkIfLoggedUserIsAdmin() ||
-                AuthenticatedUserProvider.checkIfLoggedUserIsSuperAdmin()) {
-            userService.saveAccountStatus(Integer.valueOf(userId), enabledFromInput);
-        } else {
-            return "redirect:/index";
-        }
-        return "redirect:/users";
-    }
-
-
 
     @GetMapping(path = "/account/orderHistory")
     public String loadUserOrderHistory(Model model) {
