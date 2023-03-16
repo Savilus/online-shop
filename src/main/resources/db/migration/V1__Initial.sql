@@ -68,7 +68,7 @@ VALUES ('superadmindef@onet.pl', 'Tom', true, 'Jones', '$2a$10$H1WEkjK3i3aibtlAY
 INSERT INTO users (email, firstname, enabled, lastname, password, username)
 VALUES ('admindef@onet.pl', 'Tom', true, 'Jones', '$2a$10$H1WEkjK3i3aibtlAYs1zCO6Cawjk3ll38vhUWLe6H3.2f2NDNeCX.', 'adminDef');
 INSERT INTO users (email, firstname, enabled, lastname, password, username)
-VALUES ('admin@onet.pl', 'Tom', true, 'Jones', '$2a$10$H1WEkjK3i3aibtlAYs1zCO6Cawjk3ll38vhUWLe6H3.2f2NDNeCX.', 'userDef');
+VALUES ('user@onet.pl', 'Tom', true, 'Jones', '$2a$10$H1WEkjK3i3aibtlAYs1zCO6Cawjk3ll38vhUWLe6H3.2f2NDNeCX.', 'userDef');
 
 
 INSERT INTO category(category_name, image)
