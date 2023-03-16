@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.sda.pol122.auctionservice.model.User;
+import pl.sda.pol122.auctionservice.model.UserAddress;
 import pl.sda.pol122.auctionservice.services.CategoriesService;
 import pl.sda.pol122.auctionservice.services.UserService;
 
@@ -47,12 +48,22 @@ public class MainController {
         if (authorities.contains(new SimpleGrantedAuthority("ADMIN")) ||
                 authorities.contains(new SimpleGrantedAuthority("SUPER_ADMIN"))){
             User authenticatedAdmin = userService.getAuthenticatedUser();
-            model.addAttribute("user", authenticatedAdmin);
+            if(authenticatedAdmin.getUserAddress() == null){
+                model.addAttribute("adminAddress", new UserAddress());
+            } else {
+                model.addAttribute("adminAddress", authenticatedAdmin.getUserAddress());
+            }
+            model.addAttribute("admin", authenticatedAdmin);
             return "adminProfile";
         }
 
         User authenticatedUser = userService.getAuthenticatedUser();
         model.addAttribute("user", authenticatedUser);
+        if(authenticatedUser.getUserAddress() == null){
+            model.addAttribute("userAddress", new UserAddress());
+        } else {
+            model.addAttribute("userAddress", authenticatedUser.getUserAddress());
+        }
         return "userProfile";
     }
 }
