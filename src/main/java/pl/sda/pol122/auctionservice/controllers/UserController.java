@@ -4,10 +4,11 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import pl.sda.pol122.auctionservice.enums.ERole;
+
 import pl.sda.pol122.auctionservice.model.User;
 import pl.sda.pol122.auctionservice.model.UserAddress;
 import pl.sda.pol122.auctionservice.services.UserService;
@@ -54,7 +55,10 @@ public class UserController {
     }
 
     @PostMapping(value = "/signUp")
-    public String createNewUser(@Valid @ModelAttribute User user, Model model) {
+    public String createNewUser(@Valid @ModelAttribute User user, BindingResult result, Model model) {
+        if(result.hasErrors()){
+            return "signUp";
+        }
         model.addAttribute("user", user);
         userService.createUserAccount(user);
         return "redirect:/index";
