@@ -34,7 +34,6 @@
                 <div class="profile-head">
                     <h5  th:text="${user.getFirstName()} + ' ' + ${user.getLastName()}">
                     </h5>
-                    <p class="proile-rating">OPINIONS : <span>8/10</span></p>
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
@@ -99,12 +98,50 @@
                                 <label>Username</label>
                             </div>
                             <div class="col-md-6">
-                                <p th:text="${user.getUserName()}"></p>
+                                <p th:text="${user.getUserName()} ?: 'UNKOWN'"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>City</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p th:text="${userAddress.getCity()} ?: 'UNKOWN'"> </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Street</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p th:text="${userAddress.getStreet()} ?: 'UNKOWN'" > </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Building Number</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p th:text="${userAddress.getBuildingNumber()} ?: 'UNKOWN'"> </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Flat Number</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p th:text="${userAddress.getFlatNumber()} ?: 'UNKOWN'"> </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Post Code</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p th:text="${userAddress.getPostCode()} ?: 'UNKOWN'" > </p>
                             </div>
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </div>

@@ -1,4 +1,3 @@
-
 create table category (
                           category_id integer not null auto_increment,
                           category_name varchar(255) not null,
@@ -26,20 +25,9 @@ create table product (
                          primary key (id)
 
 ) engine=InnoDB;
-create table user_address (
-                              id integer not null auto_increment,
-                              building_number varchar(5) not null,
-                              city varchar(30) not null,
-                              flat_number varchar(5),
-                              post_code varchar(6) not null,
-                              street varchar(30) not null,
-                              primary key (id)
-) engine=InnoDB;
 
-create table user_addresses (
-                                address_id integer not null,
-                                user_id integer not null
-) engine=InnoDB;
+
+
 
 create table users (
                        id integer not null auto_increment,
@@ -64,15 +52,6 @@ alter table product
         foreign key (order_id)
             references orders (id);
 
-alter table user_addresses
-    add constraint FKs3hhkal8hpn9wu8m9qp04f4tn
-        foreign key (user_id)
-            references user_address (id);
-
-alter table user_addresses
-    add constraint FKpw9ob333uvdenpo8k7gyy4w0v
-        foreign key (address_id)
-            references users (id);
 
 Create table authorities (username varchar(100) , authority varchar(50));
 

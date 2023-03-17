@@ -32,7 +32,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="profile-head">
-                    <h5  th:text="${user.getFirstName()} + ' ' + ${user.getLastName()}">
+                    <h5  th:text="${admin.getFirstName()} + ' ' + ${admin.getLastName()}">
                     </h5>
                     <p class="proile-rating">OPINIONS : <span>8/10</span></p>
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -71,7 +71,7 @@
                                 <label>User Id</label>
                             </div>
                             <div class="col-md-6">
-                                <p th:text="${user.getId()}"></p>
+                                <p th:text="${admin.getId()}"></p>
                             </div>
                         </div>
                         <div class="row">
@@ -79,7 +79,7 @@
                                 <label> First Name</label>
                             </div>
                             <div class="col-md-6">
-                                <p th:text="${user.getFirstName()}"></p>
+                                <p th:text="${admin.getFirstName()}"></p>
                             </div>
                         </div>
                         <div class="row">
@@ -87,7 +87,7 @@
                                 <label>Last Name</label>
                             </div>
                             <div class="col-md-6">
-                                <p th:text="${user.getLastName()}"></p>
+                                <p th:text="${admin.getLastName()}"></p>
                             </div>
                         </div>
                         <div class="row">
@@ -95,7 +95,7 @@
                                 <label>E-mail</label>
                             </div>
                             <div class="col-md-6">
-                                <p th:text="${user.getEmail()}"></p>
+                                <p th:text="${admin.getEmail()}"></p>
                             </div>
                         </div>
                         <div class="row">
@@ -103,12 +103,50 @@
                                 <label>Username</label>
                             </div>
                             <div class="col-md-6">
-                                <p th:text="${user.getUserName()}"></p>
+                                <p th:text="${admin.getUserName()} ?: 'UNKOWN'"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>City</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p th:text="${adminAddress.getCity()} ?: 'UNKOWN'"> </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Street</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p th:text="${adminAddress.getStreet()} ?: 'UNKOWN'" > </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Building Number</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p th:text="${adminAddress.getBuildingNumber()} ?: 'UNKOWN'"> </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Flat Number</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p th:text="${adminAddress.getFlatNumber()} ?: 'UNKOWN'"> </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Post Code</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p th:text="${adminAddress.getPostCode()} ?: 'UNKOWN'" > </p>
                             </div>
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </div>

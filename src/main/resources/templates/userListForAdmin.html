@@ -30,6 +30,7 @@
     <h2><b>USER LIST</b></h2>
     <ul  class="responsive-table">
         <li class="table-header">
+            <div class="col col-1"><b>Username</b></div>
             <div class="col col-1"><b>Name</b></div>
             <div class="col col-1"><b>Last Name</b></div>
             <div class="col col-2"><b>E-mail</b></div>
@@ -37,6 +38,7 @@
             <div class="col col-4"><b>Options</b></div>
         </li>
         <li th:each=" user : ${users}" class="table-row">
+            <div th:text="${user.getUserName()}" class="col col-1" ></div>
             <div th:text="${user.getFirstName()}" class="col col-1" ></div>
             <div th:text="${user.getLastName()}" class="col col-1" ></div>
             <div th:text="${user.getEmail()}" class="col col-2" ></div>
