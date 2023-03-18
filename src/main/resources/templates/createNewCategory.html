@@ -36,24 +36,24 @@
       <div class="card mb-4">
         <div class="card-header"><b>CREATE NEW CATEGORY</b></div>
         <div class="card-body">
-          <form>
+          <form th:action="@{/category/createCategory}" method="post" th:object="${newCategory}">
             <!-- Form Group (username)-->
             <div class="mb-3">
               <label class="small mb-1" for="inputUsername">Category name </label>
-              <input class="form-control" id="inputUsername" type="text" placeholder="Enter your username" >
+              <input th:field="*{categoryName}" class="form-control" id="inputUsername" type="text" placeholder="Enter your category name" >
             </div>
             <!-- Form Row-->
             <div class="row gx-3 mb-3">
               <!-- Form Group (first name)-->
               <div class="col-md-6">
                 <label class="small mb-1" for="inputFirstName">Category Image Link.     <b>  Please enter your correct image path or of URL</b></label>
-                <input class="form-control" id="inputFirstName" type="text" placeholder="Enter your image path" >
+                <input th:field="*{image}" class="form-control" id="inputFirstName" type="text" placeholder="Enter your image path" >
               </div>
               <!-- Form Group (last name)-->
 
             </div>
             <!-- Save changes button-->
-            <button class="btn btn-primary" type="button">Create</button>
+            <button class="btn btn-primary" type="submit">Create Category</button>
           </form>
         </div>
       </div>
@@ -77,7 +77,7 @@
       <div th:text="${category.getCategoryName()}" class="col col-2" ></div>
       <div   class="col col-3" ></div>
       <div  class="col col-4" >
-        <a   class="btn btn-danger"/>
+        <a th:href="'/category/deleteCategory/' + ${category.getId()}"  class="btn btn-danger"/>
         DELETE</a>
       </div>
     </li>

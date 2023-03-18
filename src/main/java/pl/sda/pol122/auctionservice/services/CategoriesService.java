@@ -14,4 +14,6 @@ public interface CategoriesService {
     void addNewCategory(Category category);
     CategoryEntity getCategoryEntityById(Integer id);
 
+    void deleteCategoryById(Integer id);
+
 }
