@@ -15,8 +15,8 @@ public interface CategoryRepository extends ListCrudRepository<CategoryEntity, I
 
    @Transactional
    @Modifying
-   @Query(value = "DELETE FROM category where category_id = :categoryId" , nativeQuery = true)
-   void deleteCategoryEntitiesById(@Param("categoryId") Integer categoryId);
+   @Query(value = "UPDATE category c SET c.enabled = :enabled WHERE c.category_id= :id" , nativeQuery = true)
+   void setCategoryAvailability(@Param("enabled") Boolean setEnabledAccount, @Param("id") Integer id);
 
 
 

@@ -9,11 +9,13 @@ public interface CategoriesService {
 
     Category getCategoryById(Integer categoryId);
 
+    List<Category> getAllAvailableCategories();
+
     List<Category> getAllCategories();
 
     void addNewCategory(Category category);
     CategoryEntity getCategoryEntityById(Integer id);
 
-    void deleteCategoryById(Integer id);
+    void setCategoryAvailability(Integer id);
 
 }

@@ -26,7 +26,7 @@ public class MainController {
 
     @GetMapping(path = "/shop")
     public String loadCategoriesSite(Model model) {
-        model.addAttribute("categoriesId", categoriesService.getAllCategories());
+        model.addAttribute("categoriesId", categoriesService.getAllAvailableCategories());
         return "shop";
     }
 

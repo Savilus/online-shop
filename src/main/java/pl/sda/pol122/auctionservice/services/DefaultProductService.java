@@ -24,7 +24,7 @@ public class DefaultProductService implements ProductService {
 
     @Override
     public List<Product> getListOfProductsByCategoryId(Integer categoryId) {
-        CategoryEntity categoryById = categoryDao.getCategoryById(Integer.valueOf(categoryId));
+        CategoryEntity categoryById = categoryDao.getCategoryById(categoryId);
         Category category = Category.builder()
                 .id(categoryById.getId())
                 .categoryName(categoryById.getCategoryName())
@@ -35,15 +35,19 @@ public class DefaultProductService implements ProductService {
 
         for (int i = 0; i < listOfProductsEntity.size(); i++) {
             ProductEntity productEntity = listOfProductsEntity.get(i);
-            Product product = new Product(productEntity.getId(),
-                    productEntity.getName(),
-                    productEntity.getPrice(),
-                    category,
-                    productEntity.getImage(),
-                    productEntity.getAvailableAmount());
+            if(Boolean.TRUE.equals(productEntity.getEnabled())){
+                Product product = new Product(productEntity.getId(),
+                        productEntity.getName(),
+                        productEntity.getPrice(),
+                        category,
+                        productEntity.getImage(),
+                        productEntity.getAvailableAmount(),
+                        productEntity.getEnabled());
 
 
-            productsByCategory.add(product);
+                productsByCategory.add(product);
+            }
+
         }
 
         return productsByCategory;
@@ -64,7 +68,8 @@ public class DefaultProductService implements ProductService {
                 productEntity.getPrice(),
                 category,
                 productEntity.getImage(),
-                productEntity.getAvailableAmount());
+                productEntity.getAvailableAmount(),
+                productEntity.getEnabled());
     }
 
     @Override
@@ -83,6 +88,7 @@ public class DefaultProductService implements ProductService {
                         .availableAmount(product.getAvailableAmount())
                         .price(product.getPrice())
                         .image(product.getImage())
+                        .enabled(true)
                         .build();
 
         productRepository.save(productEntity);
@@ -98,6 +104,7 @@ public class DefaultProductService implements ProductService {
                         .availableAmount(product.getAvailableAmount())
                         .price(product.getPrice())
                         .image(product.getImage())
+                        .enabled(product.getEnabled())
                         .build();
         productRepository.save(productEntity);
     }
@@ -106,7 +113,8 @@ public class DefaultProductService implements ProductService {
     public List<Product> getRandomProducts() {
         List<ProductEntity> randomProductsById = productRepository.findRandomProductsById();
         List<Product> randomProducts = new ArrayList<>();
-        randomProductsById.stream().forEach(productEntity -> randomProducts.add(Product.builder()
+        randomProductsById
+                .forEach(productEntity -> randomProducts.add(Product.builder()
                 .id(productEntity.getId())
                 .name(productEntity.getName())
                 .price(productEntity.getPrice())
