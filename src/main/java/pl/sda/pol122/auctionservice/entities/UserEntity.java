@@ -2,9 +2,6 @@ package pl.sda.pol122.auctionservice.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-import pl.sda.pol122.auctionservice.enums.ERole;
-
-import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -41,10 +38,5 @@ public class UserEntity {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private UserAddressEntity address;
-
-    @Enumerated(EnumType.STRING)
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "user_roles")
-    private Set<ERole> roles;
 
 }
