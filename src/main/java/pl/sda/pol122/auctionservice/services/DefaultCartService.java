@@ -1,5 +1,6 @@
 package pl.sda.pol122.auctionservice.services;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.sda.pol122.auctionservice.dao.OrderRepository;
@@ -59,6 +60,7 @@ public class DefaultCartService implements CartService {
         return cart.sumPrice();
     }
 
+    @Transactional
     @Override
     public void submitPayment(List<CartItem> orderedProducts) {
         User buyer = userService.getAuthenticatedUser();

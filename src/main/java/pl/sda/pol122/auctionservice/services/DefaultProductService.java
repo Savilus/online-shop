@@ -1,5 +1,6 @@
 package pl.sda.pol122.auctionservice.services;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.sda.pol122.auctionservice.dao.CategoryDao;
@@ -23,7 +24,7 @@ public class DefaultProductService implements ProductService {
     private final CategoriesService categoriesService;
 
     @Override
-    public List<Product> getListOfProductsByCategoryId(Integer categoryId) {
+    public List<Product> getAvailableListOfProductsByCategoryId(Integer categoryId) {
         CategoryEntity categoryById = categoryDao.getCategoryById(categoryId);
         Category category = Category.builder()
                 .id(categoryById.getId())
@@ -49,7 +50,35 @@ public class DefaultProductService implements ProductService {
             }
 
         }
+        return productsByCategory;
+    }
 
+    @Override
+    public List<Product> getAllProductsByCategoryId(Integer categoryId) {
+        CategoryEntity categoryById = categoryDao.getCategoryById(categoryId);
+        Category category = Category.builder()
+                .id(categoryById.getId())
+                .categoryName(categoryById.getCategoryName())
+                .build();
+
+        List<ProductEntity> listOfProductsEntity = productDao.findProductsByCategory(categoryById);
+        List<Product> productsByCategory = new ArrayList<>();
+
+        for (int i = 0; i < listOfProductsEntity.size(); i++) {
+            ProductEntity productEntity = listOfProductsEntity.get(i);
+                Product product = new Product(productEntity.getId(),
+                        productEntity.getName(),
+                        productEntity.getPrice(),
+                        category,
+                        productEntity.getImage(),
+                        productEntity.getAvailableAmount(),
+                        productEntity.getEnabled());
+
+
+                productsByCategory.add(product);
+
+
+        }
         return productsByCategory;
     }
 
@@ -72,10 +101,11 @@ public class DefaultProductService implements ProductService {
                 productEntity.getEnabled());
     }
 
+    @Transactional
     @Override
-    public void deleteProductById(Integer productId) {
-        productRepository.deleteProductById(productId);
-
+    public void setProductAvailability(Integer id) {
+        ProductEntity productEntityById = productRepository.findProductEntityById(id);
+        productRepository.setProductAvailability(!productEntityById.getEnabled(), id);
     }
 
     @Override

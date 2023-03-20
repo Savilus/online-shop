@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <link rel="icon" href="images/fevicon.png" type="image/gif" />
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+
+  <title>MaMiJa</title>
+
+  <link rel="stylesheet" th:href="@{/css/bootstrap.css}" type="text/css"/>
+  <link rel="stylesheet" th:href="@{/css/orderhistory.css}" type="text/css"/>
+  <link rel="stylesheet" type="text/css"
+        href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"/>
+  <link th:href="@{/css/style.css}" rel="stylesheet"/>
+  <link th:href="@{/css/responsive.css}" rel="stylesheet"/>
+
+
+  <div th:replace="~{fragments :: style}"></div>
+
+</head>
+
+<body>
+
+<div th:replace="~{fragments :: menu}"></div>
+
+
+<div class="container">
+  <div class="card mb-4">
+    <div class="card-header"><b>UPDATE OR ADD NEW PRODUCT</b></div>
+    <div class="card-body">
+      <form  method="post">
+        <!-- Form Group (username)-->
+        <div class="mb-3">
+          <label class="small mb-1" for="inputUsername">Product name </label>
+          <input  class="form-control" id="inputUsername" type="text" placeholder="Enter your product name" >
+        </div>
+        <!-- Form Row-->
+        <div class="row gx-3 mb-3">
+          <!-- Form Group (first name)-->
+          <div class="col-md-6">
+            <label class="small mb-1" for="inputFirstName">Product Image Link.     <b>  Please enter your correct image path or of URL</b></label>
+            <input  class="form-control" id="inputFirstName" type="text" placeholder="Enter your image path" >
+          </div>
+          <div class="row gx-3 mb-3">
+            <div class="col-md-6">
+              <label class="small mb-1" >Product price</label>
+              <input  class="form-control"  type="text"
+                     placeholder="Enter product price">
+            </div>
+            <div class="col-md-6">
+              <label class="small mb-1" for="inputLastName">Available amount</label>
+              <input  class="form-control" id="inputLastName" type="text"
+                     placeholder="Enter product quantity">
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-primary" type="submit">Add/Update Product</button>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+<div class="container">
+  <h2><b>Product  List</b></h2>
+  <ul  class="responsive-table">
+    <li class="table-header">
+      <div class="col col-1"><b>Product Image</b></div>
+      <div class="col col-1"><b>Product Name</b></div>
+      <div class="col col-1"><b>Product Price</b></div>
+      <div class="col col-1"><b>Available Amount</b></div>
+      <div class="col col-1"><b>Item available to sell</b></div>
+      <div class="col col-3"><b>Options</b></div>
+    </li>
+    <li th:each="product : ${allProducts}" class="table-row">
+      <div class="col col-1"><img th:src="${product.getImage()}" width="100" height="100" class="img-responsive"></div>
+      <div th:text="${product.getName()}" class="col col-1" ></div>
+      <div th:text="${product.getPrice()}" class="col col-1" ></div>
+      <div th:text="${product.getAvailableAmount()}"  class="col col-1" ></div>
+      <div th:text="${product.getEnabled()} ? 'For sell' : 'Hidden'"  class="col col-1" ></div>
+      <div  class="col col-3" >
+        <a  th:href="'/productChanges/availability/' + ${product.getId()}" class="btn btn-primary"/>
+        Switch Availability</a>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<div th:replace="~{fragments :: footer}"/>
+
+<div th:replace="~{fragments :: js_scripts}"/>
+</body>
+
+</html>

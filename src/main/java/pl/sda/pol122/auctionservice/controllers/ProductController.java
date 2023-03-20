@@ -28,18 +28,28 @@ public class ProductController {
     }
 
     @GetMapping(path = "/shop/allProducts/{categoryId}")
-    public String loadAllProducts(Model model,@PathVariable String categoryId) {
-        List<Product> allProducts = productService.getListOfProductsByCategoryId(Integer.valueOf(categoryId));
-        Category categoryById = categoriesService.getCategoryById(Integer.valueOf(categoryId));
+    public String loadAllProducts(Model model,@PathVariable Integer categoryId) {
+        List<Product> allProducts = productService.getAvailableListOfProductsByCategoryId(categoryId);
+        Category categoryById = categoriesService.getCategoryById(categoryId);
         model.addAttribute("categoryName", categoryById);
         model.addAttribute("allProducts", allProducts);
         return "allProductsList";
     }
 
-    @GetMapping()
-    public String addProduct(Product product) {
-        productService.addNewProduct(product);
-        return "redirect:/products";
+    @GetMapping("/productChanges/category/{categoryId}")
+    public String listOfProductsCategoryForAdmin(@PathVariable Integer categoryId,
+                                                 Model model) {
+        List<Product> allProducts = productService.getAllProductsByCategoryId(categoryId);
+        Category categoryById = categoriesService.getCategoryById(categoryId);
+        model.addAttribute("categoryName", categoryById);
+        model.addAttribute("allProducts", allProducts);
+        return "editProducts";
+    }
+
+    @GetMapping("/productChanges")
+    public String categoryListToAddProducts(Model model){
+        model.addAttribute("categories", categoriesService.getAllCategories());
+        return "categoryListToAddProducts";
     }
 
     @GetMapping(path = {"/" , "/index"})
@@ -54,28 +64,24 @@ public class ProductController {
 
     @DeleteMapping("/product/{id}")
     public String deleteProductByAdmin(@PathVariable String id) {
-        productService.deleteProductById(Integer.valueOf(id));
         return "redirect:/default";
     }
 
 
-    @PatchMapping("/updateProduct")
-    public String updateProductChanges(Product product) {
-        productService.updateProductChanges(product);
-        return "redirect:/my-products";
+    @GetMapping("/productChanges/availability/{id}")
+    public String switchAvailabilityForProduct(@PathVariable Integer id) {
+        Product productById = productService.getProductById(id);
+        productService.setProductAvailability(id);
+        return "redirect:/productChanges/category/" + productById.getCategory().getId();
     }
 
-    @DeleteMapping("/deleteProduct/{id}")
-    public String deleteProduct(@PathVariable String id) {
-        productService.deleteProductById(Integer.valueOf(id));
-        return "redirect:/my-products";
-    }
 
     @PostMapping("/addNewProduct")
     public String addNewProductToSell(Product product) {
         productService.addNewProduct(product);
         return "redirect:/my-products";
     }
+
 
 
 }
