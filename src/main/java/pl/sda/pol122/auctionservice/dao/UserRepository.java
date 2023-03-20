@@ -24,7 +24,7 @@ public interface UserRepository extends ListCrudRepository<UserEntity, Integer> 
     Integer checkIfUsernameIsAvailable(@Param("userName") String userName);
 
     @Modifying
-    @Transactional
+
     @Query(value = "UPDATE users u SET u.enabled = :enabled WHERE u.id= :id",
             nativeQuery = true)
     void banOrUnbanUser(@Param("enabled") Boolean setEnabledAccount, @Param("id") Integer id);

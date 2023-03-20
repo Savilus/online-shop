@@ -1,5 +1,6 @@
 package pl.sda.pol122.auctionservice.services;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -22,6 +23,7 @@ public class DefaultAdminService implements AdminService {
 
 
 
+    @Transactional
     @Override
     public void banOrUnbanUser(Integer id) {
         UserEntity userById = userRepository.getUserEntityById(id);

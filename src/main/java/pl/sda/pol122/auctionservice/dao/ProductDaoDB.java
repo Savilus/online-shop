@@ -19,19 +19,10 @@ public class ProductDaoDB implements ProductDao {
 
 
     @Override
-    public void saveProduct(ProductEntity product) {
-        productRepository.save(product);
-    }
-
-    @Override
     public ProductEntity findProduct(Integer productId) {
         return productRepository.findProductEntityById(productId);
     }
 
-    @Override
-    public void deleteProduct(Integer productId) {
-        productRepository.deleteProductById(productId);
-    }
 
     public List<ProductEntity> findProductsByCategory(CategoryEntity category) {
         CategoryEntity categoryEntity = categoryRepository.findById(category.getId()).get();

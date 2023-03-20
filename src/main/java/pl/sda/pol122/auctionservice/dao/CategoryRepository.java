@@ -1,6 +1,5 @@
 package pl.sda.pol122.auctionservice.dao;
 
-import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.ListCrudRepository;
@@ -13,7 +12,7 @@ public interface CategoryRepository extends ListCrudRepository<CategoryEntity, I
 
    CategoryEntity findCategoryEntityById(Integer categoryId);
 
-   @Transactional
+
    @Modifying
    @Query(value = "UPDATE category c SET c.enabled = :enabled WHERE c.category_id= :id" , nativeQuery = true)
    void setCategoryAvailability(@Param("enabled") Boolean setEnabledCategory, @Param("id") Integer id);
