@@ -104,13 +104,17 @@ public class UserValidationInTest {
                 "Incorrect password." +
                         "The password must have a minimum of 8 characters, " +
                         "lowercase and uppercase and a special character";
+        List<String> listOfMessages = List.of(EXPECTED_MESSAGE_FOR_INCORRECT_PASSWORD,
+                EXPECTED_MESSAGE_FOR_INCORRECT_EMAIL);
         Set<ConstraintViolation<User>> violations = validator.validate(userDto);
+
+        List<String> listOfMessagesIn = violations.stream()
+                .map(s -> s.getMessageTemplate())
+                .toList();
 
         Assertions.assertFalse(violations.isEmpty());
         Assertions.assertEquals(2, violations.size());
-        Assertions.assertEquals(List.of(EXPECTED_MESSAGE_FOR_INCORRECT_PASSWORD, EXPECTED_MESSAGE_FOR_INCORRECT_EMAIL),
-                violations.stream()
-                        .map(s -> s.getMessageTemplate())
-                        .toList());
+
+        Assertions.assertTrue(listOfMessagesIn.equals(listOfMessages));
     }
 }
