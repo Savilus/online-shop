@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pl.sda.pol122.auctionservice.config.AuthenticatedUser;
 import pl.sda.pol122.auctionservice.dao.OrderRepository;
 import pl.sda.pol122.auctionservice.dao.ProductRepository;
@@ -12,7 +13,6 @@ import pl.sda.pol122.auctionservice.entities.OrderEntity;
 import pl.sda.pol122.auctionservice.entities.ProductEntity;
 import pl.sda.pol122.auctionservice.entities.UserAddressEntity;
 import pl.sda.pol122.auctionservice.entities.UserEntity;
-import pl.sda.pol122.auctionservice.enums.ERole;
 import pl.sda.pol122.auctionservice.model.Order;
 import pl.sda.pol122.auctionservice.model.Product;
 import pl.sda.pol122.auctionservice.model.User;
@@ -45,6 +45,7 @@ public class DefaultUserService implements UserService {
     }
 
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void createUserAccount(User user) {
         String encodedPassword = passwordEncoder.encode(user.getPassword());
@@ -56,12 +57,12 @@ public class DefaultUserService implements UserService {
                 .lastName(user.getLastName())
                 .email(user.getEmail())
                 .enabled(true)
-                .roles(Set.of(ERole.USER))
                 .build();
         userRepository.save(userEntity);
         addUserAuthorities(user);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void createAdminAccount(User user) {
         String encodedPassword = passwordEncoder.encode(user.getPassword());
@@ -73,9 +74,9 @@ public class DefaultUserService implements UserService {
                 .lastName(user.getLastName())
                 .email(user.getEmail())
                 .enabled(true)
-                .roles(Set.of(ERole.ADMIN, ERole.USER))
                 .build();
         userRepository.save(userEntity);
+        addAdminAuthorities(user);
     }
 
     @Override
@@ -105,7 +106,7 @@ public class DefaultUserService implements UserService {
                             .street(existingEntityUser.getAddress().getStreet())
                             .build())
                     .build();
-        } else if (userEntity.isPresent() && userEntity.get().getAddress() == null){
+        } else if (userEntity.isPresent() && userEntity.get().getAddress() == null) {
             UserEntity existingEntityUser = userEntity.get();
             user = User.builder()
                     .id(existingEntityUser.getId())
@@ -168,9 +169,9 @@ public class DefaultUserService implements UserService {
         }
 
         UserAddressEntity userAddressEntity;
-        if(userEntityById.getAddress() == null){
+        if (userEntityById.getAddress() == null) {
             userAddressEntity = new UserAddressEntity();
-        }else {
+        } else {
             userAddressEntity = userEntityById.getAddress();
         }
         UserAddressEntity updatedUserAddress = updateUserAddressEntity(userAddressEntity, userAddress);
@@ -186,7 +187,13 @@ public class DefaultUserService implements UserService {
         jdbcTemplate.update(sqlAddAuthorities, user.getUserName(), "USER");
     }
 
-    private UserAddressEntity updateUserAddressEntity(UserAddressEntity userAddressEntity, UserAddress userAddress){
+    private void addAdminAuthorities(User user) {
+        String sqlAddAuthorities = "INSERT INTO authorities (username, authority) VALUES (?,?)";
+
+        jdbcTemplate.update(sqlAddAuthorities, user.getUserName(), "ADMIN");
+    }
+
+    private UserAddressEntity updateUserAddressEntity(UserAddressEntity userAddressEntity, UserAddress userAddress) {
 
         if (userAddress.getCity() != null && !userAddress.getCity().isBlank()) {
             userAddressEntity.setCity(userAddress.getCity());
@@ -205,7 +212,7 @@ public class DefaultUserService implements UserService {
             userAddressEntity.setStreet(userAddress.getStreet());
         }
 
-        return  userAddressEntity;
+        return userAddressEntity;
     }
 
 }
