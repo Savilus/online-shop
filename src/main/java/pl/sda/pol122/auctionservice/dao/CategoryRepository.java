@@ -16,7 +16,7 @@ public interface CategoryRepository extends ListCrudRepository<CategoryEntity, I
    @Transactional
    @Modifying
    @Query(value = "UPDATE category c SET c.enabled = :enabled WHERE c.category_id= :id" , nativeQuery = true)
-   void setCategoryAvailability(@Param("enabled") Boolean setEnabledAccount, @Param("id") Integer id);
+   void setCategoryAvailability(@Param("enabled") Boolean setEnabledCategory, @Param("id") Integer id);
 
 
 

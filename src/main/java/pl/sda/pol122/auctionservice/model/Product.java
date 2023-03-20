@@ -33,7 +33,8 @@ public class Product {
         this.enabled = enabled;
     }
 
-
+    public Product() {
+    }
 
     @Override
     public boolean equals(Object o) {
