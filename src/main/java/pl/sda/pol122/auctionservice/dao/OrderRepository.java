@@ -7,8 +7,6 @@ import java.util.List;
 
 public interface OrderRepository extends ListCrudRepository<OrderEntity, Integer> {
 
-    OrderEntity findOrderById(Integer orderId);
-
     List<OrderEntity> findAllByBuyerUserId(Integer userId);
 
 }

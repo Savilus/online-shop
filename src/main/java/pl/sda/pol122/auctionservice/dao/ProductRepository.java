@@ -1,6 +1,5 @@
 package pl.sda.pol122.auctionservice.dao;
 
-import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.ListCrudRepository;
