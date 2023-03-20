@@ -1,8 +1,12 @@
 package pl.sda.pol122.auctionservice.model;
 
 import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
 @Builder
+@Setter
+@Getter
 public class Category {
 
     private int id;
@@ -11,26 +15,17 @@ public class Category {
 
     private String image;
 
-    public Category(int id, String categoryName, String photo) {
+    private Boolean enabled;
+
+    public Category() {
+    }
+
+    public Category(int id, String categoryName, String image, Boolean enabled) {
         this.id = id;
         this.categoryName = categoryName;
-        this.image = photo;
+        this.image = image;
+        this.enabled = enabled;
     }
 
-    public Category(int id, String categoryName) {
-        this.id = id;
-        this.categoryName = categoryName;
-    }
 
-    public int getId() {
-        return id;
-    }
-
-    public String getCategoryName() {
-        return categoryName;
-    }
-
-    public String getImage() {
-        return image;
-    }
 }

@@ -24,7 +24,7 @@ public class ProductEntity {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "category_id", nullable = false)
+    @JoinColumn(name = "category_id", nullable = false )
     private CategoryEntity categoryEntity;
 
     @Column(name = "amount", nullable = false)
@@ -35,8 +35,11 @@ public class ProductEntity {
     @Column(name = "image", nullable = false)
     private String image;
 
+    @Column(name = "enabled", nullable = false)
+    private Boolean enabled;
+
     @ManyToOne
-    @JoinColumn(name = "order_id")
+    @JoinColumn(name = "order_id" )
     private OrderEntity orderEntity;
 
 }

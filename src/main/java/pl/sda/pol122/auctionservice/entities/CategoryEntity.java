@@ -27,6 +27,9 @@ public class CategoryEntity {
     @Column(name = "image")
     private String image;
 
+    @Column(name = "enabled")
+    private Boolean enabled;
+
     @OneToMany(mappedBy = "categoryEntity")
     @Column(name = "products")
     private List<ProductEntity> listOfProducts;
