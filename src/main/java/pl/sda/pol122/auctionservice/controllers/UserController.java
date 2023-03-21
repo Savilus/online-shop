@@ -28,12 +28,12 @@ public class UserController {
     }
 
     @PostMapping("/account/editAccount")
-    public String updateAccountChanges(@ModelAttribute User user,
+    public String updateAccountChanges(@Valid @ModelAttribute User user, BindingResult result,
                                        @ModelAttribute UserAddress userAddress,
-                                       Model model
-    ) {
-
-
+                                       Model model) {
+        if(result.hasErrors()){
+            return "editUserProfile";
+        }
         model.addAttribute("user", user);
         model.addAttribute("userAddress", userAddress);
 

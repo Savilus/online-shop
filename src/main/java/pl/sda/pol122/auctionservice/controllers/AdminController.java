@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.sda.pol122.auctionservice.model.User;
 import pl.sda.pol122.auctionservice.services.AdminService;
@@ -24,7 +25,10 @@ public class AdminController {
     }
 
     @PostMapping()
-    public String createAdminAccount(@Valid @ModelAttribute User user){
+    public String createAdminAccount(@Valid @ModelAttribute User user, BindingResult result){
+        if(result.hasErrors()){
+            // return scieżka do formularza
+        }
         userService.createAdminAccount(user);
         return "redirect:/index";
     }

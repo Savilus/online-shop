@@ -51,6 +51,7 @@
                             <label class="small mb-1" for="inputEmailAddress">Email address</label>
                             <input th:field="*{email}" class="form-control" id="inputEmailAddress" type="text"
                                    placeholder="Enter your email address">
+                            <div class="alert alert-warning" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
                         </div>
                         <div th:object="${userAddress}" class="card-header"><b>Address Details</b>
                             <div class="row gx-3 mb-3">
@@ -63,6 +64,7 @@
                                     <label class="small mb-1">Post Code</label>
                                     <input th:field="*{postCode}" class="form-control" type="text"
                                            placeholder="Enter your post code">
+                                    <div class="alert alert-warning" th:if="${#fields.hasErrors('postCode')}" th:errors="*{postCode}"></div>
                                 </div>
                             </div>
                             <div class="row gx-3 mb-3">
