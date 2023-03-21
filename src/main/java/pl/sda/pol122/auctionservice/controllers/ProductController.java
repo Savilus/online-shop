@@ -28,7 +28,7 @@ public class ProductController {
     }
 
     @GetMapping(path = "/shop/allProducts/{categoryId}")
-    public String loadAllProducts(Model model,@PathVariable Integer categoryId) {
+    public String loadAllProducts(Model model, @PathVariable Integer categoryId) {
         List<Product> allProducts = productService.getAvailableListOfProductsByCategoryId(categoryId);
         Category categoryById = categoriesService.getCategoryById(categoryId);
         model.addAttribute("categoryName", categoryById);
@@ -36,37 +36,32 @@ public class ProductController {
         return "allProductsList";
     }
 
-    @GetMapping("/productChanges/category/{categoryId}")
-    public String listOfProductsCategoryForAdmin(@PathVariable Integer categoryId,
-                                                 Model model) {
-        List<Product> allProducts = productService.getAllProductsByCategoryId(categoryId);
-        Category categoryById = categoriesService.getCategoryById(categoryId);
+    @GetMapping("/productChanges/category/{id}")
+    public String listOfProductsFromCategoryForAdmin(@PathVariable Integer id,
+                                                     Model model) {
+        List<Product> allProducts = productService.getAllProductsByCategoryId(id);
+        Category categoryById = categoriesService.getCategoryById(id);
         model.addAttribute("categoryName", categoryById);
         model.addAttribute("allProducts", allProducts);
+        model.addAttribute("product", new Product());
         return "editProducts";
     }
 
     @GetMapping("/productChanges")
-    public String categoryListToAddProducts(Model model){
+    public String categoryListToAddProducts(Model model) {
         model.addAttribute("categories", categoriesService.getAllCategories());
         return "categoryListToAddProducts";
     }
 
-    @GetMapping(path = {"/" , "/index"})
-    public String showRandomProducts(Model model){
+    @GetMapping(path = {"/", "/index"})
+    public String showRandomProducts(Model model) {
         List<Product> randomProducts = productService.getRandomProducts();
         List<Category> allCategories = categoriesService.getAllAvailableCategories();
         model.addAttribute("categories", allCategories);
-        model.addAttribute("randomProducts" , randomProducts);
+        model.addAttribute("randomProducts", randomProducts);
 
         return "/index";
     }
-
-    @DeleteMapping("/product/{id}")
-    public String deleteProductByAdmin(@PathVariable String id) {
-        return "redirect:/default";
-    }
-
 
     @GetMapping("/productChanges/availability/{id}")
     public String switchAvailabilityForProduct(@PathVariable Integer id) {
@@ -76,12 +71,14 @@ public class ProductController {
     }
 
 
-    @PostMapping("/addNewProduct")
-    public String addNewProductToSell(Product product) {
+    @PostMapping("/productChanges/category/{id}")
+    public String addOrUpdateProductByAdmin(@ModelAttribute Product product, Model model, @PathVariable Integer id) {
+        model.addAttribute("product", product);
+        Category categoryById = categoriesService.getCategoryById(id);
+        product.setCategory(categoryById);
         productService.addNewProduct(product);
-        return "redirect:/my-products";
+        return "redirect:/productChanges/category/" + id;
     }
-
 
 
 }

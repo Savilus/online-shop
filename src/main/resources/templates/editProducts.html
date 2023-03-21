@@ -36,28 +36,29 @@
   <div class="card mb-4">
     <div class="card-header"><b>UPDATE OR ADD NEW PRODUCT</b></div>
     <div class="card-body">
-      <form  method="post">
+      <form th:action="'/productChanges/category/' + ${categoryName.getId()}" th:object="${product}" method="post">
         <!-- Form Group (username)-->
         <div class="mb-3">
           <label class="small mb-1" for="inputUsername">Product name </label>
-          <input  class="form-control" id="inputUsername" type="text" placeholder="Enter your product name" >
+          <input th:field="*{name}" class="form-control" id="inputUsername" type="text" placeholder="Enter your product name" >
+
         </div>
         <!-- Form Row-->
         <div class="row gx-3 mb-3">
           <!-- Form Group (first name)-->
           <div class="col-md-6">
             <label class="small mb-1" for="inputFirstName">Product Image Link.     <b>  Please enter your correct image path or of URL</b></label>
-            <input  class="form-control" id="inputFirstName" type="text" placeholder="Enter your image path" >
+            <input th:field="*{image}" class="form-control" id="inputFirstName" type="text" placeholder="Enter your image path" >
           </div>
           <div class="row gx-3 mb-3">
             <div class="col-md-6">
               <label class="small mb-1" >Product price</label>
-              <input  class="form-control"  type="text"
+              <input th:field="*{price}" class="form-control"  type="text" id="price"
                      placeholder="Enter product price">
             </div>
             <div class="col-md-6">
               <label class="small mb-1" for="inputLastName">Available amount</label>
-              <input  class="form-control" id="inputLastName" type="text"
+              <input th:field="*{availableAmount}" class="form-control" id="inputLastName" type="text"
                      placeholder="Enter product quantity">
             </div>
           </div>

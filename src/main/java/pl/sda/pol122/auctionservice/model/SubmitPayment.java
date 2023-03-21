@@ -7,18 +7,18 @@ import pl.sda.pol122.auctionservice.utils.validators.CardNumberConstraint;
 @Builder
 public class SubmitPayment {
 
-    String firstName;
-    String lastName;
-    String street;
-    String city;
-    String state;
-    String zipCode;
+    private String firstName;
+    private String lastName;
+    private String street;
+    private String city;
+    private String state;
+    private String zipCode;
 
-    String nameOnCard;
+    private String nameOnCard;
     @CardNumberConstraint
-    String cardNumber;
+    private String cardNumber;
     @CCVConstraint
-    String ccv;
+    private String ccv;
 
 
 }
