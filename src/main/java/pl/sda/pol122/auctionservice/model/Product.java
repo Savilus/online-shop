@@ -2,12 +2,14 @@ package pl.sda.pol122.auctionservice.model;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.util.Objects;
 
 @Builder
 @Getter
+@Setter
 public class Product {
 
 
