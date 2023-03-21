@@ -48,6 +48,7 @@ public class DefaultAdminService implements AdminService {
     }
 
     @Override
+    @Transactional
     public void deleteAccount(String username) {
         String userToDelete = userRepository.getAuthorityByUsername(username);
 
