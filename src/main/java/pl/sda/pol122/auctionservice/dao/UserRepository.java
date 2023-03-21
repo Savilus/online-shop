@@ -37,7 +37,7 @@ public interface UserRepository extends ListCrudRepository<UserEntity, Integer> 
             nativeQuery = true)
     String getAuthorityByUsername(@Param("username") String userName);
 
-    @Transactional
+
     @Modifying
     @Query(value = "DELETE FROM authorities where username = :username" , nativeQuery = true)
     void deleteAuthorityByUserName(@Param("username") String username);

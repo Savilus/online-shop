@@ -3,6 +3,7 @@ package pl.sda.pol122.auctionservice.model;
 import lombok.Builder;
 import pl.sda.pol122.auctionservice.utils.validators.CCVConstraint;
 import pl.sda.pol122.auctionservice.utils.validators.CardNumberConstraint;
+import pl.sda.pol122.auctionservice.utils.validators.PostCodeConstraint;
 
 @Builder
 public class SubmitPayment {
@@ -12,11 +13,15 @@ public class SubmitPayment {
     private String street;
     private String city;
     private String state;
+
+    @PostCodeConstraint
     private String zipCode;
 
     private String nameOnCard;
+
     @CardNumberConstraint
     private String cardNumber;
+
     @CCVConstraint
     private String ccv;
 
