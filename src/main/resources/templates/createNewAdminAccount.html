@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="~{fragments :: style}"></div>
+</head>
+
+<body class="bg-light">
+
+<div th:replace="~{fragments :: menu}"></div>
+
+<div class="container">
+    <div class="py-5 text-center">
+        <h2>CREATE NEW ADMIN ACCOUNT</h2>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <form action="#" th:action="@{/admin/createNewAdmin}" th:object="${user}" method="post">
+                <div class="form-group">
+                    <p> Admin Username </p>
+                    <input type="text" th:field="*{userName}" class="form-control" id="userName" >
+                    <p class="help-block text-danger"></p>
+                    <div class="alert alert-warning" th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"></div>
+                </div>
+                <div class="form-group">
+                    <p>First Name </p>
+                    <input type="text" th:field="*{firstName}" class="form-control" >
+                </div>
+
+                <div class="form-group">
+                    <p> Last Name </p>
+                    <input type="text" th:field="*{lastName}" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <p> Admin Email </p>
+                    <input type="text" th:field="*{email}" class="form-control" id="email" >
+                    <p class="help-block text-danger"></p>
+                    <div class="alert alert-warning" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+                </div>
+
+                <div class="form-group">
+                    <p> Account Password </p>
+                    <input type="text" th:field="*{password}" class="form-control" >
+                    <p class="help-block text-danger"></p>
+                    <div class="alert alert-warning" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+                </div>
+                <hr class="mb-4">
+                <button type="submit" class="btn btn-primary btn-lg btn-block">CREATE ADMIN</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

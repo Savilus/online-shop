@@ -39,7 +39,7 @@
                             <div class="col-md-6">
                                 <label class="small mb-1" >First name</label>
                                 <input th:field="*{firstName}" class="form-control"  type="text"
-                                       placeholder="Enter your first name">
+                                       th:value="${loggedUser.getFirstName()}" />
                             </div>
                             <div class="col-md-6">
                                 <label class="small mb-1" for="inputLastName">Last name</label>
@@ -58,7 +58,7 @@
                                 <div class="col-md-6">
                                     <label class="small mb-1" >City</label>
                                     <input th:field="*{city}" class="form-control"  type="text"
-                                           placeholder="Enter your city">
+                                           th:placeholder="${userAddress.city}">
                                 </div>
                                 <div class="col-md-6">
                                     <label class="small mb-1">Post Code</label>

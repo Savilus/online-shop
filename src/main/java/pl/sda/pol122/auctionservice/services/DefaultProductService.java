@@ -101,7 +101,7 @@ public class DefaultProductService implements ProductService {
                 productEntity.getEnabled());
     }
 
-    @Transactional
+    @Transactional(rollbackOn = Exception.class)
     @Override
     public void setProductAvailability(Integer id) {
         ProductEntity productEntityById = productRepository.findProductEntityById(id);
