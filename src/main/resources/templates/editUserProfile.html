@@ -34,12 +34,18 @@
                 <div class="card-header"><b>Account Details</b></div>
                 <div class="card-body">
                     <form th:action="@{/user/account/editAccount}" method="post" th:object="${user}">
-                        <!-- Form Row-->
+                        <div class="form-group">
+                            <p> Your Username </p>
+                            <input type="text" th:field="*{userName}" class="form-control" id="userName"
+                                   placeholder="Enter your username">
+                            <p class="help-block text-danger"></p>
+                            <div class="alert alert-warning" th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"></div>
+                        </div>
                         <div class="row gx-3 mb-3">
                             <div class="col-md-6">
                                 <label class="small mb-1" >First name</label>
                                 <input th:field="*{firstName}" class="form-control"  type="text"
-                                       th:value="${loggedUser.getFirstName()}" />
+                                       placeholder="Enter your first name" />
                             </div>
                             <div class="col-md-6">
                                 <label class="small mb-1" for="inputLastName">Last name</label>
@@ -58,7 +64,7 @@
                                 <div class="col-md-6">
                                     <label class="small mb-1" >City</label>
                                     <input th:field="*{city}" class="form-control"  type="text"
-                                           th:placeholder="${userAddress.city}">
+                                           placeholder="Enter your city">
                                 </div>
                                 <div class="col-md-6">
                                     <label class="small mb-1">Post Code</label>
