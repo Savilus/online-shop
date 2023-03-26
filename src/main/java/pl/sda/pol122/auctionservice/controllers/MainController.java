@@ -13,6 +13,7 @@ import pl.sda.pol122.auctionservice.model.User;
 import pl.sda.pol122.auctionservice.model.UserAddress;
 import pl.sda.pol122.auctionservice.services.CategoriesService;
 import pl.sda.pol122.auctionservice.services.UserService;
+import pl.sda.pol122.auctionservice.utils.AuthenticatedUserProvider;
 
 import java.util.Collection;
 
@@ -22,6 +23,8 @@ import java.util.Collection;
 public class MainController {
 
    private final CategoriesService categoriesService;
+
+   private final AuthenticatedUserProvider authenticatedUser;
    private final UserService userService;
 
     @GetMapping(path = "/shop")
@@ -42,11 +45,8 @@ public class MainController {
 
     @GetMapping(path = "/user/account")
     public String loadUserProfile(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Collection<? extends GrantedAuthority> authorities =  authentication.getAuthorities();
 
-        if (authorities.contains(new SimpleGrantedAuthority("ADMIN")) ||
-                authorities.contains(new SimpleGrantedAuthority("SUPER_ADMIN"))){
+        if (authenticatedUser.checkIfLoggedUserIsAdmin() || authenticatedUser.checkIfLoggedUserIsSuperAdmin()){
             User authenticatedAdmin = userService.getAuthenticatedUser();
             if(authenticatedAdmin.getUserAddress() == null){
                 model.addAttribute("adminAddress", new UserAddress());

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.sda.pol122.auctionservice.model.User;
 import pl.sda.pol122.auctionservice.services.AdminService;
 import pl.sda.pol122.auctionservice.services.UserService;
+import pl.sda.pol122.auctionservice.utils.AuthenticatedUserProvider;
 import pl.sda.pol122.auctionservice.utils.PopUpMessage;
 
 import java.util.Collection;
@@ -23,6 +24,7 @@ import java.util.Collection;
 public class AdminController {
     private final UserService userService;
 
+    private final AuthenticatedUserProvider authenticatedUser;
     private final AdminService adminService;
 
     @GetMapping("/userList/delete/{userName}")
@@ -34,10 +36,9 @@ public class AdminController {
 
     @GetMapping("/createNewAdmin")
     public String loadCreateAdminForm(Model model){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Collection<? extends GrantedAuthority> authorities =  authentication.getAuthorities();
 
-        if(authorities.contains(new SimpleGrantedAuthority("SUPER_ADMIN"))){
+
+        if(authenticatedUser.checkIfLoggedUserIsSuperAdmin()){
             model.addAttribute("user", new User());
             return "createNewAdminAccount";
         }
@@ -47,6 +48,7 @@ public class AdminController {
 
     @PostMapping("/createNewAdmin")
     public String createAdminAccount(@Valid @ModelAttribute User user, BindingResult result){
+
         if(result.hasErrors()){
           return   "createNewAdminAccount";
         }

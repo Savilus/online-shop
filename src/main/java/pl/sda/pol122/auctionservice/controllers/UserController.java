@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import pl.sda.pol122.auctionservice.model.User;
 import pl.sda.pol122.auctionservice.model.UserAddress;
 import pl.sda.pol122.auctionservice.services.UserService;
+import pl.sda.pol122.auctionservice.utils.AuthenticatedUserProvider;
+import pl.sda.pol122.auctionservice.utils.PopUpMessage;
 
 @Controller
 @RequestMapping(value = "/user")
@@ -52,6 +54,10 @@ public class UserController {
 
     @GetMapping("/signUp")
     public String showFormToSignUp(Model model) {
+        if(AuthenticatedUserProvider.getLoggedUser() != null){
+            PopUpMessage.createPopUpMessage("You can't create new account if you are logged.");
+            return "redirect:/user/account";
+        }
         model.addAttribute("user", new User());
         return "signUp";
     }

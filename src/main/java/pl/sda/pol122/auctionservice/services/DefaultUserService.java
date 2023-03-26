@@ -17,9 +17,13 @@ import pl.sda.pol122.auctionservice.model.Order;
 import pl.sda.pol122.auctionservice.model.Product;
 import pl.sda.pol122.auctionservice.model.User;
 import pl.sda.pol122.auctionservice.model.UserAddress;
+import pl.sda.pol122.auctionservice.utils.AuthenticatedUserProvider;
 
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 @Service
@@ -28,9 +32,10 @@ public class DefaultUserService implements UserService {
 
     private final UserRepository userRepository;
     private final OrderRepository orderRepository;
-    private final AuthenticatedUser authenticatedUser;
     private final ProductRepository productRepository;
     private final PasswordEncoder passwordEncoder;
+
+    private final AuthenticatedUser authenticatedUser;
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -87,34 +92,32 @@ public class DefaultUserService implements UserService {
     }
 
     public User getAuthenticatedUser() {
-        Optional<UserEntity> userEntity = authenticatedUser.get();
+        UserEntity userEntity = AuthenticatedUserProvider.getLoggedUser();
         User user;
-        if (userEntity.isPresent() && userEntity.get().getAddress() != null) {
-            UserEntity existingEntityUser = userEntity.get();
+        if (userEntity.getAddress() != null) {
             user = User.builder()
-                    .id(existingEntityUser.getId())
-                    .enabled(existingEntityUser.getEnabled())
-                    .userName(existingEntityUser.getLogin())
-                    .firstName(existingEntityUser.getFirstName())
-                    .lastName(existingEntityUser.getLastName())
-                    .email(existingEntityUser.getEmail())
+                    .id(userEntity.getId())
+                    .enabled(userEntity.getEnabled())
+                    .userName(userEntity.getLogin())
+                    .firstName(userEntity.getFirstName())
+                    .lastName(userEntity.getLastName())
+                    .email(userEntity.getEmail())
                     .userAddress(UserAddress.builder()
-                            .city(existingEntityUser.getAddress().getCity())
-                            .postCode(existingEntityUser.getAddress().getPostCode())
-                            .buildingNumber(existingEntityUser.getAddress().getBuildingNumber())
-                            .flatNumber(existingEntityUser.getAddress().getFlatNumber())
-                            .street(existingEntityUser.getAddress().getStreet())
+                            .city(userEntity.getAddress().getCity())
+                            .postCode(userEntity.getAddress().getPostCode())
+                            .buildingNumber(userEntity.getAddress().getBuildingNumber())
+                            .flatNumber(userEntity.getAddress().getFlatNumber())
+                            .street(userEntity.getAddress().getStreet())
                             .build())
                     .build();
-        } else if (userEntity.isPresent() && userEntity.get().getAddress() == null) {
-            UserEntity existingEntityUser = userEntity.get();
+        } else if (userEntity.getAddress() == null) {
             user = User.builder()
-                    .id(existingEntityUser.getId())
-                    .enabled(existingEntityUser.getEnabled())
-                    .userName(existingEntityUser.getLogin())
-                    .firstName(existingEntityUser.getFirstName())
-                    .lastName(existingEntityUser.getLastName())
-                    .email(existingEntityUser.getEmail())
+                    .id(userEntity.getId())
+                    .enabled(userEntity.getEnabled())
+                    .userName(userEntity.getLogin())
+                    .firstName(userEntity.getFirstName())
+                    .lastName(userEntity.getLastName())
+                    .email(userEntity.getEmail())
                     .build();
         } else {
             throw new RuntimeException("This admin does not exist");
@@ -156,7 +159,7 @@ public class DefaultUserService implements UserService {
 
     @Override
     public void saveAccountChanges(User user, UserAddress userAddress) {
-        UserEntity userEntityById = userRepository.getUserEntityById(authenticatedUser.get().orElseThrow(RuntimeException::new).getId());
+        UserEntity userEntityById = userRepository.getUserEntityById(AuthenticatedUserProvider.getLoggedUser().getId());
 
         if (user.getFirstName() != null && !user.getFirstName().isBlank()) {
             userEntityById.setFirstName(user.getFirstName().trim());
