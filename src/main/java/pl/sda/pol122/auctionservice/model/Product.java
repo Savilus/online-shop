@@ -1,8 +1,6 @@
 package pl.sda.pol122.auctionservice.model;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -10,6 +8,8 @@ import java.util.Objects;
 @Builder
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Product {
 
 
@@ -25,18 +25,6 @@ public class Product {
 
     private Boolean enabled;
 
-    public Product(int id, String name, BigDecimal price, Category category, String image, Integer availableAmount, Boolean enabled) {
-        this.id = id;
-        this.name = name;
-        this.price = price;
-        this.category = category;
-        this.image = image;
-        this.availableAmount = availableAmount;
-        this.enabled = enabled;
-    }
-
-    public Product() {
-    }
 
     @Override
     public boolean equals(Object o) {

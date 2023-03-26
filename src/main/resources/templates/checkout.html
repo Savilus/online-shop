@@ -39,7 +39,7 @@
 
 
 <div id='form-wrapper'>
-    <form th:action="@{/cart/checkout}" method="post">
+    <form th:action="@{/cart/checkout}" th:object="${submitPayment}" method="post">
 
         <div id='header' class='text-center mb-3'>
             <h1>Time To Square Up!</h1>
@@ -76,7 +76,8 @@
                     <div class='col-md-4'>
 
                         <label class='mb-1' for='zip'>Zip</label>
-                        <input type='text' id='zip' class='form-control' >
+                        <input type='text' id='zip'th:field="*{zipCode}" class='form-control' >
+                        <div class="alert alert-warning" th:if="${#fields.hasErrors('zipCode')}" th:errors="*{zipCode}"></div>
                     </div>
                 </div>
 
@@ -93,7 +94,8 @@
 
                 <div class='form-group mb-1'>
                     <label class='mb-1' for='cardNum'>Card number</label>
-                    <input class='form-control' id='cardNum' placeholder>
+                    <input class='form-control' th:field="*{cardNumber}" id='cardNum' placeholder>
+                    <div class="alert alert-warning" th:if="${#fields.hasErrors('cardNumber')}" th:errors="*{cardNumber}"></div>
                 </div>
 
                 <div class='form-row mb-1'>
@@ -126,7 +128,8 @@
                     </div>
                     <div class='col'>
                         <label class='mb-0' for='ccv'>CCV</label>
-                        <input placeholder='* * * ' class='form-control' id='ccv'>
+                        <input placeholder='* * * ' th:field="*{ccv}" class='form-control' id='ccv'>
+                        <div class="alert alert-warning" th:if="${#fields.hasErrors('ccv')}" th:errors="*{ccv}"></div>
                     </div>
                     <button class='btn btn-primary mt-4' type='submit' ><i class="fas fa-lock mr-2"></i>Submit Payment</button>
                 </div>
