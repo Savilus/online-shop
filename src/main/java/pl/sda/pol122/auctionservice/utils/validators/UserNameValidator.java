@@ -17,6 +17,6 @@ public class UserNameValidator implements ConstraintValidator<UserNameConstraint
 
     @Override
     public boolean isValid(String userName, ConstraintValidatorContext constraintValidatorContext) {
-        return userRepository.checkIfUsernameIsAvailable(userName) == 0;
+        return userRepository.checkIfUsernameIsAvailable(userName) == 0 && !userName.isEmpty() && !userName.isBlank();
     }
 }

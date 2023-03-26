@@ -60,7 +60,7 @@ public class DefaultCartService implements CartService {
         return cart.sumPrice();
     }
 
-    @Transactional
+    @Transactional(rollbackOn = Exception.class)
     @Override
     public void submitPayment(List<CartItem> orderedProducts) {
         User buyer = userService.getAuthenticatedUser();

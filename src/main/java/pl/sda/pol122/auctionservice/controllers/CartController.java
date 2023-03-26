@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.sda.pol122.auctionservice.model.CartItem;
 import pl.sda.pol122.auctionservice.model.Product;
+import pl.sda.pol122.auctionservice.model.SubmitPayment;
 import pl.sda.pol122.auctionservice.services.CartService;
 import pl.sda.pol122.auctionservice.services.ProductService;
 import pl.sda.pol122.auctionservice.utils.PopUpMessage;

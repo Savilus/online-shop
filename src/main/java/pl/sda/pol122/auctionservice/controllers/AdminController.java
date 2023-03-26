@@ -2,6 +2,10 @@ package pl.sda.pol122.auctionservice.controllers;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -9,6 +13,9 @@ import org.springframework.web.bind.annotation.*;
 import pl.sda.pol122.auctionservice.model.User;
 import pl.sda.pol122.auctionservice.services.AdminService;
 import pl.sda.pol122.auctionservice.services.UserService;
+import pl.sda.pol122.auctionservice.utils.PopUpMessage;
+
+import java.util.Collection;
 
 @Controller
 @RequestMapping(path = "/admin")
@@ -24,13 +31,28 @@ public class AdminController {
         return "redirect:/admin/userList";
     }
 
-    @PostMapping()
+
+    @GetMapping("/createNewAdmin")
+    public String loadCreateAdminForm(Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Collection<? extends GrantedAuthority> authorities =  authentication.getAuthorities();
+
+        if(authorities.contains(new SimpleGrantedAuthority("SUPER_ADMIN"))){
+            model.addAttribute("user", new User());
+            return "createNewAdminAccount";
+        }
+        PopUpMessage.createPopUpMessage("Only super admin can create new admin.");
+        return "redirect:/admin/adminSettings";
+    }
+
+    @PostMapping("/createNewAdmin")
     public String createAdminAccount(@Valid @ModelAttribute User user, BindingResult result){
         if(result.hasErrors()){
-            // return scieżka do formularza
+          return   "createNewAdminAccount";
         }
         userService.createAdminAccount(user);
-        return "redirect:/index";
+        PopUpMessage.createPopUpMessage("New admin created!");
+        return "redirect:/admin/adminSettings";
     }
 
     @GetMapping("/adminSettings")
