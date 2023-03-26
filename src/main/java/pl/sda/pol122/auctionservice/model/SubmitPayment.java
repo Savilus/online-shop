@@ -1,11 +1,15 @@
 package pl.sda.pol122.auctionservice.model;
 
-import lombok.Builder;
+import lombok.*;
 import pl.sda.pol122.auctionservice.utils.validators.CCVConstraint;
 import pl.sda.pol122.auctionservice.utils.validators.CardNumberConstraint;
 import pl.sda.pol122.auctionservice.utils.validators.PostCodeConstraint;
 
 @Builder
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class SubmitPayment {
 
     private String firstName;

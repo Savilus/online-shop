@@ -1,14 +1,14 @@
 package pl.sda.pol122.auctionservice.controllers;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import pl.sda.pol122.auctionservice.model.CartItem;
 import pl.sda.pol122.auctionservice.model.Product;
+import pl.sda.pol122.auctionservice.model.SubmitPayment;
 import pl.sda.pol122.auctionservice.services.CartService;
 import pl.sda.pol122.auctionservice.services.ProductService;
 import pl.sda.pol122.auctionservice.utils.PopUpMessage;
@@ -72,29 +72,32 @@ public class CartController {
 
 
     @GetMapping(path = "/cart/checkout")
-    public String loadCartCheckout() {
+    public String loadCartCheckout(Model model) {
         if (cartService.getAllProducts().isEmpty() && cartService.checkIfStockIsAvailable()) {
             PopUpMessage.createPopUpMessage("You have empty cart or product is out of stock.");
             return "redirect:/cart";
         } else {
+            model.addAttribute("submitPayment", new SubmitPayment());
             return "checkout";
         }
     }
 
 
     @PostMapping("/cart/checkout")
-    public String submitUserPayment() {
+    public String submitUserPayment(@Valid @ModelAttribute SubmitPayment submitPayment,
+                                    BindingResult result) {
+        if(result.hasErrors()){
+            return "checkout";
+        }
         if (cartService.checkIfStockIsAvailable()) {
             List<CartItem> orderedProducts = cartService.getAllProducts();
             cartService.submitPayment(orderedProducts);
             cartService.clearCart();
-
         }else {
-            PopUpMessage.createPopUpMessage("Sorry! We don't have the quantity you want in one or more products.");
+            PopUpMessage
+                    .createPopUpMessage("Sorry! We don't have the quantity you want in one or more products.");
         }
-
         return "redirect:/cart";
-
     }
 
     @GetMapping(path = "/cart")

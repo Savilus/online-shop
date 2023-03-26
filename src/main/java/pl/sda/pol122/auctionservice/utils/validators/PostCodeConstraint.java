@@ -10,7 +10,7 @@ import java.lang.annotation.*;
 @Target({ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface PostCodeConstraint {
-    String message() default "Invalid post code. It should looks like: XX-XXX";
+    String message() default "Invalid post code. Example (just digits): XX-XXX";
     Class<?>[]groups() default{};
     Class<? extends Payload>[] payload() default{};
 }

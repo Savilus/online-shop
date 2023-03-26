@@ -10,7 +10,7 @@ import java.lang.annotation.*;
 @Target({ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CardNumberConstraint {
-    String message() default "Invalid card number. It should looks like: XXXX-XXXX-XXXX-XXXX";
+    String message() default "Invalid card number. Check and try again!";
     Class<?>[]groups() default{};
     Class<? extends Payload>[] payload() default{};
 }

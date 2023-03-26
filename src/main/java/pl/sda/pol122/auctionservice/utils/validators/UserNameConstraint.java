@@ -10,7 +10,7 @@ import java.lang.annotation.*;
 @Target({ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface UserNameConstraint {
-    String message() default "This user name is exist. Choose another one.";
+    String message() default "This user name is exist. Choose another oneand try again!";
     Class<?>[]groups() default{};
     Class<? extends Payload>[] payload() default{};
 }
