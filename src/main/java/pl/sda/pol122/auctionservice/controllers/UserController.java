@@ -24,6 +24,9 @@ public class UserController {
     public String editUserProfile(Model model) {
         model.addAttribute("user", new User());
         model.addAttribute("userAddress", new UserAddress());
+
+        User authenticatedUser = userService.getAuthenticatedUser();
+        model.addAttribute("loggedUser", authenticatedUser);
         return "editUserProfile";
     }
 

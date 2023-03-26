@@ -48,7 +48,7 @@ public class DefaultAdminService implements AdminService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackOn = Exception.class)
     public void deleteAccount(String username) {
         String userToDelete = userRepository.getAuthorityByUsername(username);
 

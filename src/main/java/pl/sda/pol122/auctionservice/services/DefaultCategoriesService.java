@@ -63,7 +63,7 @@ public class DefaultCategoriesService implements CategoriesService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackOn = Exception.class)
     public void setCategoryAvailability(Integer id) {
         Optional<CategoryEntity> categoryById = categoryRepository.findById(id);
         categoryRepository.setCategoryAvailability(!categoryById.get().getEnabled(), id);

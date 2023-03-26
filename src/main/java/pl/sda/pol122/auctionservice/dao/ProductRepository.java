@@ -23,7 +23,7 @@ public interface ProductRepository extends ListCrudRepository<ProductEntity, Int
     nativeQuery = true)
     List<ProductEntity> findRandomProductsById();
 
-    @Modifying
+    @Modifying()
     @Query(value = "UPDATE product p SET p.amount = :amount WHERE p.id= :id",
             nativeQuery = true)
     void updateAvailableAmountOfProducts(@Param("amount") Integer setAmount, @Param("id") Integer id);
