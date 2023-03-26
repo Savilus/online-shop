@@ -11,7 +11,7 @@ The main part is REST API that allows users:
 ### General information
 ***
 **API is secured** - some actions are allowed only for proper user. There are three types of users:
-- **user** - buy, sell, edit item information
+- **user** - buy item
 - **admin** - edit item information, change user account status, delete user
 - **super-admin** - delete or add admin account
 
@@ -93,6 +93,8 @@ If you don't have environment variables set, you should set it or change applica
 ![CSS](https://img.shields.io/badge/CSS-grey.svg)
 ![SCSS](https://img.shields.io/badge/SCSS-grey.svg)
 ![HTML](https://img.shields.io/badge/HTML-grey.svg)
+![MAVEN](https://img.shields.io/badge/Maven-grey.svg)
+![Mockito](https://img.shields.io/badge/Mockito-grey.svg)
 ***
 
 Created by 
