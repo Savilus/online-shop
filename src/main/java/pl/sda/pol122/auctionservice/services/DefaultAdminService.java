@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import pl.sda.pol122.auctionservice.dao.UserRepository;
 import pl.sda.pol122.auctionservice.entities.UserEntity;
 import pl.sda.pol122.auctionservice.model.User;
+import pl.sda.pol122.auctionservice.utils.AuthenticatedUserProvider;
 
 import java.util.Collection;
 import java.util.List;
@@ -19,6 +20,8 @@ import java.util.List;
 public class DefaultAdminService implements AdminService {
 
     private final UserRepository userRepository;
+
+    private final AuthenticatedUserProvider authenticatedUser;
 
 
 
@@ -52,10 +55,7 @@ public class DefaultAdminService implements AdminService {
     public void deleteAccount(String username) {
         String userToDelete = userRepository.getAuthorityByUsername(username);
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Collection<? extends GrantedAuthority> loggedInAccountAuthority =  authentication.getAuthorities();
-
-        if(loggedInAccountAuthority.contains(new SimpleGrantedAuthority("SUPER_ADMIN"))){
+        if(authenticatedUser.checkIfLoggedUserIsSuperAdmin()){
             Integer everyAccountId = userRepository.findByLogin(username).getId();
             userRepository.deleteById(everyAccountId);
             userRepository.deleteAuthorityByUserName(username);
