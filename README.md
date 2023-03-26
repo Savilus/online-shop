@@ -4,7 +4,7 @@
 ***
 This project is fully functioning web application that is an online shop. 
 The main part is REST API that allows users:
-- sell and buy items
+- buy items
 - manage sales
 - managing users
 
