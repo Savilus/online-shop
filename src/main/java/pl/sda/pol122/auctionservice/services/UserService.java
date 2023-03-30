@@ -10,12 +10,6 @@ import java.util.List;
 
 public interface UserService {
 
-    UserEntity getUserById(Integer id);
-
-    void deleteById(Integer id);
-
-    void saveAccountStatus(Integer userId, boolean accountStatus);
-
     void saveAccountChanges(User user, UserAddress userAddress);
 
     void createUserAccount(User user);

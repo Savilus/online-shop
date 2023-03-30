@@ -38,10 +38,6 @@ public class CartItem {
         return product;
     }
 
-    public BigDecimal getTotalPrice() {
-        return totalPrice;
-    }
-
     public int getQuantity() {
         return quantity;
     }

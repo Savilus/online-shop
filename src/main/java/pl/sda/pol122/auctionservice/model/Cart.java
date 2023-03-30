@@ -30,8 +30,8 @@ public class Cart {
 
         for (int i = 0; i < itemsInCart.size(); i++) {
             int quantity = itemsInCart.get(i).getQuantity();
-            BigDecimal productPrice = itemsInCart.get(i).getProduct().getPrice().multiply(BigDecimal.valueOf(quantity));
-            finalCartValue = finalCartValue.add(productPrice);
+            BigDecimal productPrices = itemsInCart.get(i).getProduct().getPrice().multiply(BigDecimal.valueOf(quantity));
+            finalCartValue = finalCartValue.add(productPrices);
         }
         return finalCartValue;
     }
@@ -45,14 +45,14 @@ public class Cart {
     }
 
     public void deleteFromCart(CartItem cartItem) {
-        int product = cartItem.getProduct().getId();
-        CartItem itemToDelete = cartItemList.stream().filter(x -> x.getProduct().getId() == product).findAny().get();
+        int productId = cartItem.getProduct().getId();
+        CartItem itemToDelete = cartItemList.stream().filter(product -> product.getProduct().getId() == productId).findAny().orElseThrow();
         cartItemList.remove(itemToDelete);
     }
 
     public void increaseTheAmount(Product product) {
-        Optional<CartItem> cartItem = cartItemList.stream().filter(item -> item.getProduct().getId() == product.getId()).findAny();
-        cartItem.ifPresent(CartItem::addQuantity);
+        Optional<CartItem> cartItems = cartItemList.stream().filter(item -> item.getProduct().getId() == product.getId()).findAny();
+        cartItems.ifPresent(CartItem::addQuantity);
     }
 
     public void decreaseTheAmount(Product product) {
