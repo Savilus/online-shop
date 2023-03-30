@@ -35,8 +35,7 @@ public class AuthenticatedUser {
 
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Authentication authentication = getAuthentication().get();
-        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-        return authorities;
+        return authentication.getAuthorities();
     }
 
     public static Optional<UserEntity> get() {
