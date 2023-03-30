@@ -25,9 +25,8 @@ public class ProductDaoDB implements ProductDao {
 
 
     public List<ProductEntity> findProductsByCategory(CategoryEntity category) {
-        CategoryEntity categoryEntity = categoryRepository.findById(category.getId()).get();
-        List<ProductEntity> productEntitiesByCategory = productRepository.findAll().stream().filter(x -> x.getCategoryEntity() == categoryEntity).toList();
-        return productEntitiesByCategory;
+        CategoryEntity categoryEntity = categoryRepository.findById(category.getId()).orElseThrow();
+        return productRepository.findAll().stream().filter(x -> x.getCategoryEntity() == categoryEntity).toList();
 
     }
 

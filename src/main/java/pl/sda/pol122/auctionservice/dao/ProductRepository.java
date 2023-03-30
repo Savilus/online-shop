@@ -14,7 +14,6 @@ public interface ProductRepository extends ListCrudRepository<ProductEntity, Int
 
     ProductEntity findProductEntityById(Integer productId);
 
-    void deleteProductById(Integer productId);
     @Query( value = "SELECT p.id, p.image, p.name, p.price, p.category_id, p.order_id, p.enabled, p.amount FROM category c\n" +
             "INNER JOIN product p\n" +
             "ON p.category_id=c.category_id\n" +

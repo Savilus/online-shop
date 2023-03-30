@@ -35,20 +35,7 @@ public class DefaultUserService implements UserService {
     private final ProductRepository productRepository;
     private final PasswordEncoder passwordEncoder;
 
-    private final AuthenticatedUser authenticatedUser;
-
     private final JdbcTemplate jdbcTemplate;
-
-    @Override
-    public UserEntity getUserById(Integer id) {
-        return userRepository.getUserEntityById(id);
-    }
-
-    @Override
-    public void deleteById(Integer id) {
-        userRepository.deleteById(id);
-    }
-
 
     @Transactional(rollbackFor = Exception.class)
     @Override
@@ -82,13 +69,6 @@ public class DefaultUserService implements UserService {
                 .build();
         userRepository.save(userEntity);
         addAdminAuthorities(user);
-    }
-
-    @Override
-    public void saveAccountStatus(Integer userId, boolean accountStatus) {
-        UserEntity userEntityById = userRepository.getUserEntityById(userId);
-        userEntityById.setEnabled(accountStatus);
-        userRepository.save(userEntityById);
     }
 
     public User getAuthenticatedUser() {

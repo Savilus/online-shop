@@ -2,10 +2,6 @@ package pl.sda.pol122.auctionservice.controllers;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,8 +11,6 @@ import pl.sda.pol122.auctionservice.services.AdminService;
 import pl.sda.pol122.auctionservice.services.UserService;
 import pl.sda.pol122.auctionservice.utils.AuthenticatedUserProvider;
 import pl.sda.pol122.auctionservice.utils.PopUpMessage;
-
-import java.util.Collection;
 
 @Controller
 @RequestMapping(path = "/admin")

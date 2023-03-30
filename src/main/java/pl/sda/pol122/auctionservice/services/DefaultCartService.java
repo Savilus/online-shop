@@ -66,10 +66,10 @@ public class DefaultCartService implements CartService {
         User buyer = userService.getAuthenticatedUser();
         Map<Integer, Integer> orderedProductsWithQuantity = new HashMap<>();
 
-        for(CartItem cartItem : orderedProducts){
-            ProductEntity productEntityById = productRepository.findProductEntityById(cartItem.getProduct().getId());
-            orderedProductsWithQuantity.put(cartItem.getProduct().getId(), cartItem.getQuantity());
-            int quantityLeft = productEntityById.getAvailableAmount() - cartItem.getQuantity();
+        for(CartItem cartItems : orderedProducts){
+            ProductEntity productEntityById = productRepository.findProductEntityById(cartItems.getProduct().getId());
+            orderedProductsWithQuantity.put(cartItems.getProduct().getId(), cartItems.getQuantity());
+            int quantityLeft = productEntityById.getAvailableAmount() - cartItems.getQuantity();
             productRepository.updateAvailableAmountOfProducts(quantityLeft, productEntityById.getId());
         }
 
