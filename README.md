@@ -22,10 +22,23 @@ The main part is REST API that allows users:
 - manage sales
 - managing users
 
+***
 ![ban user](https://github.com/Savilus/auction-service/blob/43ac56e618c92348f36fc88abe694e303285c096/ss/ban%20users.png)
 
+![buy item](https://github.com/Savilus/auction-service/blob/43ac56e618c92348f36fc88abe694e303285c096/ss/buy%20items.png)
 
+![categories](https://github.com/Savilus/auction-service/blob/43ac56e618c92348f36fc88abe694e303285c096/ss/categories.png)
 
+![edit user changes](https://github.com/Savilus/auction-service/blob/43ac56e618c92348f36fc88abe694e303285c096/ss/edit%20user%20changes.png)
+
+![order history](https://github.com/Savilus/auction-service/blob/43ac56e618c92348f36fc88abe694e303285c096/ss/order%20history.png)
+
+![product list](https://github.com/Savilus/auction-service/blob/43ac56e618c92348f36fc88abe694e303285c096/ss/products%20list.png)
+
+![update products](https://github.com/Savilus/auction-service/blob/43ac56e618c92348f36fc88abe694e303285c096/ss/update%20products.png)
+
+![user account](https://github.com/Savilus/auction-service/blob/43ac56e618c92348f36fc88abe694e303285c096/ss/user%20account.png)
+***
 ### General information
 ***
 **API is secured** - some actions are allowed only for proper user. There are three types of users:
