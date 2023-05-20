@@ -22,7 +22,7 @@ The main part is REST API that allows users:
 - manage sales
 - managing users
 
-![ban user](https://user-images.githubusercontent.com/25181517/183896128-ec99105a-ec1a-4d85-b08b-1aa1620b2046.png)
+![ban user](https://github.com/Savilus/auction-service/blob/43ac56e618c92348f36fc88abe694e303285c096/ss/ban%20users.png)
 
 
 
