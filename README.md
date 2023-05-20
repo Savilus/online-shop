@@ -22,7 +22,7 @@ The main part is REST API that allows users:
 - manage sales
 - managing users
 
-!("C:\Users\48531\OneDrive\Pulpit\update products.png")
+<code><img height="50" src=""C:\Users\48531\OneDrive\Pulpit\user account.png"" alt="MySQL" title="MySQL" /></code>
 
 ### General information
 ***
