@@ -22,6 +22,8 @@ The main part is REST API that allows users:
 - manage sales
 - managing users
 
+!("C:\Users\48531\OneDrive\Pulpit\update products.png")
+
 ### General information
 ***
 **API is secured** - some actions are allowed only for proper user. There are three types of users:
